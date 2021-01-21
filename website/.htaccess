@@ -1,2 +1,3 @@
 Options -Indexes
 DirectoryIndex /pages/news.php
+ErrorDocument 404 /pages/error.php
