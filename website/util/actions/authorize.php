@@ -1,6 +1,6 @@
 <?php
 
-require_once "loader.php";
+require_once "../loader.php";
 
 if (isset($_POST['email'], $_POST['password'])) {
     $email = $_POST['email'];
