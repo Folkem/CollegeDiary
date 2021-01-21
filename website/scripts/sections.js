@@ -13,7 +13,7 @@ function headerAuthorize() {
         let response = "";
         try {
             const parsedJsonResponse = JSON.parse(ajaxRequest.response);
-            alert(parsedJsonResponse['message']);
+            response = parsedJsonResponse['message'];
             if (parsedJsonResponse['action'] === 'reload') {
                 location.reload();
             }
@@ -24,7 +24,7 @@ function headerAuthorize() {
 
         const authMessageElement = document
             .querySelector("#login-menu-auth-message");
-
+        authMessageElement.innerHTML = response;
     };
     ajaxRequest.send(formData);
 
@@ -44,7 +44,6 @@ function toggleUserMenu() {
     const caretElement = document.querySelector("#profile-caret");
     const dropdownElement = document.querySelector("#profile-dropdown");
     dropdownElement.classList.toggle("hidden");
-    console.log(caretElement);
     caretElement.classList.toggle("fa-caret-down");
     caretElement.classList.toggle("fa-caret-up");
 }
