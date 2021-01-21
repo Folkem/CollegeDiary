@@ -13,9 +13,8 @@ class StorageRepository
 
     // public methods
 
-    public static function load() : void
+    public static function load(): void
     {
-        self::loadFromConfigOrDefault();
         self::connect();
     }
 
@@ -30,10 +29,10 @@ class StorageRepository
                 $newsItem = new NewsItem();
                 $date = $statementArray['date'];
                 $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date);
-                $newsItem->setId((int) $statementArray['id'])
-                            ->setHeader($statementArray['header'])
-                            ->setText($statementArray['text'])
-                            ->setDate($date);
+                $newsItem->setId((int)$statementArray['id'])
+                    ->setHeader($statementArray['header'])
+                    ->setText($statementArray['text'])
+                    ->setDate($date);
                 $result[] = $newsItem;
             }
         }
@@ -52,15 +51,15 @@ class StorageRepository
         if ($statement !== false) {
             while (($statementArray = $statement->fetch()) !== false) {
                 $user = new User();
-                $user->setId((int) $statementArray['id'])
-                        ->setFirstName($statementArray['first_name'])
-                        ->setMiddleName($statementArray['middle_name'])
-                        ->setLastName($statementArray['last_name'])
-                        ->setFullName($statementArray['full_name'])
-                        ->setEmail($statementArray['email'])
-                        ->setPassword($statementArray['password'])
-                        ->setRole($statementArray['role'])
-                        ->setAvatarPath($statementArray['avatar_path']);
+                $user->setId((int)$statementArray['id'])
+                    ->setFirstName($statementArray['first_name'])
+                    ->setMiddleName($statementArray['middle_name'])
+                    ->setLastName($statementArray['last_name'])
+                    ->setFullName($statementArray['full_name'])
+                    ->setEmail($statementArray['email'])
+                    ->setPassword($statementArray['password'])
+                    ->setRole($statementArray['role'])
+                    ->setAvatarPath($statementArray['avatar_path']);
                 $result[] = $user;
             }
         }
@@ -74,13 +73,5 @@ class StorageRepository
     {
         self::$dsn = 'mysql:host=' . self::$HOST . ';dbname=' . self::$DB_NAME;
         self::$connection = new PDO(self::$dsn, self::$USER, self::$PASSWORD);
-    }
-
-    private static function loadFromConfigOrDefault() : void
-    {
-        /*
-        TODO: load connection settings from something like a config file,
-            rather then from including a php file
-        */
     }
 }
