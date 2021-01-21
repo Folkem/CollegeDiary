@@ -38,13 +38,13 @@ require_once "../util/auth_check.php";
                     <?php if (file_exists($imagesPath . $item->getImagePath())): ?>
 
                         <div class="news-item__image-block">
-                            <img alt="Зображення новини"
+                            <img alt="Зображення новини" class="news-item__image"
                                  src="/media/news_images/<?= $item->getImagePath() ?>">
                         </div>
 
                     <?php endif; ?>
 
-                    <div class="news-item-content">
+                    <div class="news-item__content">
                         <p class="news-item__publishing-date">
                             <?= $item->getDate()->format('d.m.Y'); ?>
                         </p>
