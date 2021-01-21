@@ -1,14 +1,13 @@
 <?php require_once '../util/auth_check.php'; ?>
 
 <header class="header">
-<!--    <div class="login-menu-cover hidden" id="login-menu">-->
-    <div class="login-menu-cover" id="login-menu">
+    <?php if (is_null($currentUser)): ?>
+    <div class="login-menu-cover hidden" id="login-menu">
         <div class="login-menu-main">
             <h1 class="login-menu-header">Авторизація</h1>
             <span class="login-menu-auth-message" id="login-menu-auth-message">
-
             </span>
-            <form class="login-form" id="login-form">
+            <form class="login-form" id="login-form" onsubmit="return false;">
                 <label class="login-form__label">
                     <input class="login-form__input" type="email" required placeholder="Пошта">
                 </label>
@@ -21,6 +20,7 @@
             </form>
         </div>
     </div>
+    <?php endif; ?>
     <nav class="header__menu">
         <a class="link header__element" href="https://www.college.uzhnu.edu.ua/">
             <img class="header__image" src="../media/util/ic_college.png" alt="Герб колледжу">
