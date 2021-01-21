@@ -1,6 +1,7 @@
 <?php
 
 require_once "../loader.php";
+require_once "../logging.php";
 
 if (isset($_POST['email'], $_POST['password'])) {
     $email = $_POST['email'];
@@ -20,15 +21,19 @@ if (isset($_POST['email'], $_POST['password'])) {
     // TODO: think on actions, which should be done here
     // TODO: think about error logging here
     if (count($selectedUsers) > 1) {
-        $response['message'] = 'Вибачте, виникла помилка при обробці вашого запиту. Спробуйте пізніше';
+        $repeatedId = $selectedUsers[0]->getId();
+        $response['message'] = 'Вибачте, виникла помилка при обробці вашого запиту. 
+        Спробуйте пізніше';
         $response['action'] = 'none';
-        // log error
+        $logger->error("Було знайдено {userCount} користувачів з id = {id}",
+            ["userCount" => count($selectedUsers), "id" => $repeatedId]);
     } else if (count($selectedUsers) == 1) {
         $selectedUser = $selectedUsers[0];
         session_start();
         $_SESSION['user'] = $selectedUser;
 
-        $response['message'] = 'Ви успішно увійшли в ваш обліковий запис, ' . $selectedUser->getFullName();
+        $response['message'] = 'Ви успішно увійшли в ваш обліковий запис, ' .
+            $selectedUser->getFullName();
         $response['action'] = 'reload';
     } else {
         $response['message'] = 'Користувача з вказаними даними не було знайдено';
