@@ -21,28 +21,41 @@ require_once "../util/auth_check.php";
 <body>
 <?php require_once "../sections/header.php"; ?>
 
-<main class="main">
-    <?php
-    // TODO: make news system look cute and effective
-    StorageRepository::load();
+<div class="wrapper">
+    <main class="news">
+        <?php
+        StorageRepository::load();
 
-    $newsArray = StorageRepository::getNews();
+        $itemTextMaxLength = 300;
 
-    foreach ($newsArray as $item) { ?>
-        <div class="news-item">
-            <a class="link" href="/pages/news_item.php?item=<?= $item->getId() ?>">
-                <h1><?= $item->getHeader(); ?></h1>
-                <p>
-                    <?= $item->getText(); ?>
-                </p>
-                <div>
-                    <?= $item->getDate()->format('j.m.Y'); ?>
-                </div>
-            </a>
-        </div>
-    <?php }
-    ?>
-</main>
+        $newsArray = StorageRepository::getNews();
+
+        foreach ($newsArray as $item): ?>
+
+            <div class="news-item">
+                <a class="link news-item-link" href="/pages/news_item.php?item=<?= $item->getId() ?>">
+
+                    <div class="news-item-content">
+                        <p class="news-item__publishing-date">
+                            <?= $item->getDate()->format('d.m.Y'); ?>
+                        </p>
+                        <h1 class="news-item__header"><?= $item->getHeader(); ?></h1>
+                        <p class="news-item__text">
+                            <?php
+                            if (mb_strlen($item->getText()) <= $itemTextMaxLength) {
+                                echo $item->getText();
+                            } else {
+                                echo mb_substr($item->getText(), 0, $itemTextMaxLength) . "...";
+                            }
+                            ?>
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+        <?php endforeach; ?>
+    </main>
+</div>
 
 <?php require_once "../sections/footer.php"; ?>
 </body>
