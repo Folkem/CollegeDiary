@@ -79,6 +79,7 @@
 }
 
 .login-menu-main {
+    padding: 2rem;
     width: 30%;
     height: 60%;
     background: white;
@@ -100,6 +101,8 @@
     color: darkred;
     font-size: 1.5rem;
     font-weight: bold;
+    word-wrap: anywhere;
+    text-align: center;
 }
 
 .login-form {
