@@ -8,11 +8,11 @@
     height: 100%;
     padding: 0 10%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .header__element {
-    padding: 0 2em;
+    /*padding: 0 2em;*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,6 +29,32 @@
 .header__text {
     font-size: 2em;
 }
+
+
+
+.profile {
+    height: 100%;
+}
+
+.profile__link {
+    height: 100%;
+    padding: 10% 0;
+}
+
+.profile__avatar {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    height: 100%;
+}
+
+.profile__drop-list {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 2em;
+}
+
+
 
 .open-login-button {
     background: rgba(0, 100, 50, 0.5);
