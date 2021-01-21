@@ -1,6 +1,6 @@
 .header {
     width: 100%;
-    height: 6vw;
+    height: 5vw;
     background: #b3b3ff;
 }
 
@@ -12,7 +12,8 @@
 }
 
 .header__element {
-    /*padding: 0 2em;*/
+    padding: 0 2rem;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,36 +31,66 @@
     font-size: 2em;
 }
 
+.login-form {
 
+}
+
+.login-form__label {
+    display: block;
+}
 
 .profile {
     height: 100%;
+    display: flex;
 }
 
-.profile__link {
-    height: 100%;
-    padding: 10% 0;
+.profile__element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile__avatar {
-    display: inline-block;
-    vertical-align: middle;
     border-radius: 50%;
+    height: 80%;
+}
+
+.profile__text {
+    padding-left: 5%;
+    font-size: 2rem;
+}
+
+.profile__dropdown {
+    position: absolute;
+    height: auto;
+    top: 5vw;
+    background: black;
+    color: white;
+    border-radius: 10px;
+}
+
+.login-menu-cover {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
     height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.profile__drop-list {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 2em;
+.login-menu-main {
+    width: 60%;
+    height: 70%;
+    background: white;
+    border-radius: 25px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-
-.open-login-button {
-    background: rgba(0, 100, 50, 0.5);
-}
-
-.open-login-button:hover {
-    background: rgba(100, 200, 150, 0.5);
+.login-form__label {
+    font-size: 2rem;
 }
