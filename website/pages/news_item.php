@@ -60,6 +60,18 @@ if ($redirect) {
     <p class="news-item__date">
         <?= $item->getDate()->format('Y/m/d'/*' — H:i:s'*/) ?>
     </p>
+
+    <?php
+    $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
+    if (file_exists($imagesPath . $item->getImagePath())): ?>
+
+        <div class="news-item__image-block">
+            <img alt="Зображення новини" class="news-item__image"
+                 src="/media/news_images/<?= $item->getImagePath() ?>">
+        </div>
+
+    <?php endif; ?>
+
     <p class="news-item__text">
         <?= $item->getText() ?>
     </p>

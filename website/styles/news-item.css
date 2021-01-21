@@ -2,6 +2,18 @@
     padding: 0 10%;
 }
 
+.news-item__image-block {
+    border: 2px solid black;
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    justify-items: center;
+}
+
+.news-item__image {
+    width: 100%;
+}
+
 .news-item__header {
     padding: 2rem 0;
     font-size: 4rem;
