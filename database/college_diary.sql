@@ -177,7 +177,7 @@ CREATE TABLE `news` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `header` varchar(200) NOT NULL,
   `text` mediumtext NOT NULL,
-  `date` datetime NOT NULL DEFAULT (_utf8mb4'2021-01-01'),
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `image_path` varchar(256) NOT NULL DEFAULT (_utf8mb4'temp.jpg'),
   PRIMARY KEY (`id`),
   UNIQUE KEY `header` (`header`)
