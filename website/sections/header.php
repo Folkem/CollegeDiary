@@ -33,9 +33,11 @@
                 <img src="/media/user_avatars/<?= $currentUser->getAvatarPath() ?>"
                      alt="Зображення профілю" class="header__image">
                 <span class="header__text profile">
-                    <span>
-                    Вітаємо, <?= $currentUser->getFirstName(); ?>!
-                    </span>
+                    <a class="link" href="/pages/profile.php">
+                        <span class="header__element-hoverable">
+                        Вітаємо, <?= $currentUser->getFirstName(); ?>!
+                        </span>
+                    </a>
                     <span class="user-exit-button">
                     Бажаєте вийти?
                     </span>
