@@ -49,6 +49,15 @@ require_once "../util/auth_check.php";
                             <?= $item->getDate()->format('d.m.Y'); ?>
                         </p>
                         <h1 class="news-item__header"><?= $item->getHeader(); ?></h1>
+                        <p class="news-item__keywords">
+                            <?php
+                                $keywords = $item->getKeywords();
+                                if (count($keywords) > 0) {
+                                    $keywords = array_map(fn($keyword) => "<b>$keyword</b>", $keywords);
+                                    echo 'Ключові слова: ' . implode(', ', $keywords);
+                                }
+                            ?>
+                        </p>
                         <p class="news-item__text">
                             <?php
                             if (mb_strlen($item->getText()) <= $itemTextMaxLength) {

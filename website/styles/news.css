@@ -43,15 +43,12 @@
 }
 
 .news-item__content {
+    padding: 0 1rem;
     flex: 2;
 }
 
 .news-item__header {
     font-size: 2rem;
-}
-
-.news-item__text {
-    font-size: 1.2rem;
 }
 
 .news-item__publishing-date {
@@ -60,6 +57,16 @@
     width: fit-content;
     border: 1px solid black;
 
+}
+
+.news-item__keywords {
+    padding: 0.5rem 0;
+    font-style: italic;
+    color: #4d4d4d;
+}
+
+.news-item__text {
+    font-size: 1.2rem;
 }
 
 /* News filter block */

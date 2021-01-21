@@ -22,18 +22,21 @@ class StorageRepository
     {
         $result = [];
 
-        $statement = self::$connection->query("select * from news");
+        $statement = self::$connection->query("call get_news();");
 
         if ($statement !== false) {
             while (($statementArray = $statement->fetch()) !== false) {
                 $newsItem = new NewsItem();
                 $date = $statementArray['date'];
                 $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date);
+                $keywords = explode(' ', $statementArray['keywords']);
+                $keywords = array_filter($keywords);
                 $newsItem->setId((int)$statementArray['id'])
                     ->setHeader($statementArray['header'])
                     ->setText($statementArray['text'])
                     ->setDate($date)
-                    ->setImagePath($statementArray['image_path']);
+                    ->setImagePath($statementArray['image_path'])
+                    ->setKeywords($keywords);
                 $result[] = $newsItem;
             }
         }
