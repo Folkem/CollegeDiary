@@ -1,9 +1,6 @@
 <?php
 require_once "../util/loader.php";
 require_once "../util/auth_check.php";
-?>
-
-<?php
 
 if (is_null($currentUser)) {
     header("Location: /pages/news.php");
@@ -18,6 +15,7 @@ if (is_null($currentUser)) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Профіль користувача</title>
+    <link rel="stylesheet" href="../styles/font-awesome/all.min.css">
     <link rel="stylesheet" href="../styles/normalize.css">
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/sections.css">
