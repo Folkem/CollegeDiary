@@ -32,7 +32,8 @@ class StorageRepository
                 $newsItem->setId((int)$statementArray['id'])
                     ->setHeader($statementArray['header'])
                     ->setText($statementArray['text'])
-                    ->setDate($date);
+                    ->setDate($date)
+                    ->setImagePath($statementArray['image_path']);
                 $result[] = $newsItem;
             }
         }

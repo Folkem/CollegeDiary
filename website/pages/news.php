@@ -27,6 +27,7 @@ require_once "../util/auth_check.php";
         StorageRepository::load();
 
         $itemTextMaxLength = 300;
+        $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
 
         $newsArray = StorageRepository::getNews();
 
@@ -34,6 +35,14 @@ require_once "../util/auth_check.php";
 
             <div class="news-item">
                 <a class="link news-item-link" href="/pages/news_item.php?item=<?= $item->getId() ?>">
+                    <?php if (file_exists($imagesPath . $item->getImagePath())): ?>
+
+                        <div class="news-item__image-block">
+                            <img alt="Зображення новини"
+                                 src="/media/news_images/<?= $item->getImagePath() ?>">
+                        </div>
+
+                    <?php endif; ?>
 
                     <div class="news-item-content">
                         <p class="news-item__publishing-date">

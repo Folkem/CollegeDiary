@@ -6,6 +6,7 @@ class NewsItem
     private string $header;
     private string $text;
     private DateTimeImmutable $date;
+    private string $imagePath;
 
     /**
      * @return int news record id
@@ -76,6 +77,24 @@ class NewsItem
     public function setDate(DateTimeImmutable $date): NewsItem
     {
         $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * @return string image path
+     */
+    public function getImagePath(): string
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param string $imagePath image path
+     * @return NewsItem this object (for chaining)
+     */
+    public function setImagePath(string $imagePath): NewsItem
+    {
+        $this->imagePath = $imagePath;
         return $this;
     }
 }

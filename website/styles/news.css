@@ -29,6 +29,13 @@
     flex-direction: row;
 }
 
+.news-item__image-block {
+    width: 50vw;
+    height: 50vh;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
 .news-item__header {
     font-size: 2rem;
 }
