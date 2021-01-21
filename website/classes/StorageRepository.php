@@ -67,6 +67,28 @@ class StorageRepository
         return $result;
     }
 
+    public static function updateUser($updatedUser): bool
+    {
+        $result = true;
+
+        $statement = self::$connection->prepare("update users 
+            set password = :password, avatar_path = :avatar_path
+            where users.id = :id");
+
+        if ($statement !== false) {
+            $newPassword = $updatedUser->getPassword();
+            $newAvatarPath = $updatedUser->getAvatarPath();
+            $id = $updatedUser->getId();
+            $statement->bindParam(':password', $newPassword);
+            $statement->bindParam(':avatar_path', $newAvatarPath);
+            $statement->bindParam(':id', $id);
+
+            $result = $statement->execute();
+        }
+
+        return $result;
+    }
+
     // private methods
 
     private static function connect(): void
