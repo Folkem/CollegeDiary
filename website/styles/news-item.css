@@ -3,8 +3,8 @@
 }
 
 .news-item__header {
-    padding: 10% 0;
-    font-size: 4em;
+    padding: 2rem 0;
+    font-size: 4rem;
     text-align: center;
 }
 
@@ -14,5 +14,7 @@
 }
 
 .news-item__date {
+    font-size: 1.5rem;
+    padding: 0.5rem 0;
     text-align: center;
 }

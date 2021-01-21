@@ -57,7 +57,7 @@ if ($redirect) {
 <main class="main news-item">
     <h1 class="news-item__header"><?= $item->getHeader() ?></h1>
     <p class="news-item__date">
-        <?= $item->getDate()->format('Y/m/d — H:i:s') ?>
+        <?= $item->getDate()->format('Y/m/d'/*' — H:i:s'*/) ?>
     </p>
     <p class="news-item__text">
         <?= $item->getText() ?>
