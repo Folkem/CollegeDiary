@@ -55,6 +55,13 @@ require_once "../util/auth_check.php";
 
         <?php endforeach; ?>
     </main>
+    <div class="news-filter">
+        <form>
+            <label>
+                <input type="text" placeholder="Назва">
+            </label>
+        </form>
+    </div>
 </div>
 
 <?php require_once "../sections/footer.php"; ?>
