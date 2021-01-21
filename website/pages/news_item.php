@@ -17,6 +17,7 @@ if (isset($_GET['item'])) {
         $filteredNews = array_filter($newsArray, function($newsItem) use($itemId) {
             return ($newsItem->getId() === $itemId);
         });
+        $filteredNews = array_values($filteredNews);
 
         if (count($filteredNews) > 1) {
             $logger->error("found 2 news records with the same id");
