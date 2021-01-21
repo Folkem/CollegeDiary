@@ -5,3 +5,4 @@ website/media/news_images
 website/composer.lock
 website/vendor
 website/logs
+website/apache_log
