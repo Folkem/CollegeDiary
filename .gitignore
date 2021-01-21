@@ -4,3 +4,4 @@ website/media/user_avatars
 website/media/news_images
 website/composer.lock
 website/vendor
+website/logs
