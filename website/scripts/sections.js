@@ -1,5 +1,6 @@
 function headerAuthorize() {
-    const formLabels = Array.from(document.querySelectorAll('.login-form__label'));
+    const formLabels = Array.from(document
+        .querySelectorAll('.login-form__label'));
     const formInputs = formLabels.map(((value) => value.children[0]));
 
     const formData = new FormData();
@@ -9,11 +10,21 @@ function headerAuthorize() {
     const ajaxRequest = new XMLHttpRequest();
     ajaxRequest.open('POST', '/util/actions/authorize.php');
     ajaxRequest.onload = () => {
-        const parsedJsonResponse = JSON.parse(ajaxRequest.response);
-        alert(parsedJsonResponse['message']);
-        if (parsedJsonResponse['action'] === 'reload') {
-            location.reload();
+        let response = "";
+        try {
+            const parsedJsonResponse = JSON.parse(ajaxRequest.response);
+            alert(parsedJsonResponse['message']);
+            if (parsedJsonResponse['action'] === 'reload') {
+                location.reload();
+            }
+        } catch (e) {
+            response = "Вибачте, виникла помилка під час обробки запиту. " +
+                "спробуйте пізніше або зверніться до техпідтримки.";
         }
+
+        const authMessageElement = document
+            .querySelector("#login-menu-auth-message");
+
     };
     ajaxRequest.send(formData);
 

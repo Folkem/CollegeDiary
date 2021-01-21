@@ -1,17 +1,22 @@
 <?php require_once '../util/auth_check.php'; ?>
 
 <header class="header">
-    <div class="login-menu-cover hidden" id="login-menu">
+<!--    <div class="login-menu-cover hidden" id="login-menu">-->
+    <div class="login-menu-cover" id="login-menu">
         <div class="login-menu-main">
+            <h1 class="login-menu-header">Авторизація</h1>
+            <span class="login-menu-auth-message" id="login-menu-auth-message">
+
+            </span>
             <form class="login-form" id="login-form">
                 <label class="login-form__label">
-                    <input type="email" required placeholder="Пошта">
+                    <input class="login-form__input" type="email" required placeholder="Пошта">
                 </label>
                 <label class="login-form__label">
-                    <input type="password" required placeholder="Пароль">
+                    <input class="login-form__input" type="password" required placeholder="Пароль">
                 </label>
                 <label class="login-form__label">
-                    <button type="submit">Авторизуватися</button>
+                    <button class="login-form__button" type="submit">Авторизуватися</button>
                 </label>
             </form>
         </div>

@@ -1,3 +1,5 @@
+/* Header styles */
+
 .header {
     width: 100%;
     height: 5vw;
@@ -31,13 +33,7 @@
     font-size: 2em;
 }
 
-.login-form {
-
-}
-
-.login-form__label {
-    display: block;
-}
+/* Profile styles */
 
 .profile {
     height: 100%;
@@ -69,6 +65,8 @@
     border-radius: 10px;
 }
 
+/* Login menu styles */
+
 .login-menu-cover {
     box-sizing: border-box;
     position: absolute;
@@ -81,16 +79,47 @@
 }
 
 .login-menu-main {
-    width: 60%;
-    height: 70%;
+    width: 30%;
+    height: 60%;
     background: white;
     border-radius: 25px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.login-menu-header {
+    display: block;
+    font-size: 3rem;
+}
+
+.login-menu-auth-message {
+    padding-top: 0.5rem;
+    color: darkred;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.login-form {
+    display: block;
 }
 
 .login-form__label {
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+}
+
+.login-form__input {
     font-size: 2rem;
+    border-radius: 25px;
+    padding: 0.5rem;
+}
+
+.login-form__button {
+    font-size: 2rem;
+    border-radius: 25px;
+    padding: 0.5rem;
 }
