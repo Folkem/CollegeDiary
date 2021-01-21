@@ -1,6 +1,8 @@
 <?php
+
 require_once "../util/loader.php";
 require_once "../util/auth_check.php";
+require_once "../util/logging.php";
 
 $item = null;
 $redirect = true;
@@ -16,10 +18,8 @@ if (isset($_GET['item'])) {
             return ($newsItem->getId() === $itemId);
         });
 
-        // todo: logging
-
         if (count($filteredNews) > 1) {
-            // TODO: log error
+            $logger->error("found 2 news records with the same id");
         } else if (count($filteredNews) == 0) {
             $redirect = true;
         } else {
