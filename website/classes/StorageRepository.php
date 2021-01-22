@@ -135,6 +135,33 @@ class StorageRepository
         return $result;
     }
 
+    public static function addNewsComment(NewsComment $newsComment): bool
+    {
+        self::load();
+        $result = true;
+
+        $statement = self::$connection->prepare('insert into news_comments 
+            (id_item, id_user, comment, `date`) values (:id_item, :id_user, :comment_text, :post_date)');
+
+        if ($statement !== false) {
+            $idItem = $newsComment->getNewsId();
+            $idUser = $newsComment->getUser()->getId();
+            $commentText = $newsComment->getComment();
+            $postDate = $newsComment->getPostDate();
+            $formattedPostDate = $postDate->format('Y-m-d H:m:s');
+            $statement->bindParam(':id_item', $idItem);
+            $statement->bindParam(':id_user', $idUser);
+            $statement->bindParam(':comment_text', $commentText);
+            $statement->bindParam(':post_date', $formattedPostDate);
+
+            $result = $statement->execute();
+            $lastInsertId = self::$connection->lastInsertId();
+            $newsComment->setId($lastInsertId);
+        }
+
+        return $result;
+    }
+
     // private methods
 
     private static function connect(): void
