@@ -25,7 +25,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
     <?php endif; ?>
     <nav class="header__menu">
         <a class="link header__element" href="https://www.college.uzhnu.edu.ua/">
-            <img class="header__image" src="../media/util/ic_college.png" alt="Герб колледжу">
+            <img class="header__image" src="/media/util/ic_college.png" alt="Герб колледжу">
         </a>
         <a class="link header__element header__element-hoverable" href="/pages/about.php">
             <span class="header__text">Про ресурс</span>
