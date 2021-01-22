@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../vendor/autoload.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 function loadClass($className) {
     require $_SERVER['DOCUMENT_ROOT'] . "/classes/$className.php";

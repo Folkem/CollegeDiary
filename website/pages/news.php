@@ -1,6 +1,6 @@
 <?php
-require_once "../util/loader.php";
-require_once "../util/auth_check.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 ?>
 <!doctype html>
 <html lang="uk">
@@ -19,7 +19,7 @@ require_once "../util/auth_check.php";
     <script src="../scripts/sections.js"></script>
 </head>
 <body>
-<?php require_once "../sections/header.php"; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
 
 <div class="wrapper">
     <main class="news">

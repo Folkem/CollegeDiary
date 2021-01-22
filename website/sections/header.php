@@ -1,4 +1,6 @@
-<?php require_once '../util/auth_check.php'; ?>
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
+?>
 
 <header class="header">
     <?php if (is_null($currentUser)): ?>
