@@ -15,6 +15,7 @@ if (isset($_POST['email'], $_POST['password'])) {
 
         return $isSameEmail && $isSamePassword;
     });
+    $selectedUsers = array_values($selectedUsers);
 
     $response = [];
 

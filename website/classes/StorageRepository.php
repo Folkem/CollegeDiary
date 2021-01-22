@@ -1,5 +1,7 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
+
 class StorageRepository
 {
     use DatabaseSettings;
@@ -15,11 +17,14 @@ class StorageRepository
 
     public static function load(): void
     {
-        self::connect();
+        if (!isset(self::$connection)) {
+            self::connect();
+        }
     }
 
     public static function getNews(): array
     {
+        self::load();
         $result = [];
 
         $statement = self::$connection->query("call get_news();");
@@ -46,6 +51,7 @@ class StorageRepository
 
     public static function getUsers(): array
     {
+        self::load();
         $result = [];
 
         $statement = self::$connection->query("select u.id as 'id', first_name, middle_name, 
@@ -73,6 +79,7 @@ class StorageRepository
 
     public static function getNewsCommentsForItem(int $itemId): array
     {
+        self::load();
         $result = [];
         $users = self::getUsers();
         $users = array_combine(
@@ -107,6 +114,7 @@ class StorageRepository
 
     public static function updateUser(User $updatedUser): bool
     {
+        self::load();
         $result = true;
 
         $statement = self::$connection->prepare("update users 
