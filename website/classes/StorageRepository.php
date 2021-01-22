@@ -71,7 +71,41 @@ class StorageRepository
         return $result;
     }
 
-    public static function updateUser($updatedUser): bool
+    public static function getNewsCommentsForItem(int $itemId): array
+    {
+        $result = [];
+        $users = self::getUsers();
+        $users = array_combine(
+            array_map(fn($user) => $user->getId(), $users),
+            $users
+        );
+
+        $statement = self::$connection->prepare("select * from news_comments nc 
+            where nc.id_item = :id_item");
+
+        if ($statement !== false) {
+            $statement->bindParam(":id_item", $itemId);
+            $statement->execute();
+            while (($statementArray = $statement->fetch()) !== false) {
+                $user = $users[(int)$statementArray['id_user']];
+                $date = $statementArray['date'];
+                $date = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date);
+
+                $comment = new NewsComment();
+                $comment->setId((int)$statementArray['id'])
+                    ->setNewsId((int)$statementArray['id_item'])
+                    ->setUser($user)
+                    ->setPostDate($date)
+                    ->setComment($statementArray['comment']);
+
+                $result[] = $comment;
+            }
+        }
+
+        return $result;
+    }
+
+    public static function updateUser(User $updatedUser): bool
     {
         $result = true;
 

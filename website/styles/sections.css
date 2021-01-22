@@ -2,6 +2,7 @@
 
 .header {
     position: sticky;
+    z-index: 2;
     top: 0;
     width: 100%;
     height: 5vw;
@@ -62,7 +63,7 @@
     position: absolute;
     height: auto;
     top: 5vw;
-    z-index: 2;
+    z-index: 9999;
     background: black;
     color: white;
     border-radius: 10px;

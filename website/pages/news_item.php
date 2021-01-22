@@ -14,7 +14,7 @@ if (isset($_GET['item'])) {
         StorageRepository::load();
         $newsArray = StorageRepository::getNews();
 
-        $filteredNews = array_filter($newsArray, function($newsItem) use($itemId) {
+        $filteredNews = array_filter($newsArray, function ($newsItem) use ($itemId) {
             return ($newsItem->getId() === $itemId);
         });
         $filteredNews = array_values($filteredNews);
@@ -51,31 +51,76 @@ if ($redirect) {
     <link rel="stylesheet" href="/styles/general.css">
     <link rel="stylesheet" href="/styles/news_item.css">
     <script src="/scripts/sections.js"></script>
+    <script src="/scripts/news_item.js"></script>
 </head>
 <body>
-<?php require_once "../sections/header.php"; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
 
-<main class="main news-item">
-    <h1 class="news-item__header"><?= $item->getHeader() ?></h1>
-    <p class="news-item__date">
-        <?= $item->getDate()->format('Y/m/d'/*' — H:i:s'*/) ?>
-    </p>
+<main class="main">
+    <div class="news-item">
+        <h1 class="news-item__header"><?= $item->getHeader() ?></h1>
+        <p class="news-item__date">
+            <?= $item->getDate()->format('Y/m/d'/*' — H:i:s'*/) ?>
+        </p>
 
-    <?php
-    $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
-    if (file_exists($imagesPath . $item->getImagePath())): ?>
+        <?php
+        $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
+        if (file_exists($imagesPath . $item->getImagePath())): ?>
 
-        <div class="news-item__image-block">
-            <img alt="Зображення новини" class="news-item__image"
-                 src="/media/news_images/<?= $item->getImagePath() ?>">
+            <div class="news-item__image-block">
+                <img alt="Зображення новини" class="news-item__image"
+                     src="/media/news_images/<?= $item->getImagePath() ?>">
+            </div>
+
+        <?php endif; ?>
+
+        <p class="news-item__text">
+            <?= $item->getText() ?>
+        </p>
+    </div>
+    <div class="comment-section">
+        <div class="comment-list" id="comment-list">
+
+            <?php
+                $comments = StorageRepository::getNewsCommentsForItem($itemId);
+                foreach ($comments as $comment):
+            ?>
+
+                <div class="comment-item">
+                    <div class="hidden comment-item__id">
+                        <?= $comment->getId() ?>
+                    </div>
+                    <div class="comment-item__date">
+                        <?= $comment->getPostDate()->format('Y/m/d — H:m:s') ?>
+                    </div>
+                    <div class="comment-item__user-data">
+                        by <?= $comment->getUser()->getFullName() ?>
+                    </div>
+                    <div class="comment-item__comment-content">
+                        <?= htmlentities($comment->getComment()) ?>
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
+
         </div>
 
-    <?php endif; ?>
+        <?php if (!is_null($currentUser)): ?>
 
-    <p class="news-item__text">
-        <?= $item->getText() ?>
-    </p>
+            <div class="comment-form-block">
+                <div class="comment-form-response" id="comment-form-response"></div>
+                <form class="comment-form" id="comment-form" onsubmit="return false;">
+                    <div>Ваш коментар: </div>
+                    <label for="comment-form-text">
+                        <textarea class="comment-form-text" id="comment-form-text" rows="10"></textarea>
+                    </label>
+                    <button class="comment-form-button">Відправити</button>
+                </form>
+            </div>
+
+        <?php endif; ?>
+    </div>
 </main>
 
-<?php require_once "../sections/footer.php"; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>

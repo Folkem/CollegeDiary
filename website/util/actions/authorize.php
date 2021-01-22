@@ -18,8 +18,6 @@ if (isset($_POST['email'], $_POST['password'])) {
 
     $response = [];
 
-    // TODO: think on actions, which should be done here
-    // TODO: think about error logging here
     if (count($selectedUsers) > 1) {
         $repeatedId = $selectedUsers[0]->getId();
         $response['message'] = 'Вибачте, виникла помилка при обробці вашого запиту. 
@@ -37,7 +35,7 @@ if (isset($_POST['email'], $_POST['password'])) {
         $response['action'] = 'reload';
     } else {
         $response['message'] = 'Користувача з вказаними даними не було знайдено';
-        $response['action'] = 'none'; // think on action here too
+        $response['action'] = 'none';
     }
 
     $jsonResponse = json_encode($response);
