@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
     const commentTextarea = document.querySelector("#comment-form-text");
     const newsItemId = document.querySelector("#news-item__id");
 
-    commentForm.addEventListener('submit', () => {
+    commentForm?.addEventListener('submit', () => {
         const formData = new FormData();
         const ajaxRequest = new XMLHttpRequest();
 
@@ -55,9 +55,9 @@ function buildCommentItemElement(commentContent) {
 
     commentItemElement.className = 'comment-item';
     idElement.className = 'hidden comment-item__id';
-    postDateElement.className = 'comment-item__id';
-    userFullNameElement.className = 'comment-item__id';
-    commentTextElement.className = 'comment-item__id';
+    postDateElement.className = 'comment-item__date';
+    userFullNameElement.className = 'comment-item__user-data';
+    commentTextElement.className = 'comment-item__comment-content';
 
     idElement.innerHTML = id;
     postDateElement.innerHTML = postDate;
