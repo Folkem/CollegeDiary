@@ -21,8 +21,6 @@ window.addEventListener('load', () => {
                 .replaceAll('</b>', '')
                 .split(', ');
 
-            console.log(keywords);
-
             return {
                 'container': container,
                 'date': date,
@@ -66,8 +64,6 @@ window.addEventListener('load', () => {
             .replace('&nbsp;', '');
         const keywords = (keywordsText === '' ? [] : keywordsText.split(' '));
 
-        console.log(keywords);
-
         for (const newsItemObject of newsItemObjects) {
             let containsAtLeastOneKeyword = false;
 
@@ -75,7 +71,6 @@ window.addEventListener('load', () => {
                 newsItemObject['container'].classList.toggle('hidden', false);
             } else {
                 for (const keyword of keywords) {
-                    console.log(newsItemObject['keywords']);
                     if (newsItemObject['keywords'].includes(keyword)) {
                         containsAtLeastOneKeyword = true;
                         break;

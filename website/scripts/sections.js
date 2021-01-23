@@ -44,7 +44,7 @@ function toggleUserMenu() {
     const caretElement = document.querySelector("#profile-caret");
     const dropdownElement = document.querySelector("#profile-dropdown");
     dropdownElement.classList.toggle("hidden");
-    caretElement.classList.toggle("fa-caret-down");
+    caretElement.classList.toggle("fa-caret-left");
     caretElement.classList.toggle("fa-caret-up");
 }
 

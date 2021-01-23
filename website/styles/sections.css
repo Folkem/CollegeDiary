@@ -67,6 +67,15 @@
     background: black;
     color: white;
     border-radius: 10px;
+    transition: 1s visibility;
+}
+
+.profile__menu-text {
+    padding: 0 0.5rem;
+}
+
+.profile__menu-caret {
+    width: 1rem;
 }
 
 /* Login menu styles */
