@@ -18,10 +18,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
     <title>Помилка</title>
 </head>
 <body>
-<?php require_once "../sections/header.php"; ?>
-<main class="error-main">
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
+
+<div class="error-main">
     <h1 class="error-message">Запрошена вами сторінка не була знайдена</h1>
-</main>
-<?php require_once "../sections/footer.php"; ?>
+</div>
+
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>
 </html>

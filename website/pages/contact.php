@@ -18,7 +18,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
     <script src="/scripts/sections.js"></script>
 </head>
 <body>
-<?php require_once "../sections/header.php"; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
+
 тут ще нічого нема
-<?php require_once "../sections/footer.php"; ?>
+
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>

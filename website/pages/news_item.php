@@ -11,7 +11,6 @@ if (isset($_GET['item'])) {
     try {
         $itemId = intval($_GET['item']);
 
-        StorageRepository::load();
         $newsArray = StorageRepository::getNews();
 
         $filteredNews = array_filter($newsArray, function ($newsItem) use ($itemId) {

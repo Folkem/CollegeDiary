@@ -25,8 +25,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 <div class="wrapper">
     <div class="news" id="news">
         <?php
-        StorageRepository::load();
-
         $itemTextMaxLength = 300;
         $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
 

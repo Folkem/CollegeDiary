@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 
 if (is_null($currentUser)) {
-    header("Location: /pages/news.php");
+    header("Location: /");
 }
 
 ?>
@@ -25,11 +25,7 @@ if (is_null($currentUser)) {
     <script src="/scripts/profile.js"></script>
 </head>
 <body>
-<?php require_once "../sections/header.php"; ?>
-
-<?php
-StorageRepository::load();
-?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
 
 <div>
     <h3>password change</h3>
@@ -46,5 +42,5 @@ StorageRepository::load();
     </form>
 </div>
 
-<?php require_once "../sections/footer.php"; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>
