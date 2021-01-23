@@ -56,13 +56,22 @@ if ($redirect) {
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
 
-<main class="main">
+<div class="wrapper">
     <div class="news-item">
         <div class="hidden" id="news-item__id"><?= $item->getId() ?></div>
         <h1 class="news-item__header"><?= $item->getHeader() ?></h1>
-        <p class="news-item__date">
+        <div class="news-item__date">
             <?= $item->getDate()->format('Y/m/d'/*' — H:i:s'*/) ?>
-        </p>
+        </div>
+        <div class="news-item__keywords">
+            <?php
+            $keywords = $item->getKeywords();
+            if (count($keywords) > 0) {
+                $keywords = array_map(fn($keyword) => "<b>$keyword</b>", $keywords);
+                echo 'Ключові слова: ' . implode(', ', $keywords);
+            }
+            ?>
+        </div>
 
         <?php
         $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
@@ -121,7 +130,7 @@ if ($redirect) {
 
         <?php endif; ?>
     </div>
-</main>
+</div>
 
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>

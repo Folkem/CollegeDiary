@@ -22,7 +22,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
 
 <div class="wrapper">
-    <main class="news">
+    <div class="news">
         <?php
         StorageRepository::load();
 
@@ -45,11 +45,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                     <?php endif; ?>
 
                     <div class="news-item__content">
-                        <p class="news-item__publishing-date">
+                        <div class="news-item__publishing-date">
                             <?= $item->getDate()->format('d.m.Y'); ?>
-                        </p>
+                        </div>
                         <h1 class="news-item__header"><?= $item->getHeader(); ?></h1>
-                        <p class="news-item__keywords">
+                        <div class="news-item__keywords">
                             <?php
                                 $keywords = $item->getKeywords();
                                 if (count($keywords) > 0) {
@@ -57,8 +57,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                     echo 'Ключові слова: ' . implode(', ', $keywords);
                                 }
                             ?>
-                        </p>
-                        <p class="news-item__text">
+                        </div>
+                        <div class="news-item__text">
                             <?php
                             if (mb_strlen($item->getText()) <= $itemTextMaxLength) {
                                 echo $item->getText();
@@ -66,13 +66,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                 echo mb_substr($item->getText(), 0, $itemTextMaxLength) . "...";
                             }
                             ?>
-                        </p>
+                        </div>
                     </div>
                 </a>
             </div>
 
         <?php endforeach; ?>
-    </main>
+    </div>
     <div class="news-filter">
         <form>
             <label>
