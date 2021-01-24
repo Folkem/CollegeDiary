@@ -1,5 +1,6 @@
 function headerAuthorize() {
-    const formLabels = Array.from(document.querySelectorAll('.header-form__label'));
+    const formLabels = Array.from(document
+        .querySelectorAll('.login-form__label'));
     const formInputs = formLabels.map(((value) => value.children[0]));
 
     const formData = new FormData();
@@ -9,27 +10,66 @@ function headerAuthorize() {
     const ajaxRequest = new XMLHttpRequest();
     ajaxRequest.open('POST', '/util/actions/authorize.php');
     ajaxRequest.onload = () => {
-        const parsedJsonResponse = JSON.parse(ajaxRequest.response);
-        alert(parsedJsonResponse['message']);
-        if (parsedJsonResponse['action'] === 'reload') {
-            location.reload();
+        let response = "";
+        try {
+            const parsedJsonResponse = JSON.parse(ajaxRequest.response);
+            response = parsedJsonResponse['message'];
+            if (parsedJsonResponse['action'] === 'reload') {
+                location.reload();
+            }
+        } catch (e) {
+            response = "Вибачте, виникла помилка під час обробки запиту. " +
+                "спробуйте пізніше або зверніться до техпідтримки.";
         }
+
+        const authMessageElement = document
+            .querySelector("#login-menu-auth-message");
+        authMessageElement.innerHTML = response;
     };
     ajaxRequest.send(formData);
 
     return false;
 }
 
-window.onload = () => {
-    const userExitButton = document.querySelector('.user-exit-button');
-    if (userExitButton !== null) {
-        userExitButton.onclick = () => {
-            const ajaxRequest = new XMLHttpRequest();
-            ajaxRequest.open('GET', '/util/actions/logout.php');
-            ajaxRequest.onload = () => {
-                location.reload();
-            }
-            ajaxRequest.send();
-        };
+function onUserExit() {
+    const ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.open('GET', '/util/actions/logout.php');
+    ajaxRequest.onload = () => {
+        location.reload();
     }
+    ajaxRequest.send();
 }
+
+function toggleUserMenu() {
+    const caretElement = document.querySelector("#profile-caret");
+    const dropdownElement = document.querySelector("#profile-dropdown");
+    dropdownElement.classList.toggle("hidden");
+    caretElement.classList.toggle("fa-caret-left");
+    caretElement.classList.toggle("fa-caret-up");
+}
+
+function showLoginMenu() {
+    const loginMenuElement = document.querySelector("#login-menu");
+    loginMenuElement.classList.toggle("hidden", false);
+}
+
+function hideLoginMenu(event) {
+    const loginMenuElement = document.querySelector("#login-menu");
+    if (event.target !== loginMenuElement) return;
+
+    loginMenuElement.classList.toggle("hidden", true);
+}
+
+window.addEventListener('load', () => {
+    const showLoginMenuButton = document.querySelector("#show-login-menu-button");
+    const loginMenuElement = document.querySelector("#login-menu");
+    const toggleUserMenuButton = document.querySelector("#toggle-user-menu-button");
+    const userExitButton = document.querySelector("#user-exit-button");
+    const loginForm = document.querySelector("#login-form");
+
+    loginForm?.addEventListener('submit', headerAuthorize);
+    showLoginMenuButton?.addEventListener('click', showLoginMenu);
+    loginMenuElement?.addEventListener('click', hideLoginMenu);
+    toggleUserMenuButton?.addEventListener('click', toggleUserMenu);
+    userExitButton?.addEventListener('click', onUserExit);
+});

@@ -1,8 +1,19 @@
+* {
+    font-family: 'Arial', serif;
+}
+
 .link {
+    cursor: pointer;
     color: inherit;
     text-decoration: none;
 }
 
-.header-form__label {
-    display: block;
+.hidden {
+    display: none;
+}
+
+.undecorated-list {
+    list-style-type: none;
+    padding: 1rem;
+    margin: 0;
 }

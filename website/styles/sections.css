@@ -1,6 +1,11 @@
+/* Header styles */
+
 .header {
+    position: sticky;
+    z-index: 2;
+    top: 0;
     width: 100%;
-    height: 6vw;
+    height: 5vw;
     background: #b3b3ff;
 }
 
@@ -8,11 +13,12 @@
     height: 100%;
     padding: 0 10%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .header__element {
-    padding: 0 2em;
+    padding: 0 2rem;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,10 +36,106 @@
     font-size: 2em;
 }
 
-.open-login-button {
-    background: rgba(0, 100, 50, 0.5);
+/* Profile styles */
+
+.profile {
+    height: 100%;
+    display: flex;
 }
 
-.open-login-button:hover {
-    background: rgba(100, 200, 150, 0.5);
+.profile__element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile__avatar {
+    border-radius: 50%;
+    height: 80%;
+}
+
+.profile__text {
+    padding-left: 5%;
+    font-size: 2rem;
+}
+
+.profile__dropdown {
+    position: absolute;
+    height: auto;
+    top: 5vw;
+    z-index: 9999;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    transition: 1s visibility;
+}
+
+.profile__menu-text {
+    padding: 0 0.5rem;
+}
+
+.profile__menu-caret {
+    width: 1rem;
+}
+
+/* Login menu styles */
+
+.login-menu-cover {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-menu-main {
+    padding: 2rem;
+    width: 30%;
+    height: 60%;
+    background: white;
+    border-radius: 25px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-menu-header {
+    display: block;
+    font-size: 3rem;
+}
+
+.login-menu-auth-message {
+    padding-top: 0.5rem;
+    color: darkred;
+    font-size: 1.5rem;
+    font-weight: bold;
+    word-wrap: anywhere;
+    text-align: center;
+}
+
+.login-form {
+    display: block;
+}
+
+.login-form__label {
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+}
+
+.login-form__input {
+    font-size: 2rem;
+    border-radius: 25px;
+    padding: 0.5rem;
+}
+
+.login-form__button {
+    font-size: 2rem;
+    border-radius: 25px;
+    padding: 0.5rem;
 }

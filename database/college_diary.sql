@@ -101,8 +101,9 @@ CREATE TABLE `keywords` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `name` (`name`),
+  CONSTRAINT `keywords_chk_1` CHECK (regexp_like(`name`,_utf8mb4'^[[[:alnum:]]_]+$'))
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +177,7 @@ CREATE TABLE `news` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `header` varchar(200) NOT NULL,
   `text` mediumtext NOT NULL,
-  `date` datetime NOT NULL DEFAULT (_utf8mb4'2021-01-01'),
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `image_path` varchar(256) NOT NULL DEFAULT (_utf8mb4'temp.jpg'),
   PRIMARY KEY (`id`),
   UNIQUE KEY `header` (`header`)
@@ -364,6 +365,35 @@ CREATE TABLE `work_distribution` (
   CONSTRAINT `work_distribution_chk_2` CHECK (((`students_count` is null) or regexp_like(`students_count`,_utf8mb3'^([1-9]{1}[0-9]{1}|[1-9]{1})$')))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping routines for database 'college_diary'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `get_news` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`college-diary_admin`@`%` PROCEDURE `get_news`()
+begin
+    select n.*,
+       ifnull(group_concat(k.name separator ' '), '')
+           as 'keywords'
+    from news n
+    left join news_keywords nk on n.id = nk.id_news
+    left join keywords k on k.id = nk.id_keyword
+    group by n.id;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -374,4 +404,4 @@ CREATE TABLE `work_distribution` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-21 14:36:53
+-- Dump completed on 2021-01-21 19:36:32
