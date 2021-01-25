@@ -32,7 +32,7 @@ if (isset($_GET['item'])) {
 }
 
 if ($redirect) {
-    header("Location: /pages/news.php");
+    header("Location: /");
 }
 ?>
 <!doctype html>

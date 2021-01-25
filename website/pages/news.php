@@ -102,5 +102,5 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
     </div>
 </div>
 
-<?php require_once "../sections/footer.php"; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>

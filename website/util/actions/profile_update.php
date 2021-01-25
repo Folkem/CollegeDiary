@@ -29,7 +29,7 @@ if (isset($_POST['action']) && !is_null($currentUser)) {
 
     echo json_encode($response);
 } else {
-    header("Location: /pages/news.php");
+    header("Location: /");
 }
 
 function changePassword($currentUser): array
