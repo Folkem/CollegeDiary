@@ -49,28 +49,25 @@ class StorageRepository
         return $result;
     }
 
-    public static function getUsers(): array
+    public static function getCallSchedule(): array
     {
         self::load();
         $result = [];
 
-        $statement = self::$connection->query("select u.id as 'id', first_name, middle_name, 
-                last_name, full_name, email, password, r.user_role as 'role', avatar_path from users u
-                left join roles r on u.id_role = r.id");
+        $statement = self::$connection->query("select * from call_schedule");
 
         if ($statement !== false) {
             while (($statementArray = $statement->fetch()) !== false) {
-                $user = new User();
-                $user->setId((int)$statementArray['id'])
-                    ->setFirstName($statementArray['first_name'])
-                    ->setMiddleName($statementArray['middle_name'])
-                    ->setLastName($statementArray['last_name'])
-                    ->setFullName($statementArray['full_name'])
-                    ->setEmail($statementArray['email'])
-                    ->setPassword($statementArray['password'])
-                    ->setRole($statementArray['role'])
-                    ->setAvatarPath($statementArray['avatar_path']);
-                $result[] = $user;
+                $timeStart = DateTimeImmutable::createFromFormat('H:i:s', $statementArray['start']);
+                $timeEnd = DateTimeImmutable::createFromFormat('H:i:s', $statementArray['end']);
+
+                $callScheduleItem = new CallScheduleItem();
+
+                $callScheduleItem->setLessonNumber((int)$statementArray['number'])
+                    ->setTimeStart($timeStart)
+                    ->setTimeEnd($timeEnd);
+
+                $result[] = $callScheduleItem;
             }
         }
 
@@ -106,6 +103,34 @@ class StorageRepository
                     ->setComment($statementArray['comment']);
 
                 $result[] = $comment;
+            }
+        }
+
+        return $result;
+    }
+
+    public static function getUsers(): array
+    {
+        self::load();
+        $result = [];
+
+        $statement = self::$connection->query("select u.id as 'id', first_name, middle_name,
+                last_name, full_name, email, password, r.user_role as 'role', avatar_path from users u
+                left join roles r on u.id_role = r.id");
+
+        if ($statement !== false) {
+            while (($statementArray = $statement->fetch()) !== false) {
+                $user = new User();
+                $user->setId((int)$statementArray['id'])
+                    ->setFirstName($statementArray['first_name'])
+                    ->setMiddleName($statementArray['middle_name'])
+                    ->setLastName($statementArray['last_name'])
+                    ->setFullName($statementArray['full_name'])
+                    ->setEmail($statementArray['email'])
+                    ->setPassword($statementArray['password'])
+                    ->setRole($statementArray['role'])
+                    ->setAvatarPath($statementArray['avatar_path']);
+                $result[] = $user;
             }
         }
 
