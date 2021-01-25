@@ -193,5 +193,6 @@ class StorageRepository
     {
         self::$dsn = 'mysql:host=' . self::$HOST . ';dbname=' . self::$DB_NAME;
         self::$connection = new PDO(self::$dsn, self::$USER, self::$PASSWORD);
+        self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 }
