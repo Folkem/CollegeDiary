@@ -1,12 +1,10 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/util/configs.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
 
 class StorageRepository
 {
-    use DatabaseSettings;
-
-    private static string $dsn;
     private static PDO $connection;
 
     private function __construct()
@@ -88,7 +86,7 @@ class StorageRepository
             where nc.id_item = :id_item");
 
         if ($statement !== false) {
-            $statement->bindParam(":id_item", $itemId);
+            $statement->bindValue(":id_item", $itemId);
             $statement->execute();
             while (($statementArray = $statement->fetch()) !== false) {
                 $user = $users[(int)$statementArray['id_user']];
@@ -150,9 +148,9 @@ class StorageRepository
             $newPassword = $updatedUser->getPassword();
             $newAvatarPath = $updatedUser->getAvatarPath();
             $id = $updatedUser->getId();
-            $statement->bindParam(':password', $newPassword);
-            $statement->bindParam(':avatar_path', $newAvatarPath);
-            $statement->bindParam(':id', $id);
+            $statement->bindValue(':password', $newPassword);
+            $statement->bindValue(':avatar_path', $newAvatarPath);
+            $statement->bindValue(':id', $id);
 
             $result = $statement->execute();
         }
@@ -174,10 +172,10 @@ class StorageRepository
             $commentText = $newsComment->getComment();
             $postDate = $newsComment->getPostDate();
             $formattedPostDate = $postDate->format('Y-m-d H:m:s');
-            $statement->bindParam(':id_item', $idItem);
-            $statement->bindParam(':id_user', $idUser);
-            $statement->bindParam(':comment_text', $commentText);
-            $statement->bindParam(':post_date', $formattedPostDate);
+            $statement->bindValue(':id_item', $idItem);
+            $statement->bindValue(':id_user', $idUser);
+            $statement->bindValue(':comment_text', $commentText);
+            $statement->bindValue(':post_date', $formattedPostDate);
 
             $result = $statement->execute();
             $lastInsertId = self::$connection->lastInsertId();
@@ -191,8 +189,8 @@ class StorageRepository
 
     private static function connect(): void
     {
-        self::$dsn = 'mysql:host=' . self::$HOST . ';dbname=' . self::$DB_NAME;
-        self::$connection = new PDO(self::$dsn, self::$USER, self::$PASSWORD);
+        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
+        self::$connection = new PDO($dsn, DB_USER, DB_PASS);
         self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 }
