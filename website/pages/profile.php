@@ -35,15 +35,16 @@ if (is_null($currentUser)) {
                 Налаштування
             </div>
             <div class="menu-buttons__item">
-                Айтем 2
+                Розклад дзвінків
             </div>
             <div class="menu-buttons__item">
-                Айтем 3
+                Розклад занять (WIP)
             </div>
         </div>
         <div class="menu-content">
             <div class="menu-content__item settings-block">
                 <h2 class="menu-content__header">Налаштування</h2>
+                <hr>
                 <div class="menu-content__form">
                     <h3 class="form-header">Пароль</h3>
                     <form class="form" id="password-form" onsubmit="return false;">
@@ -104,12 +105,37 @@ if (is_null($currentUser)) {
             </div>
             <div class="menu-content__item call-schedule-block hidden">
                 <h2 class="menu-content__header">Розклад дзвінків</h2>
+                <hr>
                 <div class="call-schedule">
+                    <table class="call-schedule-table">
+                        <tr>
+                            <th class="call-schedule-table__item">№</th>
+                            <th class="call-schedule-table__item">Початок</th>
+                            <th class="call-schedule-table__item">Кінець</th>
+                        </tr>
+                        <?php
+                            $callSchedule = StorageRepository::getCallSchedule();
+                            foreach ($callSchedule as $callScheduleItem):?>
 
+                            <tr class="call-schedule-table__row">
+                                <td class="call-schedule-table__item">
+                                    <?= $callScheduleItem->getLessonNumber() ?>
+                                </td>
+                                <td class="call-schedule-table__item">
+                                    <?= $callScheduleItem->getTimeStart()->format('H:i:s') ?>
+                                </td>
+                                <td class="call-schedule-table__item">
+                                    <?= $callScheduleItem->getTimeEnd()->format('H:i:s') ?>
+                                </td>
+                            </tr>
+
+                        <?php endforeach; ?>
+                    </table>
                 </div>
             </div>
             <div class="menu-content__item hidden">
-                Шалабумба
+                <h2 class="menu-content__header">Розклад занять</h2>
+                <hr>
             </div>
         </div>
     </div>
