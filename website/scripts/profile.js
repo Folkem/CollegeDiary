@@ -83,6 +83,9 @@ window.addEventListener('load', () => {
     avatarInputButton.addEventListener('click', () => {
         avatarInput.click();
     });
+    avatarInput.addEventListener('change', () => {
+        avatarInputButton.classList.toggle('form__input-button--success', true);
+    });
     avatarForm.addEventListener('submit', () => {
         const avatarResultElement = document.querySelector('#avatar-result');
         const avatarInputFile = avatarInput.files[0];

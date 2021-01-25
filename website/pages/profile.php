@@ -42,7 +42,7 @@ if (is_null($currentUser)) {
             </div>
         </div>
         <div class="menu-content">
-            <div class="menu-content__item settings">
+            <div class="menu-content__item settings-block">
                 <h2 class="menu-content__header">Налаштування</h2>
                 <div class="menu-content__form">
                     <h3 class="form-header">Пароль</h3>
@@ -81,7 +81,7 @@ if (is_null($currentUser)) {
                     </form>
                 </div>
                 <div class="menu-content__form">
-                    <h3>Зображення профілю</h3>
+                    <h3 class="form-header">Зображення профілю</h3>
                     <form class="form" id="avatar-form" onsubmit="return false;">
                         <div class="form-item">
                             <label class="form__label" for="new-avatar-file">
@@ -102,8 +102,11 @@ if (is_null($currentUser)) {
                     </form>
                 </div>
             </div>
-            <div class="menu-content__item hidden">
-                Какой-то ещ' контент
+            <div class="menu-content__item call-schedule-block hidden">
+                <h2 class="menu-content__header">Розклад дзвінків</h2>
+                <div class="call-schedule">
+
+                </div>
             </div>
             <div class="menu-content__item hidden">
                 Шалабумба
