@@ -7,19 +7,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
         <div class="login-menu-cover hidden" id="login-menu">
             <div class="login-menu-main">
                 <h1 class="login-menu-header">Авторизація</h1>
-                <span class="login-menu-auth-message" id="login-menu-auth-message">
+                <span class="login-menu-status-message" id="login-menu-status-message">
             </span>
                 <form class="login-form" id="login-form" onsubmit="return false;">
                     <label class="login-form__label">
-                        <input class="login-form__input" type="email" required placeholder="Пошта">
+                        <input class="login-form__input" type="email"
+                               id="email" required placeholder="Пошта">
                     </label>
                     <label class="login-form__label">
-                        <input class="login-form__input" type="password" required placeholder="Пароль">
+                        <input class="login-form__input" type="password"
+                               id="password" required placeholder="Пароль">
                     </label>
                     <label class="login-form__label">
                         <button class="login-form__button" type="submit">Авторизуватися</button>
                     </label>
                 </form>
+                <button class="reset-password-button" id="reset-password-button">Скинути пароль</button>
             </div>
         </div>
     <?php endif; ?>

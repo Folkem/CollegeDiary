@@ -109,7 +109,7 @@
     font-size: 3rem;
 }
 
-.login-menu-auth-message {
+.login-menu-status-message {
     padding-top: 0.5rem;
     color: darkred;
     font-size: 1.5rem;
@@ -144,4 +144,16 @@
 
 .login-form__button:hover {
     background: #cccccc;
+}
+
+.reset-password-button {
+    background: #ffcccc;
+    font-size: 1.4rem;
+    border-radius: 1rem;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+}
+
+.reset-password-button:hover {
+    background: #e6b8b8;
 }

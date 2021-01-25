@@ -7,7 +7,6 @@ if (isset($_POST['email'], $_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    StorageRepository::load();
     $users = StorageRepository::getUsers();
     $selectedUsers = array_filter($users, function($user) use ($email, $password) {
         $isSameEmail = (strcasecmp($email, $user->getEmail()) == 0);

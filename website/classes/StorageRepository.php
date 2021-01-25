@@ -135,6 +135,44 @@ class StorageRepository
         return $result;
     }
 
+    public static function getUserByEmail(string $email): ?User
+    {
+        self::load();
+        $result = null;
+
+        $statement = self::$connection->prepare("select u.id as 'id', first_name, middle_name,
+                last_name, full_name, email, password, r.user_role as 'role', avatar_path from users u
+                left join roles r on u.id_role = r.id
+                where email = :email");
+
+        if ($statement !== false) {
+            $statement->bindValue(':email', $email);
+            $statement->execute();
+
+            while (($statementArray = $statement->fetch()) !== false) {
+                if (isset($result)) {
+
+                    break;
+                }
+
+                $user = new User();
+                $user->setId((int)$statementArray['id'])
+                    ->setFirstName($statementArray['first_name'])
+                    ->setMiddleName($statementArray['middle_name'])
+                    ->setLastName($statementArray['last_name'])
+                    ->setFullName($statementArray['full_name'])
+                    ->setEmail($statementArray['email'])
+                    ->setPassword($statementArray['password'])
+                    ->setRole($statementArray['role'])
+                    ->setAvatarPath($statementArray['avatar_path']);
+
+                $result = $user;
+            }
+        }
+
+        return $result;
+    }
+
     public static function updateUser(User $updatedUser): bool
     {
         self::load();
