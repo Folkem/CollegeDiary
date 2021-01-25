@@ -94,9 +94,9 @@
 .login-menu-main {
     padding: 2rem;
     width: 30%;
-    height: 60%;
+    height: 30vw;
     background: white;
-    border-radius: 25px;
+    border-radius: 2rem;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
@@ -130,12 +130,18 @@
 
 .login-form__input {
     font-size: 2rem;
-    border-radius: 25px;
+    border-radius: 2rem;
     padding: 0.5rem;
 }
 
 .login-form__button {
     font-size: 2rem;
-    border-radius: 25px;
-    padding: 0.5rem;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    background: #e6e6e6;
+    cursor: pointer;
+}
+
+.login-form__button:hover {
+    background: #cccccc;
 }
