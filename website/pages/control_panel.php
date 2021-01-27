@@ -25,7 +25,7 @@ if (is_null($currentUser) ||
     <link rel="stylesheet" href="/styles/sections.css">
     <link rel="stylesheet" href="/styles/general.css">
     <script src="/scripts/sections.js"></script>
-    <script src="/scripts/profile.js"></script>
+    <script src="/scripts/settings.js"></script>
 </head>
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>

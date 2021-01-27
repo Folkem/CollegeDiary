@@ -107,6 +107,33 @@ class StorageRepository
         return $result;
     }
 
+    public static function addNewsComment(NewsComment $newsComment): bool
+    {
+        self::load();
+        $result = true;
+
+        $statement = self::$connection->prepare('insert into news_comments 
+            (id_item, id_user, comment, `date`) values (:id_item, :id_user, :comment_text, :post_date)');
+
+        if ($statement !== false) {
+            $idItem = $newsComment->getNewsId();
+            $idUser = $newsComment->getUser()->getId();
+            $commentText = $newsComment->getComment();
+            $postDate = $newsComment->getPostDate();
+            $formattedPostDate = $postDate->format('Y-m-d H:m:s');
+            $statement->bindValue(':id_item', $idItem);
+            $statement->bindValue(':id_user', $idUser);
+            $statement->bindValue(':comment_text', $commentText);
+            $statement->bindValue(':post_date', $formattedPostDate);
+
+            $result = $statement->execute();
+            $lastInsertId = self::$connection->lastInsertId();
+            $newsComment->setId($lastInsertId);
+        }
+
+        return $result;
+    }
+
     public static function getUsers(): array
     {
         self::load();
@@ -196,28 +223,52 @@ class StorageRepository
         return $result;
     }
 
-    public static function addNewsComment(NewsComment $newsComment): bool
+    public static function getNotificationsForUser(int $idUser): array
     {
         self::load();
-        $result = true;
+        $result = [];
 
-        $statement = self::$connection->prepare('insert into news_comments 
-            (id_item, id_user, comment, `date`) values (:id_item, :id_user, :comment_text, :post_date)');
+        $statement = self::$connection->prepare("select * from notifications 
+            where id_user = :id_user
+            order by `read`, date desc");
 
         if ($statement !== false) {
-            $idItem = $newsComment->getNewsId();
-            $idUser = $newsComment->getUser()->getId();
-            $commentText = $newsComment->getComment();
-            $postDate = $newsComment->getPostDate();
-            $formattedPostDate = $postDate->format('Y-m-d H:m:s');
-            $statement->bindValue(':id_item', $idItem);
             $statement->bindValue(':id_user', $idUser);
-            $statement->bindValue(':comment_text', $commentText);
-            $statement->bindValue(':post_date', $formattedPostDate);
+            $statement->execute();
+            while (($statementArray = $statement->fetch()) !== false) {
+                $notification = new Notification();
+                $date = DateTimeImmutable::createFromFormat(
+                    'Y-m-d H:i:s',
+                    $statementArray['date']
+                );
+                $notification
+                    ->setId((int)$statementArray['id'])
+                    ->setUserId((int)$statementArray['id_user'])
+                    ->setComment($statementArray['comment'])
+                    ->setLink($statementArray['link'])
+                    ->setRead((bool)$statementArray['read'])
+                    ->setDate($date);
+                $result[] = $notification;
+            }
+        }
 
-            $result = $statement->execute();
-            $lastInsertId = self::$connection->lastInsertId();
-            $newsComment->setId($lastInsertId);
+        return $result;
+    }
+
+    public static function getUnreadNotificationCountForUser(int $idUser): int
+    {
+        self::load();
+        $result = 0;
+
+        $statement = self::$connection->prepare("select count(*) as 'count' 
+            from notifications where id_user = 1 and `read` = 0");
+
+        if ($statement !== false) {
+            $statement->bindValue(':id_user', $idUser);
+            $statement->execute();
+            if (($statementArray = $statement->fetch()) !== false) {
+                $result = $statementArray['count'];
+            }
         }
 
         return $result;

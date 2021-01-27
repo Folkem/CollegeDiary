@@ -75,6 +75,20 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                             <i class="fa fa-caret-left profile__menu-caret"
                                id="profile-caret"></i>
                         </div>
+                        <a href="/pages/notifications.php" class="link notification-link">
+                            <i class="fa fa-bell notification-icon"
+                               id="profile-notifications">
+                                <div class="notification-badge">
+                                    <?php
+                                        $notificationCount = StorageRepository::
+                                            getUnreadNotificationCountForUser($currentUser->getId());
+                                        if ($notificationCount > 0) {
+                                            echo $notificationCount;
+                                        }
+                                    ?>
+                                </div>
+                            </i>
+                        </a>
                     </div>
                 </div>
             <?php endif; ?>
