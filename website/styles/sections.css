@@ -72,10 +72,18 @@
 
 .profile__menu-text {
     padding: 0 0.5rem;
+    white-space: nowrap;
 }
 
 .profile__menu-caret {
     width: 1rem;
+    padding-right: 1rem;
+}
+
+.profile__toggle-user-menu-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 /* Login menu styles */

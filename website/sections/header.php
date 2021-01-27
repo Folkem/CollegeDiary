@@ -46,15 +46,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                     <p class="header__text">Авторизація</p>
                 </div>
             <?php else: ?>
-                <div class="link profile" id="toggle-user-menu-button">
+                <div class="profile">
                     <div class="profile__element">
                         <img class="profile__avatar header__image"
                              src="/media/user_avatars/<?= $currentUser->getAvatarPath() ?>"
                              alt="Зображення профілю">
                     </div>
                     <div class="profile__element profile__text">
-                        <p class="profile__menu-text">Меню</p>
-                        <i class="fa fa-caret-left profile__menu-caret" id="profile-caret"></i>
                         <div class="profile__dropdown hidden" id="profile-dropdown">
                             <ul class="undecorated-list">
                                 <li>
@@ -70,6 +68,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                     <p class="link" id="user-exit-button">Вийти</p>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="profile__toggle-user-menu-button link"
+                             id="toggle-user-menu-button">
+                            <p class="profile__menu-text"><?= $currentUser->getFullName() ?></p>
+                            <i class="fa fa-caret-left profile__menu-caret"
+                               id="profile-caret"></i>
                         </div>
                     </div>
                 </div>
