@@ -58,7 +58,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                         <div class="profile__dropdown hidden" id="profile-dropdown">
                             <ul class="undecorated-list">
                                 <li>
-                                    <a class="link" href="/pages/profile.php">Перейти до профілю</a>
+                                    <a class="link" href="/pages/settings.php">Налаштування</a>
                                 </li>
                                 <?php if ($currentUser->getRole() === 'Адміністратор' ||
                                     $currentUser->getRole() === 'Завідувач відділення'): ?>

@@ -16,15 +16,15 @@ if (is_null($currentUser)) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Профіль користувача — Онлайн-щоденник</title>
+    <title>Налаштування — Онлайн-щоденник</title>
     <link rel="stylesheet" href="/styles/font-awesome/all.min.css">
     <link rel="stylesheet" href="/styles/normalize.css">
     <link rel="stylesheet" href="/styles/reset.css">
     <link rel="stylesheet" href="/styles/sections.css">
     <link rel="stylesheet" href="/styles/general.css">
-    <link rel="stylesheet" href="/styles/profile.css">
+    <link rel="stylesheet" href="/styles/settings.css">
     <script src="/scripts/sections.js"></script>
-    <script src="/scripts/profile.js"></script>
+    <script src="/scripts/settings.js"></script>
 </head>
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
@@ -33,7 +33,7 @@ if (is_null($currentUser)) {
     <div class="menu">
         <div class="menu-buttons">
             <div class="menu-buttons__item menu-buttons__item--active">
-                Налаштування
+                Загальне
             </div>
             <div class="menu-buttons__item">
                 Повідомлення
@@ -46,8 +46,8 @@ if (is_null($currentUser)) {
             </div>
         </div>
         <div class="menu-content">
-            <div class="menu-content__item settings-block">
-                <h2 class="menu-content__header">Налаштування</h2>
+            <div class="menu-content__item general-block">
+                <h2 class="menu-content__header">Загальне</h2>
                 <hr>
                 <div class="menu-content__form">
                     <h3 class="form-header">Пароль</h3>
