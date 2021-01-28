@@ -12,6 +12,10 @@
     display: none;
 }
 
+.vanished {
+    opacity: 0;
+}
+
 .undecorated-list {
     list-style-type: none;
     padding: 1rem;

@@ -40,7 +40,7 @@ function onUserExit() {
 function toggleUserMenu() {
     const caretElement = document.querySelector('#profile-caret');
     const dropdownElement = document.querySelector('#profile-dropdown');
-    dropdownElement.classList.toggle('hidden');
+    dropdownElement.classList.toggle('vanished');
     caretElement.classList.toggle('fa-caret-left');
     caretElement.classList.toggle('fa-caret-up');
 }
