@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/logging.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 
-if (isset($_POST['action']) && !is_null($currentUser)) {
+if (isset($_POST['action']) && isset($currentUser)) {
     $action = $_POST['action'];
     $response = [];
 
