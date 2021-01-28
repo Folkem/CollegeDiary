@@ -261,7 +261,7 @@ class StorageRepository
         $result = 0;
 
         $statement = self::$connection->prepare("select count(*) as 'count' 
-            from notifications where id_user = 1 and `read` = 0");
+            from notifications where id_user = :id_user and `read` = 0");
 
         if ($statement !== false) {
             $statement->bindValue(':id_user', $idUser);
