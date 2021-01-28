@@ -107,12 +107,16 @@ function changeAvatar($currentUser): array
                     $updateResult = StorageRepository::updateUser($currentUser);
                     if ($updateResult === true) {
                         $avatarsFolderPath = $_SERVER['DOCUMENT_ROOT'] . '/media/user_avatars/';
-                        unlink($avatarsFolderPath . $oldAvatarPath);
+
+                        if ($oldAvatarPath !== 'default.png')
+                            unlink($avatarsFolderPath . $oldAvatarPath);
                         move_uploaded_file($fileLocation, $avatarsFolderPath . $newFileName);
+
                         $result['status'] = 'success';
                         $result['message'] = 'Аватар успішно змінено.';
                     } else {
                         $currentUser->setAvatarPath($oldAvatarPath);
+
                         $result['status'] = 'failure';
                         $result['message'] = 'Виникла помилка при зміні аватару';
                     }
