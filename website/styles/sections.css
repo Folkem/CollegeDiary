@@ -63,12 +63,11 @@
     position: absolute;
     height: auto;
     top: 5vw;
-    z-index: 9999;
+    z-index: 2;
     background: black;
     color: white;
     border-radius: 10px;
     transition: 0.5s;
-    opacity: 1;
 }
 
 .profile__menu-text {
@@ -91,7 +90,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    transition: 1s;
+    transition: 0.3s;
 }
 
 .notification-link:hover {

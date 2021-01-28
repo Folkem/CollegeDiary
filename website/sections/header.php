@@ -53,7 +53,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                              alt="Зображення профілю">
                     </div>
                     <div class="profile__element profile__text">
-                        <div class="profile__dropdown vanished" id="profile-dropdown">
+                        <div class="profile__dropdown hidden" id="profile-dropdown">
                             <ul class="undecorated-list">
                                 <li>
                                     <a class="link" href="/pages/settings.php">Налаштування</a>
