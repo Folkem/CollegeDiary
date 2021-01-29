@@ -5,11 +5,64 @@
     /* TODO: wrapper styles */
 }
 
-/* Notifications */
+/* Pop-up message */
 
-.notifications-buttons {
-    padding-top: 1rem;
+.pop-up-message {
+    top: 0;
+    z-index: 3;
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pop-up-message__content {
+    padding: 2rem;
+    font-weight: bolder;
+    width: fit-content;
+    height: fit-content;
+    background: #d3d3d3;
+    border-radius: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pop-up-message__content--error {
+    background: darkred;
+}
+
+.pop-up-message__content--warning {
+    background: orange;
+}
+
+/* Notification controls */
+
+.controls {
+    /*padding: 1rem;*/
+    display: flex;
+    flex-direction: row;
+}
+
+.control-item {
+    font-size: 1.4rem;
+    width: 100%;
+    padding: 1rem;
+    background: #e6e6e6;
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.control-item:hover {
+    background: #cccccc;
 }
 
 .notifications-buttons__item {
@@ -42,7 +95,7 @@
     padding: 1rem;
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 15% 50% 25% 10%;
+    grid-template-columns: 7.5% 10% 47.5% 25% 10%;
     font-size: 1.2rem;
 }
 
@@ -54,21 +107,37 @@
     background: #ededed;
 }
 
-.notification__item {
-    display: flex;
-    align-items: center;
+.notification__id {
+    display: none;
+}
+
+.notification__date-pure {
+    display: none;
+}
+
+.notification__date {
+    height: fit-content;
+    text-align: center;
+    align-self: center;
+}
+
+.notification__time {
+    height: fit-content;
+    text-align: center;
+    align-self: center;
 }
 
 .notification__comment {
     height: fit-content;
+    align-self: center;
 }
 
 .notification__link {
     height: fit-content;
-    width: 100%;
-    text-align: center;
     color: #7e33ff;
     font-weight: bold;
+    justify-self: center;
+    align-self: center;
 }
 
 .notification__link:hover {
@@ -84,34 +153,4 @@
 .notification__button {
     background: none;
     cursor: pointer;
-}
-
-.notification__date {
-    height: fit-content;
-    text-align: center;
-}
-
-.notification__time {
-    width: 100%;
-    height: fit-content;
-    text-align: center;
-}
-
-/* Notification controls */
-
-.controls {
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-}
-
-.control-item {
-    font-size: 1.4rem;
-    width: 100%;
-    padding: 0.5rem;
-    background: #e6e6e6;
-}
-
-.control-item:hover {
-    background: #cccccc;
 }

@@ -274,6 +274,58 @@ class StorageRepository
         return $result;
     }
 
+    public static function markReadNotifications(int $idUser, array $notificationIds): array
+    {
+        self::load();
+        $result = [];
+
+        $statement = self::$connection->prepare("update notifications
+            set `read` = 1 where id = :id and id_user = :id_user");
+
+        /** @noinspection DuplicatedCode */
+        if ($statement !== false) {
+            $id = $notificationIds[0];
+            $statement->bindValue(':id_user', $idUser);
+            $statement->bindParam(':id', $id);
+
+            foreach ($notificationIds as $id) {
+                $updated = $statement->execute();
+
+                if ($updated) {
+                    $result[] = $id;
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    public static function deleteNotifications(int $idUser, array $notificationIds): array
+    {
+        self::load();
+        $result = [];
+
+        $statement = self::$connection->prepare("delete from notifications
+            where id = :id and id_user = :id_user");
+
+        /** @noinspection DuplicatedCode */
+        if ($statement !== false) {
+            $id = $notificationIds[0];
+            $statement->bindValue(':id_user', $idUser);
+            $statement->bindParam(':id', $id);
+
+            foreach ($notificationIds as $id) {
+                $updated = $statement->execute();
+
+                if ($updated) {
+                    $result[] = $id;
+                }
+            }
+        }
+
+        return $result;
+    }
+
     // private methods
 
     private static function connect(): void
