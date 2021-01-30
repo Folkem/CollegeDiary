@@ -11,7 +11,7 @@ if (isset($_GET['item'])) {
     try {
         $itemId = intval($_GET['item']);
 
-        $newsArray = StorageRepository::getNews();
+        $newsArray = NewsRepository::getNews();
 
         $filteredNews = array_filter($newsArray, function ($newsItem) use ($itemId) {
             return ($newsItem->getId() === $itemId);
@@ -32,7 +32,7 @@ if (isset($_GET['item'])) {
 }
 
 if ($redirect) {
-    header("Location: /pages/news.php");
+    header("Location: /");
 }
 ?>
 <!doctype html>
@@ -91,16 +91,15 @@ if ($redirect) {
         <div class="comment-list" id="comment-list">
 
             <?php
-                $comments = StorageRepository::getNewsCommentsForItem($itemId);
-                foreach ($comments as $comment):
-            ?>
+                $comments = NewsRepository::getNewsCommentsForItem($itemId);
+                foreach ($comments as $comment):?>
 
                 <div class="comment-item">
                     <div class="hidden comment-item__id">
                         <?= $comment->getId() ?>
                     </div>
-                    <div class="comment-item__date">
-                        <?= $comment->getPostDate()->format('Y/m/d — H:m:s') ?>
+                    <div class="comment-item__publish-date">
+                        <?= $comment->getPublishDate()->format('Y/m/d — H:m:s') ?>
                     </div>
                     <div class="comment-item__user-data">
                         by <?= $comment->getUser()->getFullName() ?>
@@ -114,7 +113,7 @@ if ($redirect) {
 
         </div>
 
-        <?php if (!is_null($currentUser)): ?>
+        <?php if (isset($currentUser)): ?>
 
             <div class="comment-form-block">
                 <div class="comment-form-response" id="comment-form-response"></div>

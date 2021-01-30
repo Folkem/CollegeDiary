@@ -9,7 +9,7 @@ class User
     private string $lastName;
     private string $email;
     private string $password;
-    private string $role;
+    private int $role;
     private ?string $avatarPath;
 
     /**
@@ -71,9 +71,9 @@ class User
     }
 
     /**
-     * @return string user's role (admin, student etc.)
+     * @return int user's role number (1 for admin, 2 for student etc.)
      */
-    public function getRole(): string
+    public function getRole(): int
     {
         return $this->role;
     }
@@ -157,10 +157,11 @@ class User
     }
 
     /**
-     * @param string $role user's role (admin, student etc.)
+     * @param int $role user's role number (1 - admin, 2 - student etc.)
      * @return User this object (for chaining)
+     * @see UserRoles
      */
-    public function setRole(string $role): User
+    public function setRole(int $role): User
     {
         $this->role = $role;
         return $this;

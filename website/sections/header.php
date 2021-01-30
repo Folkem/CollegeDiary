@@ -7,19 +7,21 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
         <div class="login-menu-cover hidden" id="login-menu">
             <div class="login-menu-main">
                 <h1 class="login-menu-header">Авторизація</h1>
-                <span class="login-menu-auth-message" id="login-menu-auth-message">
-            </span>
+                <span class="login-menu-status-message" id="login-menu-status-message"></span>
                 <form class="login-form" id="login-form" onsubmit="return false;">
                     <label class="login-form__label">
-                        <input class="login-form__input" type="email" required placeholder="Пошта">
+                        <input class="login-form__input" type="email"
+                               id="email" required placeholder="Пошта">
                     </label>
                     <label class="login-form__label">
-                        <input class="login-form__input" type="password" required placeholder="Пароль">
+                        <input class="login-form__input" type="password"
+                               id="password" required placeholder="Пароль">
                     </label>
                     <label class="login-form__label">
                         <button class="login-form__button" type="submit">Авторизуватися</button>
                     </label>
                 </form>
+                <button class="reset-password-button" id="reset-password-button">Скинути пароль</button>
             </div>
         </div>
     <?php endif; ?>
@@ -43,22 +45,20 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                     <p class="header__text">Авторизація</p>
                 </div>
             <?php else: ?>
-                <div class="link profile" id="toggle-user-menu-button">
+                <div class="profile">
                     <div class="profile__element">
                         <img class="profile__avatar header__image"
                              src="/media/user_avatars/<?= $currentUser->getAvatarPath() ?>"
                              alt="Зображення профілю">
                     </div>
                     <div class="profile__element profile__text">
-                        <p class="profile__menu-text">Меню</p>
-                        <i class="fa fa-caret-left profile__menu-caret" id="profile-caret"></i>
                         <div class="profile__dropdown hidden" id="profile-dropdown">
                             <ul class="undecorated-list">
                                 <li>
-                                    <a class="link" href="/pages/profile.php">Перейти до профілю</a>
+                                    <a class="link" href="/pages/settings.php">Налаштування</a>
                                 </li>
-                                <?php if ($currentUser->getRole() === 'Адміністратор' ||
-                                    $currentUser->getRole() === 'Завідувач відділення'): ?>
+                                <?php if ($currentUser->getRole() === UserRoles::ADMINISTRATOR ||
+                                    $currentUser->getRole() === UserRoles::DEPARTMENT_HEAD): ?>
                                     <li>
                                         <a class="link" href="/pages/control_panel.php">Панель управління</a>
                                     </li>
@@ -68,6 +68,26 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                 </li>
                             </ul>
                         </div>
+                        <div class="profile__toggle-user-menu-button link"
+                             id="toggle-user-menu-button">
+                            <p class="profile__menu-text"><?= $currentUser->getFullName() ?></p>
+                            <i class="fa fa-caret-left profile__menu-caret"
+                               id="profile-caret"></i>
+                        </div>
+                        <a href="/pages/notifications.php" class="link notification-link">
+                            <i class="fa fa-bell notification-icon"
+                               id="profile-notifications">
+                                <div class="notification-badge">
+                                    <?php
+                                    $notificationCount = NotificationRepository::
+                                    getUnreadNotificationCountForUser($currentUser->getId());
+                                    if ($notificationCount > 0) {
+                                        echo $notificationCount;
+                                    }
+                                    ?>
+                                </div>
+                            </i>
+                        </a>
                     </div>
                 </div>
             <?php endif; ?>

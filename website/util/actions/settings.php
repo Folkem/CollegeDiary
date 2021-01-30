@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/logging.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 
-if (isset($_POST['action']) && !is_null($currentUser)) {
+if (isset($_POST['action'], $currentUser)) {
     $action = $_POST['action'];
     $response = [];
 
@@ -29,7 +29,7 @@ if (isset($_POST['action']) && !is_null($currentUser)) {
 
     echo json_encode($response);
 } else {
-    header("Location: /pages/news.php");
+    header("Location: /");
 }
 
 function changePassword($currentUser): array
@@ -46,7 +46,7 @@ function changePassword($currentUser): array
 
             if (password_verify($oldPassword, $currentUser->getPassword())) {
                 $currentUser->setPassword($newPassword);
-                $updateResult = StorageRepository::updateUser($currentUser);
+                $updateResult = UserRepository::updateUser($currentUser);
                 if ($updateResult === true) {
                     $result['status'] = 'success';
                     $result['message_places'] = ['general'];
@@ -104,15 +104,19 @@ function changeAvatar($currentUser): array
 
                     $oldAvatarPath = $currentUser->getAvatarPath();
                     $currentUser->setAvatarPath($newFileName);
-                    $updateResult = StorageRepository::updateUser($currentUser);
+                    $updateResult = UserRepository::updateUser($currentUser);
                     if ($updateResult === true) {
                         $avatarsFolderPath = $_SERVER['DOCUMENT_ROOT'] . '/media/user_avatars/';
-                        unlink($avatarsFolderPath . $oldAvatarPath);
+
+                        if ($oldAvatarPath !== 'default.png')
+                            unlink($avatarsFolderPath . $oldAvatarPath);
                         move_uploaded_file($fileLocation, $avatarsFolderPath . $newFileName);
+
                         $result['status'] = 'success';
                         $result['message'] = 'Аватар успішно змінено.';
                     } else {
                         $currentUser->setAvatarPath($oldAvatarPath);
+
                         $result['status'] = 'failure';
                         $result['message'] = 'Виникла помилка при зміні аватару';
                     }

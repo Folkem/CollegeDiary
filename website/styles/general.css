@@ -12,6 +12,10 @@
     display: none;
 }
 
+.invisible {
+    visibility: hidden;
+}
+
 .undecorated-list {
     list-style-type: none;
     padding: 1rem;

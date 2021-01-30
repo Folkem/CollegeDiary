@@ -1,14 +1,13 @@
 <?php
 
-require_once "../loader.php";
-require_once "../logging.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/util/logging.php";
 
 if (isset($_POST['email'], $_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    StorageRepository::load();
-    $users = StorageRepository::getUsers();
+    $users = UserRepository::getUsers();
     $selectedUsers = array_filter($users, function($user) use ($email, $password) {
         $isSameEmail = (strcasecmp($email, $user->getEmail()) == 0);
         $isSamePassword = password_verify($password, $user->getPassword());
@@ -42,5 +41,5 @@ if (isset($_POST['email'], $_POST['password'])) {
     $jsonResponse = json_encode($response);
     echo $jsonResponse;
 } else {
-    header('Location: http://college-diary.edu/pages/news.php');
+    header('Location: /');
 }

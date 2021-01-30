@@ -3,7 +3,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/auth_check.php';
 
-if (isset($_POST['news-item-id'], $_POST['comment-text']) && !is_null($currentUser)) {
+if (isset($_POST['news-item-id'], $_POST['comment-text'], $currentUser)) {
     $newsItemId = intval($_POST['news-item-id']);
     $commentText = $_POST['comment-text'];
 
@@ -18,11 +18,11 @@ if (isset($_POST['news-item-id'], $_POST['comment-text']) && !is_null($currentUs
 
     $newsComment = new NewsComment();
     $newsComment->setUser($currentUser)
-        ->setPostDate(DateTimeImmutable::createFromFormat('Y/m/d — H:m:s', $commentPostDate))
+        ->setPublishDate(DateTimeImmutable::createFromFormat('Y/m/d — H:m:s', $commentPostDate))
         ->setNewsId($newsItemId)
         ->setComment($commentText);
 
-    $commentWasAdded = StorageRepository::addNewsComment($newsComment);
+    $commentWasAdded = NewsRepository::addNewsComment($newsComment);
     $commentId = $newsComment->getId();
 
     if (!$commentWasAdded) {

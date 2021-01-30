@@ -64,18 +64,18 @@ class NewsComment
     }
 
     /**
-     * @return DateTimeImmutable date, on which this comment was posted
+     * @return DateTimeImmutable date, on which this comment was published
      */
-    public function getPostDate(): DateTimeImmutable
+    public function getPublishDate(): DateTimeImmutable
     {
         return $this->postDate;
     }
 
     /**
-     * @param DateTimeImmutable $postDate date, on which this comment was posted
+     * @param DateTimeImmutable $postDate date, on which this comment was published
      * @return NewsComment this object (for chaining)
      */
-    public function setPostDate(DateTimeImmutable $postDate): NewsComment
+    public function setPublishDate(DateTimeImmutable $postDate): NewsComment
     {
         $this->postDate = $postDate;
         return $this;

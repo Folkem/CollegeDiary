@@ -177,11 +177,11 @@ CREATE TABLE `news` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `header` varchar(200) NOT NULL,
   `text` mediumtext NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `publish_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `image_path` varchar(256) NOT NULL DEFAULT (_utf8mb4'temp.jpg'),
   PRIMARY KEY (`id`),
   UNIQUE KEY `header` (`header`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,13 +196,13 @@ CREATE TABLE `news_comments` (
   `id_item` int unsigned NOT NULL,
   `id_user` int unsigned NOT NULL,
   `comment` varchar(256) NOT NULL,
-  `date` datetime NOT NULL DEFAULT (now()),
+  `publish_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `id_item` (`id_item`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `news_comments_ibfk_1` FOREIGN KEY (`id_item`) REFERENCES `news` (`id`),
   CONSTRAINT `news_comments_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +239,7 @@ CREATE TABLE `notifications` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -331,14 +331,14 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `id_role` int unsigned NOT NULL DEFAULT '2',
-  `avatar_path` varchar(100) DEFAULT NULL,
+  `avatar_path` varchar(100) DEFAULT 'default.png',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_fullname` (`first_name`,`last_name`),
   UNIQUE KEY `email` (`email`),
   KEY `users_fk_role` (`id_role`),
   CONSTRAINT `users_fk_role` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `users_email` CHECK (regexp_like(`email`,_utf8mb3'^[^@]+@[^@]+.[^@]{2,}$'))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,35 +365,6 @@ CREATE TABLE `work_distribution` (
   CONSTRAINT `work_distribution_chk_2` CHECK (((`students_count` is null) or regexp_like(`students_count`,_utf8mb3'^([1-9]{1}[0-9]{1}|[1-9]{1})$')))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping routines for database 'college_diary'
---
-/*!50003 DROP PROCEDURE IF EXISTS `get_news` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`college-diary_admin`@`%` PROCEDURE `get_news`()
-begin
-    select n.*,
-       ifnull(group_concat(k.name separator ' '), '')
-           as 'keywords'
-    from news n
-    left join news_keywords nk on n.id = nk.id_news
-    left join keywords k on k.id = nk.id_keyword
-    group by n.id;
-end ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -404,4 +375,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-21 19:36:32
+-- Dump completed on 2021-01-30 16:55:30

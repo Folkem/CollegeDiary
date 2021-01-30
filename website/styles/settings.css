@@ -53,6 +53,12 @@
     height: fit-content;
 }
 
+.menu-content__item {
+    background: #ededed;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
 .menu-content__header {
     font-size: 2.5rem;
     padding: 1rem;
@@ -61,8 +67,6 @@
 /* Form */
 
 .menu-content__form {
-    background: #ededed;
-    border-radius: 1rem;
     padding: 1rem;
     display: flex;
     flex-direction: row;
@@ -79,7 +83,7 @@
 }
 
 .form {
-    flex: 5;
+    flex: 4;
     display: flex;
     flex-direction: column;
     width: fit-content;
@@ -153,4 +157,25 @@
 
 .form__input-button--success {
     background: #468c00;
+}
+
+/* Call schedule */
+
+.call-schedule {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.call-schedule-table {
+    font-size: 2rem;
+    border-radius: 1rem;
+    background: white;
+    padding: 1rem;
+}
+
+.call-schedule-table__item {
+    padding: 0 0.5rem;
+    text-align: center;
 }
