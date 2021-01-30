@@ -10,7 +10,7 @@ class NotificationRepository
 
     private static function load(): void
     {
-        self::$connection = StorageRepository::getConnection();
+        self::$connection = DatabaseRepository::getConnection();
     }
 
     public static function getNotificationsForUser(int $idUser): array

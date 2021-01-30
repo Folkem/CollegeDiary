@@ -12,7 +12,7 @@ class NewsRepository
 
     private static function load(): void
     {
-        self::$connection = StorageRepository::getConnection();
+        self::$connection = DatabaseRepository::getConnection();
     }
 
     public static function getNews(): array

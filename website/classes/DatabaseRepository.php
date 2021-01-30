@@ -3,7 +3,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/configs.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
 
-class StorageRepository
+class DatabaseRepository
 {
     private static PDO $connection;
 
