@@ -4,8 +4,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 
 if (is_null($currentUser) ||
-    $currentUser->getRole() !== 'Адміністратор' &&
-    $currentUser->getRole() !== 'Завідувач відділення') {
+    $currentUser->getRole() !== UserRoles::ADMINISTRATOR &&
+    $currentUser->getRole() !== UserRoles::DEPARTMENT_HEAD) {
     header("Location: /");
     return;
 }
@@ -25,14 +25,13 @@ if (is_null($currentUser) ||
     <link rel="stylesheet" href="/styles/sections.css">
     <link rel="stylesheet" href="/styles/general.css">
     <script src="/scripts/sections.js"></script>
-    <script src="/scripts/settings.js"></script>
 </head>
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
 
 <div class="wrapper">
 
-    тут пока что пусто
+
 
 </div>
 

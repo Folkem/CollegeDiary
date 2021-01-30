@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/logging.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 
-if (isset($_POST['action']) && isset($currentUser)) {
+if (isset($_POST['action'], $currentUser)) {
     $action = $_POST['action'];
     $response = [];
 
@@ -46,7 +46,7 @@ function changePassword($currentUser): array
 
             if (password_verify($oldPassword, $currentUser->getPassword())) {
                 $currentUser->setPassword($newPassword);
-                $updateResult = StorageRepository::updateUser($currentUser);
+                $updateResult = UserRepository::updateUser($currentUser);
                 if ($updateResult === true) {
                     $result['status'] = 'success';
                     $result['message_places'] = ['general'];
@@ -104,7 +104,7 @@ function changeAvatar($currentUser): array
 
                     $oldAvatarPath = $currentUser->getAvatarPath();
                     $currentUser->setAvatarPath($newFileName);
-                    $updateResult = StorageRepository::updateUser($currentUser);
+                    $updateResult = UserRepository::updateUser($currentUser);
                     if ($updateResult === true) {
                         $avatarsFolderPath = $_SERVER['DOCUMENT_ROOT'] . '/media/user_avatars/';
 

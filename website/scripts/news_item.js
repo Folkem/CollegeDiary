@@ -32,6 +32,7 @@ window.addEventListener('load', () => {
                 const commentItemElement = buildCommentItemElement(commentContent);
                 commentList.appendChild(commentItemElement);
                 commentTextarea.value = "";
+                responseBlock.innerHTML = message;
             } else {
                 responseBlock.innerHTML = message;
             }

@@ -6,7 +6,7 @@ class Notification
     private int $id;
     private int $userId;
     private string $comment;
-    private string $link;
+    private ?string $link;
     private bool $read;
     private DateTimeImmutable $date;
 
@@ -67,7 +67,7 @@ class Notification
     /**
      * @return string
      */
-    public function getLink(): string
+    public function getLink(): ?string
     {
         return $this->link;
     }
@@ -76,7 +76,7 @@ class Notification
      * @param string $link
      * @return Notification
      */
-    public function setLink(string $link): Notification
+    public function setLink(?string $link): Notification
     {
         $this->link = $link;
         return $this;
@@ -103,7 +103,7 @@ class Notification
     /**
      * @return DateTimeImmutable
      */
-    public function getDate(): DateTimeImmutable
+    public function getPublishDate(): DateTimeImmutable
     {
         return $this->date;
     }
@@ -112,7 +112,7 @@ class Notification
      * @param DateTimeImmutable $date
      * @return Notification
      */
-    public function setDate(DateTimeImmutable $date): Notification
+    public function setPublishDate(DateTimeImmutable $date): Notification
     {
         $this->date = $date;
         return $this;

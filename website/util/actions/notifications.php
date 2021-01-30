@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/logging.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 
-if (isset($_POST['action'], $_POST['notifications']) && isset($currentUser)) {
+if (isset($_POST['action'], $_POST['notifications'], $currentUser)) {
     $action = $_POST['action'];
     $notifications = $_POST['notifications'];
     $response = [];
@@ -47,7 +47,7 @@ function markReadNotifications(int $userId, array $notifications): array
     $result = ['', []];
 
     $requestNotificationCount = count($notifications);
-    $updatedNotifications = StorageRepository::markReadNotifications($userId, $notifications);
+    $updatedNotifications = NotificationRepository::markReadNotifications($userId, $notifications);
     $updatedNotificationCount = count($updatedNotifications);
 
     $result['notifications'] = $updatedNotifications;
@@ -71,7 +71,7 @@ function deleteNotifications(int $userId, array $notifications): array
     $result = ['', []];
 
     $requestNotificationCount = count($notifications);
-    $deletedNotifications = StorageRepository::deleteNotifications($userId, $notifications);
+    $deletedNotifications = NotificationRepository::deleteNotifications($userId, $notifications);
     $deletedNotificationCount = count($deletedNotifications);
 
     $result['notifications'] = $deletedNotifications;

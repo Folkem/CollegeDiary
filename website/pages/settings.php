@@ -125,7 +125,7 @@ if (is_null($currentUser)) {
                             <th class="call-schedule-table__item">Кінець</th>
                         </tr>
                         <?php
-                        $callSchedule = StorageRepository::getCallSchedule();
+                        $callSchedule = CallScheduleRepository::getCallSchedule();
                         foreach ($callSchedule as $callScheduleItem):?>
 
                             <tr class="call-schedule-table__row">

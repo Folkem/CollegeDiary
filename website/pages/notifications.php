@@ -1,17 +1,16 @@
 <?php
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 
-if (!isset($currentUser)) {
+if (is_null($currentUser)) {
     header("Location: /");
     return;
 }
 
 setlocale(LC_ALL, 'uk_UA.UTF-8');
 
-$notificationCount = StorageRepository::
-getUnreadNotificationCountForUser($currentUser->getId());
+$notificationCount = NotificationRepository::
+    getUnreadNotificationCountForUser($currentUser->getId());
 
 ?>
 <!doctype html>
@@ -51,32 +50,32 @@ getUnreadNotificationCountForUser($currentUser->getId());
         </div>
         <div class="notification-list" id="notification-list">
             <?php
-            $notificationList = StorageRepository::getNotificationsForUser($currentUser->getId());
+            $notificationList = NotificationRepository::getNotificationsForUser($currentUser->getId());
             foreach ($notificationList as $notification):
                 $id = $notification->getId();
                 $comment = $notification->getComment();
                 $link = $notification->getLink();
                 $isRead = $notification->isRead();
-                $date = $notification->getDate();
+                $publishDate = $notification->getPublishDate();
                 ?>
 
                 <div class="notification notification--<?= $isRead ? 'read' : 'unread' ?>">
                     <div class="notification__id">
                         <?= $id ?>
                     </div>
-                    <div class="notification__date-pure">
-                        <?= $date->format('Y/m/d') ?>
+                    <div class="notification__publish-date-pure">
+                        <?= $publishDate->format('Y/m/d') ?>
                     </div>
-                    <div class="notification__date">
-                        <?= strftime('%e %B %Y', strtotime($date->format('Y/m/d'))) ?>
+                    <div class="notification__publish-date">
+                        <?= strftime('%e %B %Y', strtotime($publishDate->format('Y/m/d'))) ?>
                     </div>
                     <div class="notification__time">
-                        <?= $date->format('H:i:s') ?>
+                        <?= $publishDate->format('H:i:s') ?>
                     </div>
                     <div class="notification__comment">
                         <?= $comment ?>
                     </div>
-                    <a class="link notification__link"
+                    <a class="link notification__link <?= is_null($link) ? 'invisible' : '' ?>"
                        href="<?= $link ?>">
                         Посилання
                     </a>

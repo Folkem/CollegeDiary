@@ -9,7 +9,7 @@ if (isset($_POST['email'])) {
     $response = [];
 
     $email = $_POST['email'];
-    $foundUser = StorageRepository::getUserByEmail($email);
+    $foundUser = UserRepository::getUserByEmail($email);
 
     if (is_null($foundUser)) {
         $response['message'] = 'Користувача з даною поштою не було знайдено';
@@ -32,7 +32,7 @@ MESSAGE;
 
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
         $foundUser->setPassword($hashedPassword);
-        $userWasUpdated = StorageRepository::updateUser($foundUser);
+        $userWasUpdated = UserRepository::updateUser($foundUser);
 
         if ($userWasUpdated) {
             $transport = new Swift_SmtpTransport(MAIL_SMTP_HOST, MAIL_SMTP_PORT, MAIL_SMTP_ENC);

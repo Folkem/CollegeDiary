@@ -7,8 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
         <div class="login-menu-cover hidden" id="login-menu">
             <div class="login-menu-main">
                 <h1 class="login-menu-header">Авторизація</h1>
-                <span class="login-menu-status-message" id="login-menu-status-message">
-            </span>
+                <span class="login-menu-status-message" id="login-menu-status-message"></span>
                 <form class="login-form" id="login-form" onsubmit="return false;">
                     <label class="login-form__label">
                         <input class="login-form__input" type="email"
@@ -58,8 +57,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                 <li>
                                     <a class="link" href="/pages/settings.php">Налаштування</a>
                                 </li>
-                                <?php if ($currentUser->getRole() === 'Адміністратор' ||
-                                    $currentUser->getRole() === 'Завідувач відділення'): ?>
+                                <?php if ($currentUser->getRole() === UserRoles::ADMINISTRATOR ||
+                                    $currentUser->getRole() === UserRoles::DEPARTMENT_HEAD): ?>
                                     <li>
                                         <a class="link" href="/pages/control_panel.php">Панель управління</a>
                                     </li>
@@ -80,11 +79,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                id="profile-notifications">
                                 <div class="notification-badge">
                                     <?php
-                                        $notificationCount = StorageRepository::
-                                            getUnreadNotificationCountForUser($currentUser->getId());
-                                        if ($notificationCount > 0) {
-                                            echo $notificationCount;
-                                        }
+                                    $notificationCount = NotificationRepository::
+                                    getUnreadNotificationCountForUser($currentUser->getId());
+                                    if ($notificationCount > 0) {
+                                        echo $notificationCount;
+                                    }
                                     ?>
                                 </div>
                             </i>

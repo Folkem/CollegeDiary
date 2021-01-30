@@ -28,7 +28,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
         $itemTextMaxLength = 300;
         $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
 
-        $newsArray = StorageRepository::getNews();
+        $newsArray = NewsRepository::getNews();
 
         foreach ($newsArray as $item): ?>
 

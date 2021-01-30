@@ -1,6 +1,5 @@
 <?php
 
-
 class CallScheduleItem
 {
     private int $lessonNumber;

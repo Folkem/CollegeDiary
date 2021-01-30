@@ -111,11 +111,11 @@
     display: none;
 }
 
-.notification__date-pure {
+.notification__publish-date-pure {
     display: none;
 }
 
-.notification__date {
+.notification__publish-date {
     height: fit-content;
     text-align: center;
     align-self: center;
