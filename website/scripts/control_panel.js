@@ -72,7 +72,7 @@ function onFileFormSubmit(userTypePrefix) {
 
     const formData = new FormData();
     formData.append('action', 'table-file');
-    formData.append('user-type', 'student');
+    formData.append('user-type', userTypePrefix);
     formData.append('table-file', file);
     formData.append('start-row', startRow);
     formData.append('name-cell', nameCell);
