@@ -8,12 +8,14 @@ if (isset($_POST['email'], $_POST['password'])) {
     $password = $_POST['password'];
 
     $users = UserRepository::getUsers();
-    $selectedUsers = array_filter($users, function($user) use ($email, $password) {
-        $isSameEmail = (strcasecmp($email, $user->getEmail()) == 0);
-        $isSamePassword = password_verify($password, $user->getPassword());
-
-        return $isSameEmail && $isSamePassword;
-    });
+    $selectedUsers = array_filter(
+        $users,
+        fn($user) => (strcasecmp($email, $user->getEmail()) == 0)
+    );
+    $selectedUsers = array_filter(
+        $selectedUsers,
+        fn($user) => password_verify($password, $user->getPassword())
+    );
     $selectedUsers = array_values($selectedUsers);
 
     $response = [];
