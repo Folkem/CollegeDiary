@@ -194,6 +194,27 @@
     height: 16vw;
 }
 
+/* Loader */
+
+.loader {
+    display: inline-block;
+    border: 0.5rem solid #cccccc; /* Light grey */
+    border-top: 0.5rem solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: spin 2s linear infinite;
+}
+
+.loader--hidden {
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Student form */
 
 .student-form {

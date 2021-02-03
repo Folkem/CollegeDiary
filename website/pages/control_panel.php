@@ -59,7 +59,8 @@ if (is_null($currentUser) ||
                 </div>
             </div>
             <div class="menu-content__item teachers-block hidden">
-                <h2 class="content-item__header">Додавання вчителів через excel</h2>
+                <h2 class="content-item__header">Додавання вчителів через excel
+                </h2>
                 <hr>
                 <div class="content-item__content">
                     <form class="form teacher-form" id="teacher-form" onsubmit="return false;">
@@ -102,6 +103,7 @@ if (is_null($currentUser) ||
                             </div>
                             <div class="form-item">
                                 <button class="form__button" type="submit">Підтвердіть зміни</button>
+                                <div class="loader loader--hidden" id="teacher-loader"></div>
                                 <div class="form__response-text" id="teacher-table-result"></div>
                             </div>
                         </div>
@@ -116,7 +118,8 @@ if (is_null($currentUser) ||
                 </div>
             </div>
             <div class="menu-content__item students-block">
-                <h2 class="content-item__header">Додавання студентів через excel</h2>
+                <h2 class="content-item__header">Додавання студентів через excel
+                </h2>
                 <hr>
                 <div class="content-item__content">
                     <form class="form student-form" id="student-form" onsubmit="return false;">
@@ -158,6 +161,7 @@ if (is_null($currentUser) ||
                             </div>
                             <div class="form-item">
                                 <button class="form__button" type="submit">Підтвердіть зміни</button>
+                                <div class="loader loader--hidden" id="student-loader"></div>
                                 <div class="form__response-text" id="student-table-result"></div>
                             </div>
                         </div>

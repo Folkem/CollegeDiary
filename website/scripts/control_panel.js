@@ -78,6 +78,8 @@ function onFileFormSubmit(userTypePrefix) {
     formData.append('name-cell', nameCell);
     formData.append('email-cell', emailCell);
 
+    const loader = document.querySelector(`#${userTypePrefix}-loader`);
+
     const ajaxRequest = new XMLHttpRequest();
     ajaxRequest.open('POST', '/util/actions/control_panel/file_form.php', true);
     ajaxRequest.onload = () => {
@@ -97,13 +99,18 @@ function onFileFormSubmit(userTypePrefix) {
                 resultMessageElement.className = 'form__response-text form__response-text--warning';
             }
             logElement.innerHTML = logMessage;
-            console.log(ajaxRequest.response);
         } catch (e) {
             alert('Виникла помилка на сервері. ' +
                 'Зверніться до розробника або спробуйте пізніше');
             console.log(e);
         }
     };
+    ajaxRequest.onloadstart = () => {
+        resultMessageElement.innerHTML = '';
+        resultMessageElement.className = 'form__response-text';
+        loader.classList.toggle('loader--hidden', false);
+    };
+    ajaxRequest.onloadend = () => loader.classList.toggle('loader--hidden', true);
     ajaxRequest.send(formData);
 }
 
