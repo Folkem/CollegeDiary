@@ -4,6 +4,8 @@
     "ext-pdo": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "swiftmailer/swiftmailer": "v6.2.5"
+    "swiftmailer/swiftmailer": "^v6.2.5",
+    "egulias/email-validator": "^2.1.25",
+    "shuchkin/simplexlsx": ">=0.8.21"
   }
 }

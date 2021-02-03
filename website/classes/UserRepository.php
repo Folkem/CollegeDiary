@@ -6,7 +6,9 @@ class UserRepository
 {
     private static PDO $connection;
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     private static function load(): void
     {
@@ -96,6 +98,57 @@ class UserRepository
             $statement->bindValue(':id', $id);
 
             $result = $statement->execute();
+        }
+
+        return $result;
+    }
+
+    public static function addUsers(array $usersToAdd): array
+    {
+        self::load();
+
+        $result = [
+            'addedCount' => 0,
+            'error_messages' => []
+        ];
+
+        $statement = self::$connection->prepare('insert into users 
+            (first_name, middle_name, last_name, email, password, id_role) 
+            values (:first_name, :middle_name, :last_name, :email, :password, :id_role)');
+
+        $firstName = null;
+        $middleName = null;
+        $lastName = null;
+        $email = null;
+        $password = null;
+        $idRole = null;
+        $statement->bindParam(':first_name', $firstName);
+        $statement->bindParam(':middle_name', $middleName);
+        $statement->bindParam(':last_name', $lastName);
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':password', $password);
+        $statement->bindParam(':id_role', $idRole);
+
+        foreach ($usersToAdd as $user) {
+            try {
+                $firstName = $user->getFirstName();
+                $middleName = $user->getMiddleName();
+                $lastName = $user->getLastName();
+                $email = $user->getEmail();
+                $password = $user->getPassword();
+                $idRole = $user->getRole();
+
+                $added = $statement->execute();
+                if ($added) {
+                    $result['addedCount']++;
+                }
+            } catch (Exception $e) {
+                if ($e->getCode() == 23000) {
+                    $result['error_messages'][] = 'Запис ' . $user->getEmail() . ' вже є';
+                } else {
+                    $result['error_messages'][] = 'Помилка ' . $e->getCode();
+                }
+            }
         }
 
         return $result;

@@ -11,7 +11,7 @@
     border-radius: 1rem;
     padding: 1rem;
     display: flex;
-    height: 40vw;
+    height: fit-content;
 }
 
 /* Menu buttons */
@@ -90,10 +90,9 @@
 }
 
 .form-item {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 40% 60%;
     font-size: 1.2rem;
-    justify-content: stretch;
     padding: 0.5rem;
     height: 4rem;
 }
@@ -113,22 +112,31 @@
     flex: 1;
 }
 
-.form__error-text {
+.form__number-input {
+    width: 5rem;
+    text-align: end;
+}
+
+.form__response-text {
+    border-radius: 2rem;
     flex: 2;
-    color: #8b0000;
     padding: 0.5rem;
     box-sizing: border-box;
     align-items: center;
     display: flex;
 }
 
-.form__success-text {
-    flex: 2;
-    color: #468c00;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    align-items: center;
-    display: flex;
+.form__response-text--error {
+    background-color: #8b0000;
+    color: white;
+}
+
+.form__response-text--success {
+    background-color: #468c00;
+}
+
+.form__response-text--warning {
+    background-color: #ffa500;
 }
 
 .form__button {
@@ -136,6 +144,7 @@
     border-radius: 2rem;
     background: #80eaff;
     height: fit-content;
+    width: fit-content;
     align-self: center;
 }
 
@@ -148,6 +157,7 @@
     border-radius: 2rem;
     background: #ff8080;
     height: fit-content;
+    width: fit-content;
     align-self: center;
 }
 
@@ -159,23 +169,57 @@
     background: #468c00;
 }
 
-/* Call schedule */
-
-.call-schedule {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.form__input-button--success:hover {
+    background: #397300;
 }
 
-.call-schedule-table {
-    font-size: 2rem;
-    border-radius: 1rem;
-    background: white;
-    padding: 1rem;
-}
+/* Response log */
 
-.call-schedule-table__item {
-    padding: 0 0.5rem;
+.response-log__header {
+    padding: 1rem;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 1.5rem;
     text-align: center;
+    height: fit-content;
+}
+
+.response-log__content {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    overflow-y: scroll;
+    height: 16vw;
+}
+
+/* Student form */
+
+.student-form {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.student-form__items {
+}
+
+.student-form__response-log {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Teacher form */
+
+.teacher-form {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.teacher-form__items {
+}
+
+.teacher-form__response-log {
+    padding: 1rem;
+    box-sizing: border-box;
 }
