@@ -27,4 +27,15 @@ class UserRoles
      * Завідуючий відділенням (заведующий отделением)
      */
     public const DEPARTMENT_HEAD = 5;
+
+    public static function getValues(): array
+    {
+        return [
+            1 => 'Адміністратор',
+            2 => 'Студент',
+            3 => 'Батько',
+            4 => 'Вчитель',
+            5 => 'Зав. відділенням'
+        ];
+    }
 }

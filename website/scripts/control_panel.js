@@ -81,7 +81,7 @@ function onFileFormSubmit(userTypePrefix) {
     const loader = document.querySelector(`#${userTypePrefix}-loader`);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/file_form.php', true);
+    ajaxRequest.open('POST', '/util/actions/control_panel/user_file_form.php', true);
     ajaxRequest.onload = () => {
         try {
             const parsedJsonResponse = JSON.parse(ajaxRequest.response);
@@ -114,8 +114,144 @@ function onFileFormSubmit(userTypePrefix) {
     ajaxRequest.send(formData);
 }
 
+function setUpUserForm() {
+    const userItemsElements = document.querySelectorAll('.user-item');
+    Array.from(userItemsElements)
+        .forEach((userItemElement) => {
+            const childrenElements = Array.from(userItemElement.children);
+            const idElement = childrenElements.filter(
+                value => value.classList.contains('user-item__id')
+            )[0];
+            const firstNameElement = childrenElements.filter(
+                value => value.classList.contains('user-item__first-name')
+            )[0];
+            const middleNameElement = childrenElements.filter(
+                value => value.classList.contains('user-item__middle-name')
+            )[0];
+            const lastNameElement = childrenElements.filter(
+                value => value.classList.contains('user-item__last-name')
+            )[0];
+            const emailElement = childrenElements.filter(
+                value => value.classList.contains('user-item__email')
+            )[0];
+            const roleElement = childrenElements.filter(
+                value => value.classList.contains('user-item__role')
+            )[0].children.item(0);
+            const groupElement = childrenElements.filter(
+                value => value.classList.contains('user-item__group')
+            )[0].children.item(0);
+            const updateButtonElement = Array.from(
+                childrenElements.filter(
+                    value => value.classList.contains('user-item__buttons')
+                )[0].children
+            ).filter(
+                value => value.classList.contains('user-item__button-update')
+            )[0];
+            const deleteButtonElement = Array.from(
+                childrenElements.filter(
+                    value => value.classList.contains('user-item__buttons')
+                )[0].children
+            ).filter(
+                value => value.classList.contains('user-item__button-delete')
+            )[0];
+
+            const userItem = {
+                'parent': userItemElement,
+                'id': idElement,
+                'first-name': firstNameElement,
+                'middle-name': middleNameElement,
+                'last-name': lastNameElement,
+                'email': emailElement,
+                'role': roleElement,
+                'group': groupElement,
+                'updateButton': updateButtonElement,
+                'deleteButton': deleteButtonElement
+            };
+
+            updateButtonElement.addEventListener('click', () => {
+                if (updateButtonElement.classList.contains('user-item__button-update--allowed')) {
+                    requestUserUpdate(userItem);
+                }
+            });
+            deleteButtonElement.addEventListener('click', () => {
+                requestUserDelete(userItem);
+            });
+
+            for (const userItemKey in userItem) {
+                const userItemValue = userItem[userItemKey];
+                userItemValue.addEventListener('input', () => {
+                    updateButtonElement.classList.toggle('user-item__button-update--allowed', true);
+                });
+            }
+        });
+}
+
+function requestUserUpdate(userItem) {
+    const logMessageElement = document.querySelector('#users-form-log');
+
+    const formData = new FormData();
+    formData.append('id', userItem['id'].innerHTML.trim());
+    formData.append('first-name', userItem['first-name'].innerHTML.trim());
+    formData.append('middle-name', userItem['middle-name'].innerHTML.trim());
+    formData.append('last-name', userItem['last-name'].innerHTML.trim());
+    formData.append('email', userItem['email'].innerHTML.trim());
+    formData.append('role', userItem['role'].value);
+    formData.append('group', userItem['group'].value);
+
+    const ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.open('POST', '/util/actions/control_panel/update_user.php', true);
+    ajaxRequest.onload = () => {
+        try {
+            const responseObject = JSON.parse(ajaxRequest.response);
+            const status = responseObject['status'];
+            const logMessage = responseObject['log_message'];
+
+            if (status === 'success') {
+                userItem['updateButton'].classList.toggle('user-item__button-update--allowed', false);
+            } else {
+                logMessageElement.innerHTML = logMessage;
+            }
+        } catch (e) {
+            alert('Вибачте, виникла ще не оброблена помилка. Зверніться до адміністратора');
+            console.log(e);
+        }
+    };
+    ajaxRequest.send(formData);
+}
+
+function requestUserDelete(userItem) {
+    const logMessageElement = document.querySelector('#users-form-log');
+
+    const userId = userItem['id'].innerHTML;
+
+    const formData = new FormData();
+    formData.append('user-id', userId);
+
+    const ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.open('POST', '/util/actions/control_panel/delete_user.php', true);
+    ajaxRequest.onload = () => {
+        try {
+            const responseObject = JSON.parse(ajaxRequest.response);
+            const status = responseObject['status'];
+            const logMessage = responseObject['log_message'];
+
+            if (status === 'success') {
+                const usersList = document.querySelector('.users-form__user-list');
+                usersList.removeChild(userItem['parent']);
+            } else if (status === 'failure') {
+                logMessageElement.innerHTML = logMessage;
+            }
+        } catch (e) {
+            alert('Виникла необроблена досі помилка. Зверніться до адміністратора');
+            console.log(e);
+        }
+    };
+    ajaxRequest.send(formData);
+}
+
 window.addEventListener('load', () => {
     setUpMenu();
     setUpStudentForm();
     setUpTeacherForm();
+    setUpUserForm();
 });

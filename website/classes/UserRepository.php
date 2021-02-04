@@ -42,61 +42,52 @@ class UserRepository
         return $result;
     }
 
-    public static function getUserByEmail(string $email): ?User
+    public static function getUserById(int $id): ?User
     {
-        self::load();
-        $result = null;
-
-        $statement = self::$connection->prepare("select u.id as 'id', first_name, middle_name,
-                last_name, full_name, email, password, r.user_role as 'role', avatar_path from users u
-                left join roles r on u.id_role = r.id
-                where email = :email");
-
-        if ($statement !== false) {
-            $statement->bindValue(':email', $email);
-            $statement->execute();
-
-            while (($statementArray = $statement->fetch()) !== false) {
-                if (isset($result)) {
-
-                    break;
-                }
-
-                $user = new User();
-                $user->setId((int)$statementArray['id'])
-                    ->setFirstName($statementArray['first_name'])
-                    ->setMiddleName($statementArray['middle_name'])
-                    ->setLastName($statementArray['last_name'])
-                    ->setFullName($statementArray['full_name'])
-                    ->setEmail($statementArray['email'])
-                    ->setPassword($statementArray['password'])
-                    ->setRole($statementArray['role'])
-                    ->setAvatarPath($statementArray['avatar_path']);
-
-                $result = $user;
-            }
-        }
-
-        return $result;
+        return self::getUserByField('id', $id);
     }
 
-    public static function updateUser(User $updatedUser): bool
+    public static function getUserByEmail(string $email): ?User
+    {
+        return self::getUserByField('email', $email);
+    }
+
+    public static function updateUser(User $user): bool
     {
         self::load();
         $result = true;
 
         $statement = self::$connection->prepare("update users 
-            set password = :password, avatar_path = :avatar_path
+            set first_name = :first_name, middle_name = :middle_name,
+                last_name = :last_name, email = :email, id_role = :id_role,
+                password = :password, avatar_path = :avatar_path
             where users.id = :id");
 
         if ($statement !== false) {
-            $newPassword = $updatedUser->getPassword();
-            $newAvatarPath = $updatedUser->getAvatarPath();
-            $id = $updatedUser->getId();
-            $statement->bindValue(':password', $newPassword);
-            $statement->bindValue(':avatar_path', $newAvatarPath);
-            $statement->bindValue(':id', $id);
+            $statement->bindValue(':id', $user->getId());
+            $statement->bindValue(':first_name', $user->getFirstName());
+            $statement->bindValue(':middle_name', $user->getMiddleName());
+            $statement->bindValue(':last_name', $user->getLastName());
+            $statement->bindValue(':email', $user->getEmail());
+            $statement->bindValue(':id_role', $user->getRole());
+            $statement->bindValue(':password', $user->getPassword());
+            $statement->bindValue(':avatar_path', $user->getAvatarPath());
 
+            $result = $statement->execute();
+        }
+
+        return $result;
+    }
+
+    public static function deleteUser(int $userId): bool
+    {
+        self::load();
+        $result = false;
+
+        $statement = self::$connection->prepare('delete from users where users.id = :id');
+
+        if ($statement !== false) {
+            $statement->bindValue(':id', $userId);
             $result = $statement->execute();
         }
 
@@ -143,10 +134,54 @@ class UserRepository
                     $result['addedCount']++;
                 }
             } catch (Exception $e) {
-                if ($e->getCode() == 23000) {
+                if ($e->getCode() == DatabaseErrors::DUPLICATE_ENTRY) {
                     $result['error_messages'][] = 'Запис ' . $user->getEmail() . ' вже є';
                 } else {
                     $result['error_messages'][] = 'Помилка ' . $e->getCode();
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    private static function getUserByField(string $field, string $value): ?User
+    {
+        self::load();
+        $result = null;
+
+        $actualField = null;
+        switch ($field) {
+            case 'id':
+                $actualField = 'id';
+                break;
+            case 'email':
+                $actualField = 'email';
+                break;
+        }
+
+        if ($actualField !== null) {
+            $statement = self::$connection->prepare("select id, first_name, middle_name,
+                last_name, full_name, email, password, id_role as 'role', avatar_path from users
+                where $actualField = :value");
+
+            if ($statement !== false) {
+                $statement->bindValue(':value', $value);
+                $statement->execute();
+
+                if (($statementArray = $statement->fetch()) !== false) {
+                    $user = new User();
+                    $user->setId((int)$statementArray['id'])
+                        ->setFirstName($statementArray['first_name'])
+                        ->setMiddleName($statementArray['middle_name'])
+                        ->setLastName($statementArray['last_name'])
+                        ->setFullName($statementArray['full_name'])
+                        ->setEmail($statementArray['email'])
+                        ->setPassword($statementArray['password'])
+                        ->setRole((int)$statementArray['role'])
+                        ->setAvatarPath($statementArray['avatar_path']);
+
+                    $result = $user;
                 }
             }
         }

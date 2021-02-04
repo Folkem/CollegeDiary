@@ -5,8 +5,8 @@ class User
     private int $id;
     private string $firstName;
     private ?string $middleName;
-    private string $fullName;
     private string $lastName;
+    private string $fullName;
     private string $email;
     private string $password;
     private int $role;

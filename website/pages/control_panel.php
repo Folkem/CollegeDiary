@@ -40,10 +40,10 @@ if (is_null($currentUser) ||
             <div class="menu-buttons__item">
                 Вчителі через excel
             </div>
-            <div class="menu-buttons__item menu-buttons__item--active">
+            <div class="menu-buttons__item">
                 Студенти через excel
             </div>
-            <div class="menu-buttons__item">
+            <div class="menu-buttons__item menu-buttons__item--active">
                 Користувачі
             </div>
         </div>
@@ -117,7 +117,7 @@ if (is_null($currentUser) ||
                     </form>
                 </div>
             </div>
-            <div class="menu-content__item students-block">
+            <div class="menu-content__item students-block hidden">
                 <h2 class="content-item__header">Додавання студентів через excel
                 </h2>
                 <hr>
@@ -175,9 +175,124 @@ if (is_null($currentUser) ||
                     </form>
                 </div>
             </div>
-            <div class="menu-content__item users-block hidden">
+            <div class="menu-content__item users-block">
                 <h2 class="content-item__header">Користувачі</h2>
                 <hr>
+                <div class="content-item__content">
+                    <div class="users-form">
+                        <div class="users-form__heading">
+                            <div class="users-form__header-item">Ім'я</div>
+                            <div class="users-form__header-item">По батькові</div>
+                            <div class="users-form__header-item">Прізвище</div>
+                            <div class="users-form__header-item">Пошта</div>
+                            <div class="users-form__header-item">Ранг</div>
+                            <div class="users-form__header-item">Група</div>
+                        </div>
+                        <div class="users-form__user-list">
+                            <?php
+                            $availableGroups = GroupRepository::getGroupList();
+                            $availableGroupsMap = array_combine(
+                                array_map(
+                                    fn($group) => $group->getId(),
+                                    $availableGroups
+                                ),
+                                $availableGroups
+                            );
+                            ksort($availableGroupsMap);
+                            $availableGroupsMap = array_map(
+                                function ($group) {
+                                    $shortName = $group->getSpeciality()->getShortName();
+                                    $yearAndNumber = $group->getGroupYear() . $group->getGroupNumber();
+                                    return "$shortName-$yearAndNumber";
+                                },
+                                $availableGroupsMap
+                            );
+
+                            $users = UserRepository::getUsers();
+                            $studentsByGroups = GroupRepository::getStudentGroupDistribution();
+                            foreach ($users as $user):
+                                $userId = $user->getId();
+                                $firstName = $user->getFirstName();
+                                $middleName = $user->getMiddleName();
+                                $lastName = $user->getLastName();
+                                $roleId = $user->getRole();
+                                $email = $user->getEmail();
+                                $groupId = -1;
+                                if (isset($studentsByGroups[$userId])) {
+                                    $groupId = $studentsByGroups[$userId];
+                                }
+                                ?>
+                                <div class="user-item">
+                                    <div class="user-item__component user-item__id"
+                                         contenteditable="true">
+                                        <?= $userId ?>
+                                    </div>
+                                    <div class="user-item__component user-item__first-name"
+                                         contenteditable="true">
+                                        <?= $firstName ?>
+                                    </div>
+                                    <div class="user-item__component user-item__middle-name"
+                                         contenteditable="true">
+                                        <?= $middleName ?>
+                                    </div>
+                                    <div class="user-item__component user-item__last-name"
+                                         contenteditable="true">
+                                        <?= $lastName ?>
+                                    </div>
+                                    <div class="user-item__component user-item__email"
+                                         contenteditable="true">
+                                        <?= $email ?>
+                                    </div>
+                                    <div class="user-item__component user-item__role">
+                                        <!--suppress HtmlFormInputWithoutLabel -->
+                                        <select>
+                                            <?php
+                                            $availableUserRoles = UserRoles::getValues();
+                                            foreach ($availableUserRoles as
+                                                     $availableUserRoleId => $availableUserRole):
+                                                ?>
+                                                <option value="<?= $availableUserRoleId ?>"
+                                                    <?= $roleId === $availableUserRoleId ? 'selected' : '' ?>>
+                                                    <?= $availableUserRole ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="user-item__component user-item__group">
+                                        <!--suppress HtmlFormInputWithoutLabel -->
+                                        <select>
+                                            <option selected></option>
+                                            <?php
+
+                                            foreach ($availableGroupsMap as
+                                                     $availableGroupId => $availableGroupName):
+                                                ?>
+                                                <option value="<?= $availableGroupId ?>"
+                                                    <?= (int)$groupId === (int)$availableGroupId ? 'selected' : '' ?>>
+                                                    <?= $availableGroupName ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="user-item__component user-item__buttons">
+                                        <div class="user-item__button user-item__button-update fa fa-user-edit fa-2x"
+                                             title="Зберегти зміни"></div>
+                                        <div class="user-item__button user-item__button-delete fa fa-trash fa-2x"
+                                             title="Видалити запис"></div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <div class="users-response-log">
+                        <div class="response-log__header">Лог</div>
+                        <div class="response-log__content"
+                             id="users-form-log">
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
