@@ -59,14 +59,14 @@
     padding: 1rem;
 }
 
-.content-item__header {
+.menu-content__header {
     font-size: 2.5rem;
     padding: 1rem;
 }
 
 /* Form */
 
-.content-item__content {
+.menu-content__form {
     padding: 1rem;
     display: flex;
     flex-direction: row;
@@ -90,6 +90,7 @@
 }
 
 .form-item {
+    width: 100%;
     display: flex;
     flex-direction: row;
     font-size: 1.2rem;
@@ -101,7 +102,7 @@
 .form__label {
     align-self: center;
     padding-right: 1rem;
-    flex: 1;
+    flex: 2;
 }
 
 .form__input {

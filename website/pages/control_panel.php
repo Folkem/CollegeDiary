@@ -181,12 +181,36 @@ if (is_null($currentUser) ||
                 <div class="content-item__content">
                     <div class="users-form">
                         <div class="users-form__heading">
-                            <div class="users-form__header-item">Ім'я</div>
-                            <div class="users-form__header-item">По батькові</div>
-                            <div class="users-form__header-item">Прізвище</div>
-                            <div class="users-form__header-item">Пошта</div>
-                            <div class="users-form__header-item">Ранг</div>
-                            <div class="users-form__header-item">Група</div>
+                            <div class="users-form__header-item">
+                                Ім'я
+                                <i class="fa fa-sort users-form__sort-button"
+                                   data-role="first-name"></i>
+                            </div>
+                            <div class="users-form__header-item">
+                                По батькові
+                                <i class="fa fa-sort users-form__sort-button"
+                                   data-role="middle-name"></i>
+                            </div>
+                            <div class="users-form__header-item">
+                                Прізвище
+                                <i class="fa fa-sort users-form__sort-button"
+                                   data-role="last-name"></i>
+                            </div>
+                            <div class="users-form__header-item">
+                                Пошта
+                                <i class="fa fa-sort users-form__sort-button"
+                                   data-role="email"></i>
+                            </div>
+                            <div class="users-form__header-item">
+                                Ранг
+                                <i class="fa fa-sort users-form__sort-button"
+                                   data-role="role"></i>
+                            </div>
+                            <div class="users-form__header-item">
+                                Група
+                                <i class="fa fa-sort users-form__sort-button"
+                                   data-role="group"></i>
+                            </div>
                         </div>
                         <div class="users-form__user-list">
                             <?php

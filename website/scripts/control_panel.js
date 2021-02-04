@@ -116,6 +116,7 @@ function onFileFormSubmit(userTypePrefix) {
 
 function setUpUserForm() {
     const userItemsElements = document.querySelectorAll('.user-item');
+    const userItems = [];
     Array.from(userItemsElements)
         .forEach((userItemElement) => {
             const childrenElements = Array.from(userItemElement.children);
@@ -168,6 +169,8 @@ function setUpUserForm() {
                 'deleteButton': deleteButtonElement
             };
 
+            userItems.push(userItem);
+
             updateButtonElement.addEventListener('click', () => {
                 if (updateButtonElement.classList.contains('user-item__button-update--allowed')) {
                     requestUserUpdate(userItem);
@@ -184,6 +187,31 @@ function setUpUserForm() {
                 });
             }
         });
+    this['userItems'] = userItems;
+
+    const userListSortButtons = Array.from(document.querySelectorAll('.users-form__sort-button'));
+    for (const userListSortButton of userListSortButtons) {
+        userListSortButton.addEventListener('click', () => {
+            userListSortButtons
+                .filter((button) => button !== userListSortButton)
+                .forEach(
+                    (button) => button.className = 'fa fa-sort users-form__sort-button'
+                );
+            if (userListSortButton.classList.contains('fa-sort')) {
+                userListSortButton.classList.toggle('fa-sort', false);
+                userListSortButton.classList.toggle('fa-sort-up', true);
+                sortUsersByColumn(userListSortButton.getAttribute('data-role'), 'up');
+            } else if (userListSortButton.classList.contains('fa-sort-up')) {
+                userListSortButton.classList.toggle('fa-sort-up', false);
+                userListSortButton.classList.toggle('fa-sort-down', true);
+                sortUsersByColumn(userListSortButton.getAttribute('data-role'), 'down');
+            } else {
+                userListSortButton.classList.toggle('fa-sort-down', false);
+                userListSortButton.classList.toggle('fa-sort', true);
+                sortUsersByColumn();
+            }
+        });
+    }
 }
 
 function requestUserUpdate(userItem) {
@@ -238,6 +266,7 @@ function requestUserDelete(userItem) {
             if (status === 'success') {
                 const usersList = document.querySelector('.users-form__user-list');
                 usersList.removeChild(userItem['parent']);
+                this.userItems.splice(this.userItems.indexOf(userItem), 1);
             } else if (status === 'failure') {
                 logMessageElement.innerHTML = logMessage;
             }
@@ -247,6 +276,45 @@ function requestUserDelete(userItem) {
         }
     };
     ajaxRequest.send(formData);
+}
+
+function sortUsersByColumn(column, side) {
+    const userList = document.querySelector('.users-form__user-list');
+
+    if (column === undefined) {
+        column = 'id';
+    }
+    if (['role', 'group'].includes(column)) {
+        this.userItems.sort((ui1, ui2) => {
+            const firstValue = ui1[column].value;
+            const secondValue = ui2[column].value;
+
+            if (side === 'up') {
+                return firstValue - secondValue;
+            } else {
+                return secondValue - firstValue;
+            }
+        });
+    } else if (column === 'id') {
+        this.userItems.sort((ui1, ui2) => {
+            const firstValue = ui1['id'].innerHTML;
+            const secondValue = ui2['id'].innerHTML;
+
+            return firstValue - secondValue;
+        });
+    } else {
+        this.userItems.sort((ui1, ui2) => {
+            const firstValue = ui1[column].innerHTML.trim();
+            const secondValue = ui2[column].innerHTML.trim();
+
+            if (side === 'up') {
+                return firstValue.localeCompare(secondValue);
+            } else {
+                return secondValue.localeCompare(firstValue);
+            }
+        });
+    }
+    this.userItems.forEach(userItem => userList.appendChild(userItem['parent']));
 }
 
 window.addEventListener('load', () => {

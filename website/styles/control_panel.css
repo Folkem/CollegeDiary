@@ -269,7 +269,7 @@
 }
 
 :root {
-    --user-form-grid-template: 12% 12% 12% 30% 15% 10% 9%;
+    --user-form-grid-template: 12% 14% 15% 26% 15% 10% 8%;
 }
 
 .users-form__heading {
@@ -290,6 +290,13 @@
     align-self: center;
     padding: 0.7rem;
     box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.users-form__sort-button {
+    align-self: center;
+    cursor: pointer;
 }
 
 /* User item */
