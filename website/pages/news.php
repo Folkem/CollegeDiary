@@ -29,6 +29,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
         $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
 
         $newsArray = NewsRepository::getNews();
+        usort(
+            $newsArray,
+            function ($firstNewsItem, $secondNewsItem) {
+                $firstDate = $firstNewsItem->getDate();
+                $secondDate = $secondNewsItem->getDate();
+
+                $difference = $firstDate->diff($secondDate);
+
+                if ($difference->days == 0) {
+                    return 0;
+                } elseif ($difference->invert == 0) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        );
 
         foreach ($newsArray as $item): ?>
 
