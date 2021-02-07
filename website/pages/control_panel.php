@@ -34,7 +34,7 @@ if (is_null($currentUser) ||
 <div class="wrapper">
     <div class="menu">
         <div class="menu-buttons">
-            <div class="menu-buttons__item">
+            <div class="menu-buttons__item menu-buttons__item--active">
                 Педагогічна нагрузка
             </div>
             <div class="menu-buttons__item">
@@ -43,18 +43,81 @@ if (is_null($currentUser) ||
             <div class="menu-buttons__item">
                 Студенти через excel
             </div>
-            <div class="menu-buttons__item menu-buttons__item--active">
+            <div class="menu-buttons__item">
                 Користувачі
             </div>
         </div>
         <div class="menu-content">
-            <div class="menu-content__item work-distribution-block hidden">
+            <div class="menu-content__item work-distribution-block">
                 <h2 class="content-item__header">Педагогічна нагрузка</h2>
                 <hr>
-                <div class="">
+                <div class="work-distribution__file">
+                    <h3 class="content-item__subheader">Файл
+                    </h3>
+                    <div class="content-item__content">
+                        <form class="form work-distribution-form" id="work-distribution-form"
+                              onsubmit="return false;">
+                            <div class="work-distribution-form__items">
+                                <div class="form-item">
+                                    <label class="form__label" for="work-distribution-table-file">
+                                        Файл з таблицею
+                                    </label>
+                                    <div id="work-distribution-table-file-button"
+                                         class="form__input-button">
+                                        Завантажте файл
+                                    </div>
+                                    <input id="work-distribution-table-file" name="work-distribution-file"
+                                           class="hidden" type="file">
+                                </div>
+                                <div class="form-item">
+                                    <label class="form__label" for="work-distribution-table-start-row">
+                                        Номер рядку, з якого починаються дані
+                                    </label>
+                                    <input id="work-distribution-table-start-row"
+                                           class="form__input form__number-input"
+                                           type="number" required value="7">
+                                </div>
+                                <div class="form-item">
+                                    <label class="form__label" for="work-distribution-table-subject-cell">
+                                        Номер стовпця з предметом
+                                    </label>
+                                    <input id="work-distribution-table-subject-cell"
+                                           class="form__input form__number-input"
+                                           type="number" required value="1">
+                                </div>
+                                <div class="form-item">
+                                    <label class="form__label" for="work-distribution-table-name-cell">
+                                        Номер стовпця з ПІБ
+                                    </label>
+                                    <input id="work-distribution-table-name-cell"
+                                           class="form__input form__number-input"
+                                           type="number" required value="2">
+                                </div>
+                                <div class="form-item">
+                                    <label class="form__label" for="work-distribution-table-group-cell">
+                                        Номер стовпця з групою
+                                    </label>
+                                    <input id="work-distribution-table-group-cell"
+                                           class="form__input form__number-input"
+                                           type="number" required value="27">
+                                </div>
+                                <div class="form-item">
+                                    <button class="form__button" type="submit">Підтвердіть зміни</button>
+                                    <div class="loader loader--hidden" id="work-distribution-loader"></div>
+                                    <div class="form__response-text" id="work-distribution-table-result"></div>
+                                </div>
+                            </div>
+                            <div class="work-distribution-form__response-log">
+                                <div class="response-log__header">Лог</div>
+                                <div class="response-log__content"
+                                     id="work-distribution-file-form-log">
 
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="">
+                <div class="work-distribution__table">
 
                 </div>
             </div>
@@ -175,7 +238,7 @@ if (is_null($currentUser) ||
                     </form>
                 </div>
             </div>
-            <div class="menu-content__item users-block">
+            <div class="menu-content__item users-block hidden">
                 <h2 class="content-item__header">Користувачі</h2>
                 <hr>
                 <div class="content-item__content">

@@ -24,8 +24,8 @@ function decomposeUserFullName($fullName): array
     $parts = explode(" ", $fullName);
     if (count($parts) == 2) {
         $result[0] = $parts[0];
-        $result[1] = null;
-        $result[2] = $parts[1];
+        $result[1] = $parts[1];
+        $result[2] = null;
     } else {
         $result = [...$parts];
     }

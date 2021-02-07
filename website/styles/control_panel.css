@@ -64,6 +64,12 @@
     padding: 1rem;
 }
 
+.content-item__subheader {
+    font-size: 1.8rem;
+    padding: 0.7rem;
+    text-align: center;
+}
+
 /* Form */
 
 .content-item__content {
@@ -355,4 +361,19 @@
 
 .user-item__button-delete:hover {
     color: #990000;
+}
+
+/* Work distribution */
+
+.work-distribution-form {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.work-distribution-form__items {
+}
+
+.work-distribution-form__response-log {
+    padding: 1rem;
+    box-sizing: border-box;
 }

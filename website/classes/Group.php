@@ -78,4 +78,17 @@ class Group
         $this->groupYear = $groupYear;
         return $this;
     }
+
+    public function getReadableName(bool $withHyphen): string
+    {
+        $number = $this->groupNumber;
+        $year = $this->groupYear;
+        $specialityShortName = $this->speciality->getShortName();
+
+        if ($withHyphen) {
+            return $specialityShortName . "-" . $year . $number;
+        } else {
+            return $specialityShortName . $year . $number;
+        }
+    }
 }

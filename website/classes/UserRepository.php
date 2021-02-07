@@ -42,14 +42,19 @@ class UserRepository
         return $result;
     }
 
+    public static function getUsersWithRole(int $role): array
+    {
+        return self::getUsersByField('role', $role, false);
+    }
+
     public static function getUserById(int $id): ?User
     {
-        return self::getUserByField('id', $id);
+        return self::getSingleUserByField('id', $id);
     }
 
     public static function getUserByEmail(string $email): ?User
     {
-        return self::getUserByField('email', $email);
+        return self::getSingleUserByField('email', $email);
     }
 
     public static function updateUser(User $user): bool
@@ -145,10 +150,16 @@ class UserRepository
         return $result;
     }
 
-    private static function getUserByField(string $field, string $value): ?User
+    private static function getSingleUserByField(string $field, string $value): ?User
+    {
+        return self::getUsersByField($field, $value, true)[0];
+    }
+
+    private static function getUsersByField(string $field, $value, bool $single): array
     {
         self::load();
-        $result = null;
+
+        $result = [];
 
         $actualField = null;
         switch ($field) {
@@ -157,6 +168,9 @@ class UserRepository
                 break;
             case 'email':
                 $actualField = 'email';
+                break;
+            case 'role':
+                $actualField = 'id_role';
                 break;
         }
 
@@ -169,7 +183,7 @@ class UserRepository
                 $statement->bindValue(':value', $value);
                 $statement->execute();
 
-                if (($statementArray = $statement->fetch()) !== false) {
+                while (($statementArray = $statement->fetch()) !== false) {
                     $user = new User();
                     $user->setId((int)$statementArray['id'])
                         ->setFirstName($statementArray['first_name'])
@@ -181,7 +195,10 @@ class UserRepository
                         ->setRole((int)$statementArray['role'])
                         ->setAvatarPath($statementArray['avatar_path']);
 
-                    $result = $user;
+                    $result[] = $user;
+                    if ($single) {
+                        break;
+                    }
                 }
             }
         }

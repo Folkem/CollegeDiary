@@ -68,14 +68,19 @@ if (
 
         $validator = new EmailValidator();
 
-        foreach ($rows as $rowIndex => $row) {
-            foreach ($row as $cellIndex => $cell) {
+        foreach ($rows as $rowIndex => $rowValue) {
+            foreach ($rowValue as $cellIndex => $cellValue) {
                 if ($cellIndex === $localEmailCellIndex) {
-                    if ($validator->isValid($cell, new RFCValidation())) {
-                        $fullName = $row[$localNameCellIndex];
+                    if ($validator->isValid($cellValue, new RFCValidation())) {
+                        $fullName = $rowValue[$localNameCellIndex];
+                        $fullName = str_replace(
+                            ['.', 'C', 'c', '- ', ' -'],
+                            [' ', 'С', 'с', '-', '-'],
+                            $fullName
+                        );
 
-                        [$lastName, $middleName, $firstName] = decomposeUserFullName($fullName);
-                        $email = $cell;
+                        [$lastName, $firstName, $middleName] = decomposeUserFullName($fullName);
+                        $email = $cellValue;
                         $randomPassword = getRandomString(16);
 
                         $newUser = (new User())
@@ -105,7 +110,7 @@ if (
             $message = 'Виникла помилка';
         } else {
             $status = 'warning';
-            $message = 'Не всі записи були добавлені';
+            $message = 'Не всі записи були добавлені: ' . $addingResult['addedCount'] . '/' . count($rows);
         }
         $log_message .= '<br>' . implode('<br>', $addingResult['error_messages']);
     } else {
