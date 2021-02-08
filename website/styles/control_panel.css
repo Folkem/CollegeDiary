@@ -267,6 +267,9 @@
     flex: 15;
     overflow-y: scroll;
     height: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
 }
 
 .users-form__user-list {
@@ -278,12 +281,39 @@
     --user-form-grid-template: 12% 14% 15% 26% 15% 10% 8%;
 }
 
-.users-form__heading {
+.users-form__add-button {
+    position: sticky;
+    top: 0;
+    font-size: 2rem;
+    padding: 0.5rem;
+    height: fit-content;
+    cursor: pointer;
+    background-color: #ededed;
+}
+
+.users-form__add-button:hover {
+    background-color: #d4d4d4;
+}
+
+.users-form__add-icon {
+    background-color: #32cd32;
+    border-radius: 50%;
+}
+
+.users-form__add-button:hover {
+    background-color: #32cd32;
+}
+
+.users-form__header {
+    position: sticky;
+    top: 0;
+    height: fit-content;
+}
+
+.users-form__headers-list {
     display: grid;
     grid-template-columns: var(--user-form-grid-template);
     height: fit-content;
-    position: sticky;
-    top: 0;
     background: #cccccc;
     box-sizing: border-box;
 }
@@ -317,6 +347,10 @@
     grid-template-columns: var(--user-form-grid-template);
 }
 
+.user-item--not-added {
+    background-color: rgba(122, 204, 41, 0.2);
+}
+
 .user-item__component {
     padding: 0.25rem;
     align-self: center;
@@ -340,6 +374,14 @@
 
 .user-item__button {
     cursor: pointer;
+}
+
+.user-item__button-add {
+    color: #008000;
+}
+
+.user-item__button-add:hover {
+    color: #004d00;
 }
 
 .user-item__button-update {

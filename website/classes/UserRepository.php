@@ -84,15 +84,27 @@ class UserRepository
         return $result;
     }
 
-    public static function deleteUser(int $userId): bool
+    public static function deleteUser($userValue, string $userField = 'id'): bool
     {
         self::load();
         $result = false;
 
-        $statement = self::$connection->prepare('delete from users where users.id = :id');
+        $actualField = null;
+
+        switch ($userField) {
+            case 'id':
+                $actualField = 'id';
+                break;
+            case 'email':
+                $actualField = 'email';
+                break;
+        }
+
+        $statement = self::$connection->prepare("delete from users 
+            where $actualField = :value");
 
         if ($statement !== false) {
-            $statement->bindValue(':id', $userId);
+            $statement->bindValue(':value', $userValue);
             $result = $statement->execute();
         }
 
@@ -200,6 +212,31 @@ class UserRepository
                         break;
                     }
                 }
+            }
+        }
+
+        return $result;
+    }
+
+    public static function addUser(User $user)
+    {
+        self::load();
+        $result = false;
+
+        $statement = self::$connection->prepare('insert into users 
+            (first_name, middle_name, last_name, email, password, id_role) values 
+            (:first_name, :middle_name, :last_name, :email, :password, :id_role)');
+
+        if ($statement !== false) {
+            $statement->bindValue(':first_name', $user->getFirstName());
+            $statement->bindValue(':middle_name', $user->getMiddleName());
+            $statement->bindValue(':last_name', $user->getLastName());
+            $statement->bindValue(':email', $user->getEmail());
+            $statement->bindValue(':password', $user->getPassword());
+            $statement->bindValue(':id_role', $user->getRole());
+
+            if ($result = $statement->execute()) {
+                $result = self::$connection->lastInsertId();
             }
         }
 

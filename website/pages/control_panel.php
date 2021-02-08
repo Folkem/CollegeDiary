@@ -243,36 +243,42 @@ if (is_null($currentUser) ||
                 <hr>
                 <div class="content-item__content">
                     <div class="users-form">
-                        <div class="users-form__heading">
-                            <div class="users-form__header-item">
-                                Ім'я
-                                <i class="fa fa-sort users-form__sort-button"
-                                   data-role="first-name"></i>
+                        <div class="users-form__header">
+                            <div class="users-form__add-button" id="users-form__add-button">
+                                <i class="fa fa-plus-circle users-form__add-icon"></i>
+                                Додати новий запис
                             </div>
-                            <div class="users-form__header-item">
-                                По батькові
-                                <i class="fa fa-sort users-form__sort-button"
-                                   data-role="middle-name"></i>
-                            </div>
-                            <div class="users-form__header-item">
-                                Прізвище
-                                <i class="fa fa-sort users-form__sort-button"
-                                   data-role="last-name"></i>
-                            </div>
-                            <div class="users-form__header-item">
-                                Пошта
-                                <i class="fa fa-sort users-form__sort-button"
-                                   data-role="email"></i>
-                            </div>
-                            <div class="users-form__header-item">
-                                Ранг
-                                <i class="fa fa-sort users-form__sort-button"
-                                   data-role="role"></i>
-                            </div>
-                            <div class="users-form__header-item">
-                                Група
-                                <i class="fa fa-sort users-form__sort-button"
-                                   data-role="group"></i>
+                            <div class="users-form__headers-list">
+                                <div class="users-form__header-item">
+                                    Ім'я
+                                    <i class="fa fa-sort users-form__sort-button"
+                                       data-role="first-name"></i>
+                                </div>
+                                <div class="users-form__header-item">
+                                    По батькові
+                                    <i class="fa fa-sort users-form__sort-button"
+                                       data-role="middle-name"></i>
+                                </div>
+                                <div class="users-form__header-item">
+                                    Прізвище
+                                    <i class="fa fa-sort users-form__sort-button"
+                                       data-role="last-name"></i>
+                                </div>
+                                <div class="users-form__header-item">
+                                    Пошта
+                                    <i class="fa fa-sort users-form__sort-button"
+                                       data-role="email"></i>
+                                </div>
+                                <div class="users-form__header-item">
+                                    Ранг
+                                    <i class="fa fa-sort users-form__sort-button"
+                                       data-role="role"></i>
+                                </div>
+                                <div class="users-form__header-item">
+                                    Група
+                                    <i class="fa fa-sort users-form__sort-button"
+                                       data-role="group"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="users-form__user-list">
@@ -310,8 +316,7 @@ if (is_null($currentUser) ||
                                 }
                                 ?>
                                 <div class="user-item">
-                                    <div class="user-item__component user-item__id"
-                                         contenteditable="true">
+                                    <div class="user-item__component user-item__id">
                                         <?= $userId ?>
                                     </div>
                                     <div class="user-item__component user-item__first-name"

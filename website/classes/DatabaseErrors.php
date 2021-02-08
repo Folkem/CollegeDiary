@@ -6,8 +6,13 @@ class DatabaseErrors
     {
     }
 
+    /* todo: 23000 sqlstate is for constraint violation
+        so you can't define, which error do you actually get here
+        (duplicate entry, foreign key violation etc.)
+    */
+
     /**
-     * @var int error code for duplicate entry constraint violation
+     * @var int error code for constraint violation
      */
     public const DUPLICATE_ENTRY = 23000;
 }

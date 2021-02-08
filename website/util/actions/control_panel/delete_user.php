@@ -10,7 +10,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/util/functions/general.php';
 if (
     isset(
         $currentUser,
-        $_POST['user-id']
+        $_POST['user-field'],
+        $_POST['user-value']
     )
     &&
     (
@@ -22,9 +23,10 @@ if (
     $status = '';
     $log_message = '';
 
-    $userId = (int) $_POST['user-id'];
+    $userField = $_POST['user-field'];
+    $userValue = $_POST['user-value'];
 
-    $userWasDeleted = UserRepository::deleteUser($userId);
+    $userWasDeleted = UserRepository::deleteUser($userValue, $userField);
 
     if ($userWasDeleted) {
         $status = 'success';

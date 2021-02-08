@@ -288,6 +288,180 @@ function setUpUserForm() {
             }
         });
     }
+
+    const addButton = document.querySelector('#users-form__add-button');
+    addButton.addEventListener('click', addNewUserElement);
+}
+
+function addNewUserElement() {
+    const userItemsContainer = document.querySelector('.users-form__user-list');
+    const newUserItemElement = buildUserItemElement();
+    if (userItemsContainer.hasChildNodes()) {
+        userItemsContainer.insertBefore(newUserItemElement, userItemsContainer.firstChild);
+    } else {
+        userItemsContainer.appendChild(newUserItemElement);
+    }
+
+    const userForm = document.querySelector('.users-form');
+    userForm.scroll({top: 0});
+}
+
+function buildUserItemElement() {
+    const userItemElement = document.createElement('div');
+
+    const idElement = document.createElement('div');
+    const firstNameElement = document.createElement('div');
+    const middleNameElement = document.createElement('div');
+    const lastNameElement = document.createElement('div');
+    const emailElement = document.createElement('div');
+    const roleElement = document.createElement('div');
+    const groupElement = document.createElement('div');
+    const buttonsElement = document.createElement('div');
+    const addButtonElement = document.createElement('div');
+    const updateButtonElement = document.createElement('div');
+    const deleteButtonElement = document.createElement('div');
+
+    userItemElement.className = 'user-item user-item--not-added';
+    idElement.className = 'user-item__component user-item__id';
+    firstNameElement.className = 'user-item__component user-item__first-name';
+    middleNameElement.className = 'user-item__component user-item__middle-name';
+    lastNameElement.className = 'user-item__component user-item__last-name';
+    emailElement.className = 'user-item__component user-item__email';
+    roleElement.className = 'user-item__component user-item__role';
+    groupElement.className = 'user-item__component user-item__group';
+    buttonsElement.className = 'user-item__component user-item__buttons';
+    addButtonElement.className = 'user-item__button user-item__button-add fa fa-user-plus fa-2x';
+    updateButtonElement.className = 'user-item__button user-item__button-update fa fa-user-edit fa-2x hidden';
+    deleteButtonElement.className = 'user-item__button user-item__button-delete fa fa-trash fa-2x';
+
+    firstNameElement.setAttribute('contenteditable', 'true');
+    middleNameElement.setAttribute('contenteditable', 'true');
+    lastNameElement.setAttribute('contenteditable', 'true');
+    emailElement.setAttribute('contenteditable', 'true');
+    roleElement.appendChild(buildUserItemRoleElement());
+    groupElement.appendChild(buildUserItemGroupElement());
+    buttonsElement.appendChild(addButtonElement);
+    buttonsElement.appendChild(updateButtonElement);
+    buttonsElement.appendChild(deleteButtonElement);
+
+    const userItem = {
+        'parent': userItemElement,
+        'id': idElement,
+        'first-name': firstNameElement,
+        'middle-name': middleNameElement,
+        'last-name': lastNameElement,
+        'email': emailElement,
+        'role': roleElement.children.item(0),
+        'group': groupElement.children.item(0),
+        'addButton': addButtonElement,
+        'updateButton': updateButtonElement,
+        'deleteButton': deleteButtonElement
+    };
+
+    for (const userItemKey in userItem) {
+        const userItemValue = userItem[userItemKey];
+        userItemValue.addEventListener('input', () => {
+            updateButtonElement.classList.toggle('user-item__button-update--allowed', true);
+        });
+    }
+
+    this['userItems'].push(userItem);
+
+    addButtonElement.addEventListener('click', () => {
+        requestUserAdd(userItem);
+    });
+    updateButtonElement.addEventListener('click', () => {
+        if (updateButtonElement.classList.contains('user-item__button-update--allowed')) {
+            requestUserUpdate(userItem);
+        }
+    });
+    deleteButtonElement.addEventListener('click', () => {
+        requestUserDelete(userItem);
+    });
+
+    userItemElement.appendChild(idElement);
+    userItemElement.appendChild(firstNameElement);
+    userItemElement.appendChild(middleNameElement);
+    userItemElement.appendChild(lastNameElement);
+    userItemElement.appendChild(emailElement);
+    userItemElement.appendChild(roleElement);
+    userItemElement.appendChild(groupElement);
+    buttonsElement.appendChild(updateButtonElement);
+    buttonsElement.appendChild(deleteButtonElement);
+    userItemElement.appendChild(buttonsElement);
+
+    return userItemElement;
+}
+
+function buildUserItemRoleElement() {
+    const userRoles = this['userRoles'];
+    const selectElement = document.createElement('select');
+    for (const userRoleIndex in userRoles) {
+        const newOptionElement = document.createElement('option');
+        newOptionElement.value = userRoleIndex;
+        // noinspection JSUnfilteredForInLoop
+        if (userRoles[userRoleIndex] === 'Студент') {
+            newOptionElement.selected = true;
+        }
+        // noinspection JSUnfilteredForInLoop
+        newOptionElement.innerHTML = userRoles[userRoleIndex];
+        selectElement.appendChild(newOptionElement);
+    }
+    return selectElement;
+}
+
+function buildUserItemGroupElement() {
+    const groups = this['groups'];
+    const selectElement = document.createElement('select');
+    const defaultOption = document.createElement('option');
+    defaultOption.selected = true;
+    selectElement.appendChild(defaultOption);
+    for (const groupIndex in groups) {
+        const newOptionElement = document.createElement('option');
+        newOptionElement.value = groupIndex;
+        // noinspection JSUnfilteredForInLoop
+        newOptionElement.innerHTML = groups[groupIndex];
+        selectElement.appendChild(newOptionElement);
+    }
+    return selectElement;
+}
+
+function requestUserAdd(userItem) {
+    const logMessageElement = document.querySelector('#users-form-log');
+
+    const formData = new FormData();
+    formData.append('first-name', userItem['first-name'].innerHTML.trim());
+    formData.append('middle-name', userItem['middle-name'].innerHTML.trim());
+    formData.append('last-name', userItem['last-name'].innerHTML.trim());
+    formData.append('email', userItem['email'].innerHTML.trim());
+    formData.append('role', userItem['role'].value);
+    formData.append('group', userItem['group'].value);
+
+    const ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.open('POST', '/util/actions/control_panel/add_user.php', true);
+    ajaxRequest.onload = () => {
+        try {
+            const responseObject = JSON.parse(ajaxRequest.response);
+            const status = responseObject['status'];
+            const logMessage = responseObject['log_message'];
+            const newUserId = responseObject['user-id'];
+
+            if (status === 'success') {
+                userItem['parent'].classList.toggle('user-item--not-added', false);
+                userItem['addButton'].remove();
+                delete userItem['addButton'];
+                userItem['updateButton'].classList.toggle('hidden', false);
+                userItem['id'].innerHTML = newUserId;
+                sortUsersByColumn();
+            } else {
+                logMessageElement.innerHTML = logMessage;
+            }
+        } catch (e) {
+            alert('Вибачте, виникла ще не оброблена помилка. Зверніться до адміністратора');
+            console.log(e);
+        }
+    };
+    ajaxRequest.send(formData);
 }
 
 function requestUserUpdate(userItem) {
@@ -326,42 +500,61 @@ function requestUserUpdate(userItem) {
 function requestUserDelete(userItem) {
     const logMessageElement = document.querySelector('#users-form-log');
 
-    const userId = userItem['id'].innerHTML;
+    const userId = userItem['id'].innerHTML.trim();
+    const userEmail = userItem['email'].innerHTML.trim();
 
-    const formData = new FormData();
-    formData.append('user-id', userId);
-
-    const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/delete_user.php', true);
-    ajaxRequest.onload = () => {
-        try {
-            const responseObject = JSON.parse(ajaxRequest.response);
-            const status = responseObject['status'];
-            const logMessage = responseObject['log_message'];
-
-            if (status === 'success') {
-                const usersList = document.querySelector('.users-form__user-list');
-                usersList.removeChild(userItem['parent']);
-                this.userItems.splice(this.userItems.indexOf(userItem), 1);
-            } else if (status === 'failure') {
-                logMessageElement.innerHTML = logMessage;
-            }
-        } catch (e) {
-            alert('Виникла необроблена досі помилка. Зверніться до адміністратора');
-            console.log(e);
+    if (userItem['parent'].classList.contains('user-item--not-added')) {
+        userItem['parent'].remove();
+        const userItems = this['userItems'];
+        userItems.splice(userItems.indexOf(userItem));
+    } else {
+        let field, value;
+        if (userId === '') {
+            field = 'email';
+            value = userEmail;
+        } else {
+            field = 'id';
+            value = userId;
         }
-    };
-    ajaxRequest.send(formData);
+
+        const formData = new FormData();
+        formData.append('user-field', field);
+        formData.append('user-value', value);
+
+        const ajaxRequest = new XMLHttpRequest();
+        ajaxRequest.open('POST', '/util/actions/control_panel/delete_user.php', true);
+        ajaxRequest.onload = () => {
+            try {
+                const responseObject = JSON.parse(ajaxRequest.response);
+                const status = responseObject['status'];
+                const logMessage = responseObject['log_message'];
+
+                if (status === 'success') {
+                    const usersList = document.querySelector('.users-form__user-list');
+                    const userItems = this['userItems'];
+                    usersList.removeChild(userItem['parent']);
+                    userItems.splice(userItems.indexOf(userItem), 1);
+                } else if (status === 'failure') {
+                    logMessageElement.innerHTML = logMessage;
+                }
+            } catch (e) {
+                alert('Виникла необроблена досі помилка. Зверніться до адміністратора');
+                console.log(e);
+            }
+        };
+        ajaxRequest.send(formData);
+    }
 }
 
 function sortUsersByColumn(column, side) {
     const userList = document.querySelector('.users-form__user-list');
+    const userItems = this['userItems'];
 
     if (column === undefined) {
         column = 'id';
     }
     if (['role', 'group'].includes(column)) {
-        this.userItems.sort((ui1, ui2) => {
+        userItems.sort((ui1, ui2) => {
             const firstValue = ui1[column].value;
             const secondValue = ui2[column].value;
 
@@ -372,14 +565,14 @@ function sortUsersByColumn(column, side) {
             }
         });
     } else if (column === 'id') {
-        this.userItems.sort((ui1, ui2) => {
+        userItems.sort((ui1, ui2) => {
             const firstValue = ui1['id'].innerHTML;
             const secondValue = ui2['id'].innerHTML;
 
             return firstValue - secondValue;
         });
     } else {
-        this.userItems.sort((ui1, ui2) => {
+        userItems.sort((ui1, ui2) => {
             const firstValue = ui1[column].innerHTML.trim();
             const secondValue = ui2[column].innerHTML.trim();
 
@@ -390,7 +583,25 @@ function sortUsersByColumn(column, side) {
             }
         });
     }
-    this.userItems.forEach(userItem => userList.appendChild(userItem['parent']));
+    userItems.forEach(userItem => userList.appendChild(userItem['parent']));
+}
+
+function uploadRoles() {
+    const ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.open('POST', '/util/actions/get_user_roles.php');
+    ajaxRequest.onload = () => {
+        window['userRoles'] = JSON.parse(ajaxRequest.response);
+    };
+    ajaxRequest.send();
+}
+
+function uploadGroups() {
+    const ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.open('POST', '/util/actions/get_groups.php');
+    ajaxRequest.onload = () => {
+        window['groups'] = JSON.parse(ajaxRequest.response);
+    };
+    ajaxRequest.send();
 }
 
 window.addEventListener('load', () => {
@@ -399,4 +610,6 @@ window.addEventListener('load', () => {
     setUpTeacherForm();
     setUpUserForm();
     setUpWorkDistributionFileForm();
+    uploadRoles();
+    uploadGroups();
 });

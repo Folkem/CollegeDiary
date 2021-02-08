@@ -31,7 +31,7 @@ if (
     $lastName = $_POST['last-name'];
     $email = $_POST['email'];
     $role = (int)$_POST['role'];
-    $group = (int)$_POST['group'];
+    $groupId = (int)$_POST['group'];
 
     $thisUser = UserRepository::getUserById($id);
     if ($thisUser !== null) {
@@ -42,7 +42,11 @@ if (
         $thisUser->setRole($role);
 
         $userWasUpdated = UserRepository::updateUser($thisUser);
-        $userGroupWasUpdated = GroupRepository::updateStudentGroup($id, $group);
+        if ($groupId != 0) {
+            $userGroupWasUpdated = GroupRepository::updateStudentGroup($id, $groupId);
+        } else {
+            $userGroupWasUpdated = true;
+        }
 
         if ($userWasUpdated && $userGroupWasUpdated) {
             $status = 'success';
