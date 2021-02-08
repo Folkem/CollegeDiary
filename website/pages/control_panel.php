@@ -26,7 +26,14 @@ if (is_null($currentUser) ||
     <link rel="stylesheet" href="/styles/general.css">
     <link rel="stylesheet" href="/styles/control_panel.css">
     <script src="/scripts/sections.js"></script>
-    <script src="/scripts/control_panel.js"></script>
+    <script src="/scripts/control_panel/user_form/requests.js"></script>
+    <script src="/scripts/control_panel/user_form/elements.js"></script>
+    <script src="/scripts/control_panel/user_form/general.js"></script>
+    <script src="/scripts/control_panel/student_form/main.js"></script>
+    <script src="/scripts/control_panel/teacher_form/main.js"></script>
+    <script src="/scripts/control_panel/work_distribution/main.js"></script>
+    <script src="/scripts/control_panel/general/functions.js"></script>
+    <script src="/scripts/control_panel/general/main.js"></script>
 </head>
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
