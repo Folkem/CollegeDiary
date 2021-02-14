@@ -15,6 +15,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
     <link rel="stylesheet" href="/styles/sections.css">
     <link rel="stylesheet" href="/styles/general.css">
     <link rel="stylesheet" href="/styles/error.css">
+    <script src="/scripts/sections.js"></script>
     <title>Помилка</title>
 </head>
 <body>
