@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.22, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.23, for Linux (x86_64)
 --
 -- Host: localhost    Database: college_diary
 -- ------------------------------------------------------
--- Server version	8.0.22-0ubuntu0.20.04.3
+-- Server version	8.0.23-0ubuntu0.20.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `call_schedule` (
   UNIQUE KEY `start` (`start`),
   UNIQUE KEY `end` (`end`),
   CONSTRAINT `call_schedule_chk_1` CHECK ((`end` > `start`))
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,7 +87,7 @@ CREATE TABLE `groups` (
   CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`id_speciality`) REFERENCES `specialities` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `groups_chk_1` CHECK (regexp_like(`group_number`,_utf8mb3'^[1-9]$')),
   CONSTRAINT `groups_chk_2` CHECK (regexp_like(`group_year`,_utf8mb3'^[1-9]$'))
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `keywords` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   CONSTRAINT `keywords_chk_1` CHECK (regexp_like(`name`,_utf8mb4'^[[[:alnum:]]_]+$'))
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,7 +181,7 @@ CREATE TABLE `news` (
   `image_path` varchar(256) NOT NULL DEFAULT (_utf8mb4'temp.jpg'),
   PRIMARY KEY (`id`),
   UNIQUE KEY `header` (`header`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,9 +200,9 @@ CREATE TABLE `news_comments` (
   PRIMARY KEY (`id`),
   KEY `id_item` (`id_item`),
   KEY `id_user` (`id_user`),
-  CONSTRAINT `news_comments_ibfk_1` FOREIGN KEY (`id_item`) REFERENCES `news` (`id`),
-  CONSTRAINT `news_comments_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+  CONSTRAINT `news_comments_ibfk_1` FOREIGN KEY (`id_item`) REFERENCES `news` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `news_comments_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +239,7 @@ CREATE TABLE `notifications` (
   PRIMARY KEY (`id`),
   KEY `id_user` (`id_user`),
   CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,7 +254,7 @@ CREATE TABLE `roles` (
   `user_role` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_role` (`user_role`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -273,7 +273,7 @@ CREATE TABLE `specialities` (
   UNIQUE KEY `full_name` (`full_name`),
   UNIQUE KEY `code` (`code`),
   UNIQUE KEY `short_name` (`short_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -338,7 +338,7 @@ CREATE TABLE `users` (
   KEY `users_fk_role` (`id_role`),
   CONSTRAINT `users_fk_role` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `users_email` CHECK (regexp_like(`email`,_utf8mb3'^[^@]+@[^@]+.[^@]{2,}$'))
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,19 +350,15 @@ DROP TABLE IF EXISTS `work_distribution`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `work_distribution` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `subgroup_number` char(1) DEFAULT NULL,
-  `students_count` varchar(2) DEFAULT NULL,
+  `subject` varchar(100) NOT NULL,
   `id_group` int unsigned NOT NULL,
   `id_teacher` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`,`subgroup_number`,`id_group`),
+  UNIQUE KEY `subject` (`subject`,`id_group`,`id_teacher`),
   KEY `id_group` (`id_group`),
   KEY `id_teacher` (`id_teacher`),
   CONSTRAINT `work_distribution_ibfk_3` FOREIGN KEY (`id_group`) REFERENCES `groups` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `work_distribution_ibfk_4` FOREIGN KEY (`id_teacher`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `work_distribution_chk_1` CHECK (((`subgroup_number` is null) or regexp_like(`subgroup_number`,_utf8mb3'^[1-9]{1}$'))),
-  CONSTRAINT `work_distribution_chk_2` CHECK (((`students_count` is null) or regexp_like(`students_count`,_utf8mb3'^([1-9]{1}[0-9]{1}|[1-9]{1})$')))
+  CONSTRAINT `work_distribution_ibfk_4` FOREIGN KEY (`id_teacher`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -375,4 +371,4 @@ CREATE TABLE `work_distribution` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-30 16:55:30
+-- Dump completed on 2021-02-15 15:42:58
