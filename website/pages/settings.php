@@ -18,10 +18,10 @@ if (is_null($currentUser)) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Налаштування — Онлайн-щоденник</title>
     <link rel="stylesheet" href="/styles/font-awesome/all.min.css">
-    <link rel="stylesheet" href="/styles/normalize.css">
-    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/util/normalize.css">
+    <link rel="stylesheet" href="/styles/util/reset.css">
     <link rel="stylesheet" href="/styles/sections.css">
-    <link rel="stylesheet" href="/styles/general.css">
+    <link rel="stylesheet" href="/styles/util/general.css">
     <link rel="stylesheet" href="/styles/settings.css">
     <script src="/scripts/sections.js"></script>
     <script src="/scripts/settings.js"></script>

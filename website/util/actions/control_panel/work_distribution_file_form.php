@@ -54,10 +54,9 @@ if (
         $teachersAndNameMap = [];
         foreach ($teachers as $teacher) {
             $fullName = $teacher->getFullName();
-//            $clearedFullName = str_replace(' ', '', $fullName);
             $teachersAndNameMap[$fullName] = $teacher;
         }
-        $groups = GroupRepository::getGroupList();
+        $groups = GroupRepository::getGroups();
         $groupsMap = [];
         foreach ($groups as $group) {
             $groupFullName = mb_strtolower($group->getReadableName(false));
@@ -66,11 +65,11 @@ if (
 
         $recordsToAdd = [];
 
-        foreach ($rows as $rowIndex => $row) {
+        excel_loop: foreach ($rows as $rowIndex => $row) {
             $record = new WorkDistributionRecord();
+
             $teacherNameAccepted = false;
             $groupNameAccepted = false;
-
             $errorMessage = '';
 
             foreach ($row as $cellIndex => $cellValue) {
@@ -87,12 +86,18 @@ if (
                         break;
                     case $localSubjectCellIndex:
                         // no validation (yet)
-                        $record->setSubject($cellValue);
+                        $subject = str_replace(
+                            ['_', '  '],
+                            '',
+                            $cellValue
+                        );
+                        $subject = trim($subject);
+                        $record->setSubject($subject);
                         break;
                     case $localGroupCellIndex:
                         $loweredCellGroupName = mb_strtolower($cellValue);
-                        if (mb_strripos($loweredCellGroupName, 'з') == 2) {
-                            continue 3;
+                        if (groupIsPartTime($loweredCellGroupName)) {
+                            continue 3; // excel_loop
                         } elseif (in_array($loweredCellGroupName, array_keys($groupsMap))) {
                             $groupNameAccepted = true;
                             $group = $groupsMap[$loweredCellGroupName];
@@ -124,7 +129,8 @@ if (
             $status = 'warning';
             $message = 'Не всі записи були добавлені: ' . $addingResult['addedCount'] . '/' . count($rows);
         }
-        $log_message .= '<br>' . implode('<br>', $addingResult['error_messages']);
+        $log_message .= '<br><hr>' . implode('<br>', $addingResult['error_messages']);
+        $log_message = trim($log_message);
     } else {
         $status = 'failure';
         $message = 'Виникла помилка обробки файлу, продивіться лог';

@@ -32,3 +32,7 @@ function decomposeUserFullName($fullName): array
 
     return $result;
 }
+
+function groupIsPartTime($groupName): bool {
+    return mb_strripos(mb_strtolower($groupName), 'з') == 2;
+}

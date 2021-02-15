@@ -2,7 +2,7 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
 
-$groups = GroupRepository::getGroupList();
+$groups = GroupRepository::getGroups();
 $groups = array_combine(
     array_map(
         fn($group) => $group->getId(),

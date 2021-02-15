@@ -87,6 +87,19 @@ function uploadRoles() {
     ajaxRequest.send();
 }
 
+function uploadUsers(globalVariableName = 'users', roleId = '-1') {
+    const ajaxRequest = new XMLHttpRequest();
+
+    const formData = new FormData();
+    formData.append('roleId', roleId);
+
+    ajaxRequest.open('POST', '/util/actions/get_users.php');
+    ajaxRequest.onload = () => {
+        window[globalVariableName] = JSON.parse(ajaxRequest.response);
+    };
+    ajaxRequest.send(formData);
+}
+
 function uploadGroups() {
     const ajaxRequest = new XMLHttpRequest();
     ajaxRequest.open('POST', '/util/actions/get_groups.php');

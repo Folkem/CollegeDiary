@@ -23,6 +23,7 @@ function requestUserAdd(userItem) {
                 userItem['addButton'].remove();
                 delete userItem['addButton'];
                 userItem['updateButton'].classList.toggle('hidden', false);
+                userItem['updateButton'].classList.toggle('user-item__button-update--allowed', false);
                 userItem['id'].innerHTML = newUserId;
                 sortUsersByColumn();
             } else {

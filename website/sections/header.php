@@ -60,7 +60,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                 <?php if ($currentUser->getRole() === UserRoles::ADMINISTRATOR ||
                                     $currentUser->getRole() === UserRoles::DEPARTMENT_HEAD): ?>
                                     <li>
-                                        <a class="link" href="/pages/control_panel.php">Панель управління</a>
+                                        <details>
+                                            <summary>Панель управління</summary>
+                                            <ul class="undecorated-list">
+                                                <li><a class="link"
+                                                       href="/pages/control-panel/users.php">
+                                                        Користувачі
+                                                    </a></li>
+                                                <li><a class="link"
+                                                       href="/pages/control-panel/work-distribution.php">
+                                                        Розподіл роботи
+                                                    </a></li>
+                                                <li><a class="link"
+                                                       href="/pages/control-panel/schedules.php">
+                                                        Розклади
+                                                    </a></li>
+                                            </ul>
+                                        </details>
                                     </li>
                                 <?php endif; ?>
                                 <li>

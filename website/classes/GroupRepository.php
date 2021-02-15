@@ -15,7 +15,7 @@ class GroupRepository
         self::$connection = DatabaseRepository::getConnection();
     }
 
-    public static function getGroupList(): array
+    public static function getGroups(): array
     {
         self::load();
 
@@ -99,6 +99,34 @@ class GroupRepository
             $statement->bindValue(':id_group', $idGroup);
             $statement->bindValue(':id_student', $idUser);
             $result = $statement->execute();
+        }
+
+        return $result;
+    }
+
+    public static function getGroupById(int $id): Group
+    {
+        self::load();
+        $result = null;
+
+        $statement = self::$connection->prepare('select * from `groups` where id = :id');
+
+        if ($statement !== false) {
+            $statement->bindValue(':id', $id);
+            if ($statement->execute() !== false) {
+                $statementArray = $statement->fetch();
+
+                $speciality = array_filter(
+                    self::getSpecialities(),
+                    fn($speciality) => $speciality->getId()
+                )[0];
+
+                $result = new Group();
+                $result->setId($statementArray['id']);
+                $result->setSpeciality($speciality);
+                $result->setGroupYear($statementArray['group_year']);
+                $result->setGroupNumber($statementArray['group_number']);
+            }
         }
 
         return $result;

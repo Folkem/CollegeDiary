@@ -11,10 +11,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Новини — Онлайн-щоденник</title>
     <link rel="stylesheet" href="/styles/font-awesome/all.min.css">
-    <link rel="stylesheet" href="/styles/normalize.css">
-    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/util/normalize.css">
+    <link rel="stylesheet" href="/styles/util/reset.css">
     <link rel="stylesheet" href="/styles/sections.css">
-    <link rel="stylesheet" href="/styles/general.css">
+    <link rel="stylesheet" href="/styles/util/general.css">
     <link rel="stylesheet" href="/styles/news.css">
     <script src="/scripts/sections.js"></script>
     <script src="/scripts/news.js"></script>

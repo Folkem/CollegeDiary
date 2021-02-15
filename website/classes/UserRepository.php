@@ -111,6 +111,31 @@ class UserRepository
         return $result;
     }
 
+    public static function addUser(User $user)
+    {
+        self::load();
+        $result = false;
+
+        $statement = self::$connection->prepare('insert into users 
+            (first_name, middle_name, last_name, email, password, id_role) values 
+            (:first_name, :middle_name, :last_name, :email, :password, :id_role)');
+
+        if ($statement !== false) {
+            $statement->bindValue(':first_name', $user->getFirstName());
+            $statement->bindValue(':middle_name', $user->getMiddleName());
+            $statement->bindValue(':last_name', $user->getLastName());
+            $statement->bindValue(':email', $user->getEmail());
+            $statement->bindValue(':password', $user->getPassword());
+            $statement->bindValue(':id_role', $user->getRole());
+
+            if ($result = $statement->execute()) {
+                $result = self::$connection->lastInsertId();
+            }
+        }
+
+        return $result;
+    }
+
     public static function addUsers(array $usersToAdd): array
     {
         self::load();
@@ -212,31 +237,6 @@ class UserRepository
                         break;
                     }
                 }
-            }
-        }
-
-        return $result;
-    }
-
-    public static function addUser(User $user)
-    {
-        self::load();
-        $result = false;
-
-        $statement = self::$connection->prepare('insert into users 
-            (first_name, middle_name, last_name, email, password, id_role) values 
-            (:first_name, :middle_name, :last_name, :email, :password, :id_role)');
-
-        if ($statement !== false) {
-            $statement->bindValue(':first_name', $user->getFirstName());
-            $statement->bindValue(':middle_name', $user->getMiddleName());
-            $statement->bindValue(':last_name', $user->getLastName());
-            $statement->bindValue(':email', $user->getEmail());
-            $statement->bindValue(':password', $user->getPassword());
-            $statement->bindValue(':id_role', $user->getRole());
-
-            if ($result = $statement->execute()) {
-                $result = self::$connection->lastInsertId();
             }
         }
 

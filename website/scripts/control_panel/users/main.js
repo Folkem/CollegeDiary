@@ -1,3 +1,31 @@
+function setUpStudentForm() {
+    const fileInputButton = document.querySelector('#student-table-file-button');
+    const fileInput = document.querySelector('#student-table-file');
+    fileInputButton.addEventListener('click', () => {
+        fileInput.click();
+    });
+    fileInput.addEventListener('change', () => {
+        fileInputButton.classList.toggle('form__input-button--success', true);
+    });
+
+    const form = document.querySelector('#student-form');
+    form.addEventListener('submit', () => onFileFormSubmit('student'));
+}
+
+function setUpTeacherForm() {
+    const fileInputButton = document.querySelector('#teacher-table-file-button');
+    const fileInput = document.querySelector('#teacher-table-file');
+    fileInputButton.addEventListener('click', () => {
+        fileInput.click();
+    });
+    fileInput.addEventListener('change', () => {
+        fileInputButton.classList.toggle('form__input-button--success', true);
+    });
+
+    const form = document.querySelector('#teacher-form');
+    form.addEventListener('submit', () => onFileFormSubmit('teacher'));
+}
+
 function setUpUserForm() {
     const userItemsElements = document.querySelectorAll('.user-item');
     const userItems = [];
@@ -140,3 +168,12 @@ function sortUsersByColumn(column, side) {
     }
     userItems.forEach(userItem => userList.appendChild(userItem['parent']));
 }
+
+window.addEventListener('load', () => {
+    setUpMenu();
+    setUpStudentForm();
+    setUpTeacherForm();
+    setUpUserForm();
+    uploadRoles();
+    uploadGroups();
+});
