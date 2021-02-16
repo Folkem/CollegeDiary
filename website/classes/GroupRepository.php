@@ -87,7 +87,7 @@ class GroupRepository
         return $result;
     }
 
-    public static function updateStudentGroup(int $idUser, int $idGroup): bool
+    public static function updateStudentGroup(int $idStudent, int $idGroup): bool
     {
         self::load();
         $result = false;
@@ -97,14 +97,28 @@ class GroupRepository
 
         if ($statement !== false) {
             $statement->bindValue(':id_group', $idGroup);
-            $statement->bindValue(':id_student', $idUser);
+            $statement->bindValue(':id_student', $idStudent);
             $result = $statement->execute();
         }
 
         return $result;
     }
 
-    public static function getGroupById(int $id): Group
+    public static function removeStudentGroup(int $idStudent): bool
+    {
+        self::load();
+        $result = false;
+
+        $statement = self::$connection->prepare('delete from students where id_student = :id');
+
+        if ($statement !== false) {
+            $result = $statement->execute(['id' => $idStudent]);
+        }
+
+        return $result;
+    }
+
+    public static function getGroupById(int $id): ?Group
     {
         self::load();
         $result = null;

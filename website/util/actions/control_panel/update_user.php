@@ -43,7 +43,11 @@ if (
 
         $userWasUpdated = UserRepository::updateUser($thisUser);
         if ($groupId != 0) {
-            $userGroupWasUpdated = GroupRepository::updateStudentGroup($id, $groupId);
+            if ($groupId === -1) {
+                $userGroupWasUpdated = GroupRepository::removeStudentGroup($id);
+            } else {
+                $userGroupWasUpdated = GroupRepository::updateStudentGroup($id, $groupId);
+            }
         } else {
             $userGroupWasUpdated = true;
         }

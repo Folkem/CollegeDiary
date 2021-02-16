@@ -161,7 +161,7 @@ if (is_null($currentUser) ||
                                     <div class="user-item__component user-item__group">
                                         <!--suppress HtmlFormInputWithoutLabel -->
                                         <select>
-                                            <option selected></option>
+                                            <option selected value="-1"></option>
                                             <?php
 
                                             foreach ($availableGroupsMap as
