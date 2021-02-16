@@ -79,6 +79,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                         </details>
                                     </li>
                                 <?php endif; ?>
+                                <?php if ($currentUser->getRole() === UserRoles::TEACHER ||
+                                    $currentUser->getRole() === UserRoles::PARENT ||
+                                    $currentUser->getRole() === UserRoles::STUDENT): ?>
+                                    <li>
+                                        <a class="link" href="/pages/schedules.php">Розклади</a>
+                                    </li>
+                                <?php endif; ?>
                                 <li>
                                     <p class="link" id="user-exit-button">Вийти</p>
                                 </li>

@@ -108,3 +108,12 @@ function uploadGroups() {
     };
     ajaxRequest.send();
 }
+
+function uploadCallSchedule() {
+    const ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.open('POST', '/util/actions/get_call_schedule.php');
+    ajaxRequest.onload = () => {
+        window['call-schedule'] = JSON.parse(ajaxRequest.response);
+    };
+    ajaxRequest.send();
+}

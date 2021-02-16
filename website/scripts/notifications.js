@@ -1,36 +1,3 @@
-window.addEventListener('load', () => {
-    const notificationIds = Array.from(
-        document.querySelectorAll('.notification__id')
-    ).map(value => value.innerHTML);
-    const markReadAllButton = document.querySelector('#read-all-button');
-    const deleteAllButton = document.querySelector('#delete-all-button');
-    const markReadButtons = document.querySelectorAll('.read-button');
-    const deleteButtons = document.querySelectorAll('.delete-button');
-    const popupMessage = document.querySelector('#pop-up-message');
-
-    markReadAllButton.addEventListener(
-        'click',
-        () => markReadNotifications(notificationIds)
-    );
-    deleteAllButton.addEventListener(
-        'click',
-        () => deleteNotifications(notificationIds)
-    );
-    markReadButtons.forEach((button, key) =>
-        button.addEventListener(
-            'click',
-            () => markReadNotifications([notificationIds[key]])
-        )
-    );
-    deleteButtons.forEach((button, key) =>
-        button.addEventListener(
-            'click',
-            () => deleteNotifications([notificationIds[key]])
-        )
-    );
-    popupMessage.addEventListener('click', hidePopupMessage);
-});
-
 function getNotificationObjects() {
     return Array.from(document.querySelectorAll('.notification'))
         .map((notificationElement, index, array) => {
@@ -105,7 +72,7 @@ function hidePopupMessage(event) {
     popupMessageElement.classList.toggle('hidden', true);
 }
 
-function documentTitleWithOneNotificationLesser() {
+function getDocumentTitleWithOneNotificationLesser() {
     const originalTitle = document.title;
     const startIndex = originalTitle.indexOf('(') + 1;
     const endIndex = originalTitle.indexOf(')');
@@ -138,7 +105,7 @@ function markReadNotifications(notificationIds) {
                             .removeChild(object['notificationButton']);
                         object['notification'].classList.toggle('notification--unread', false);
                         object['notification'].classList.toggle('notification--read', true);
-                        document.title = documentTitleWithOneNotificationLesser();
+                        document.title = getDocumentTitleWithOneNotificationLesser();
                     }
                 });
                 popupMessageContent.innerHTML = message;
@@ -178,7 +145,7 @@ function deleteNotifications(notificationIds) {
                 notificationObjects.forEach((object) => {
                     if (updatedNotifications.includes(object['notificationId'])) {
                         if (object['notification'].classList.contains('notification--unread')) {
-                            document.title = documentTitleWithOneNotificationLesser();
+                            document.title = getDocumentTitleWithOneNotificationLesser();
                         }
                         object['notification'].parentNode.removeChild(object['notification']);
                     }
@@ -213,3 +180,36 @@ function sendRequest(action, notificationIds, onloadCallback) {
     ajaxRequest.onload = onloadCallback;
     ajaxRequest.send(formData);
 }
+
+window.addEventListener('load', () => {
+    const notificationIds = Array.from(
+        document.querySelectorAll('.notification__id')
+    ).map(value => value.innerHTML);
+    const markReadAllButton = document.querySelector('#read-all-button');
+    const deleteAllButton = document.querySelector('#delete-all-button');
+    const markReadButtons = document.querySelectorAll('.read-button');
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    const popupMessage = document.querySelector('#pop-up-message');
+
+    markReadAllButton.addEventListener(
+        'click',
+        () => markReadNotifications(notificationIds)
+    );
+    deleteAllButton.addEventListener(
+        'click',
+        () => deleteNotifications(notificationIds)
+    );
+    markReadButtons.forEach((button, key) =>
+        button.addEventListener(
+            'click',
+            () => markReadNotifications([notificationIds[key]])
+        )
+    );
+    deleteButtons.forEach((button, key) =>
+        button.addEventListener(
+            'click',
+            () => deleteNotifications([notificationIds[key]])
+        )
+    );
+    popupMessage.addEventListener('click', hidePopupMessage);
+});

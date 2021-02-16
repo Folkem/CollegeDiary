@@ -179,4 +179,50 @@ class WorkDistributionRepository
 
         return $result;
     }
+
+    public static function getUsedRecords(): array
+    {
+        self::load();
+        $result = [];
+
+        $teachers = UserRepository::getUsersWithRole(UserRoles::TEACHER);
+        $teachers = array_combine(
+            array_map(
+                fn($teacher) => $teacher->getId(),
+                $teachers
+            ),
+            $teachers
+        );
+        $groups = GroupRepository::getGroups();
+        $groups = array_combine(
+            array_map(
+                fn($group) => $group->getId(),
+                $groups
+            ),
+            $groups
+        );
+
+        $statement = self::$connection->query('
+            select work_distribution.id, subject, id_group, id_teacher
+            from work_distribution 
+                inner join lesson_schedules ls on work_distribution.id = ls.id_discipline
+            group by work_distribution.id
+        ');
+
+        if ($statement !== false) {
+            while (($statementArray = $statement->fetch()) !== false) {
+                $teacher = $teachers[$statementArray['id_teacher']];
+                $group = $groups[$statementArray['id_group']];
+
+                $record = (new WorkDistributionRecord())
+                    ->setId((int)$statementArray['id'])
+                    ->setSubject($statementArray['subject'])
+                    ->setTeacher($teacher)
+                    ->setGroup($group);
+                $result[] = $record;
+            }
+        }
+
+        return $result;
+    }
 }

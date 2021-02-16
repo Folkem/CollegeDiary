@@ -2,9 +2,28 @@
 
 class CallScheduleItem
 {
+    private int $id;
     private int $lessonNumber;
     private DateTimeImmutable $timeStart;
     private DateTimeImmutable $timeEnd;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return CallScheduleItem
+     */
+    public function setId(int $id): CallScheduleItem
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     /**
      * @return int
