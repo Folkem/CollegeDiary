@@ -127,9 +127,7 @@ class GroupRepository
 
         if ($statement !== false) {
             $statement->bindValue(':id', $id);
-            if ($statement->execute() !== false) {
-                $statementArray = $statement->fetch();
-
+            if ($statement->execute() !== false && (($statementArray = $statement->fetch()) !== false)) {
                 $speciality = array_filter(
                     self::getSpecialities(),
                     fn($speciality) => $speciality->getId()
@@ -140,6 +138,43 @@ class GroupRepository
                 $result->setSpeciality($speciality);
                 $result->setGroupYear($statementArray['group_year']);
                 $result->setGroupNumber($statementArray['group_number']);
+            }
+        }
+
+        return $result;
+    }
+
+    public static function getGroupForStudent(int $id): ?Group
+    {
+        self::load();
+        $result = null;
+
+        $specialities = self::getSpecialities();
+        $specialities = array_combine(
+            array_map(
+                fn($speciality) => $speciality->getId(),
+                $specialities
+            ),
+            $specialities
+        );
+        $statement = self::$connection->prepare('
+            select * from `groups` g 
+            left join students s on g.id = s.id_group
+            where s.id_student = :id
+        ');
+
+        if ($statement !== false) {
+            $statement->bindValue(':id', $id);
+            if ($statement->execute() && (($statementArray = $statement->fetch()) !== false)) {
+                $speciality = $specialities[$statementArray['id_speciality']];
+
+                $group = new Group();
+                $group->setId((int)$statementArray['id'])
+                    ->setGroupNumber((int)$statementArray['group_number'])
+                    ->setGroupYear((int)$statementArray['group_year'])
+                    ->setSpeciality($speciality);
+
+                $result = $group;
             }
         }
 

@@ -47,6 +47,7 @@ function validateCallSchedule() {
 
 window.addEventListener('load', () => {
     uploadCallSchedule();
+    uploadLessonSchedules();
     uploadGroups();
     setUpMenu();
     setUpCallSchedules();

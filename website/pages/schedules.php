@@ -8,6 +8,59 @@ if (is_null($currentUser)) {
     return;
 }
 
+$group = GroupRepository::getGroupForStudent($currentUser->getId());
+$weekDays = WeekDay::getValues();
+if ($currentUser->getRole() === UserRoles::TEACHER) {
+    $lessonSchedule = LessonScheduleRepository::getTeacherLessonSchedule($currentUser->getId());
+} else {
+    $lessonSchedule = LessonScheduleRepository::getStudentLessonSchedule($currentUser->getId());
+}
+
+$groupedLessonSchedule = array_map(
+    function ($scheduleItem) use ($weekDays) {
+        return [
+            'discipline' => [
+                'id' => $scheduleItem->getDiscipline()->getId(),
+                'teacher' => $scheduleItem->getDiscipline()->getTeacher()->getFullName(),
+                'subject' => $scheduleItem->getDiscipline()->getSubject(),
+                'group' => [
+                    'id' => $scheduleItem->getDiscipline()->getGroup()->getId(),
+                    'name' => $scheduleItem->getDiscipline()->getGroup()->getReadableName(true)
+                ]
+            ],
+            'week-day' => $scheduleItem->getWeekDay(),
+            'lesson-number' => $scheduleItem->getLessonNumber()->getLessonNumber(),
+            'variant' => $scheduleItem->getVariantNumber()
+        ];
+    },
+    $lessonSchedule
+);
+$groupedLessonSchedule = [
+    $weekDays[1] => array_filter($groupedLessonSchedule, fn($scheduleItem) => $scheduleItem['week-day'] == 1),
+    $weekDays[2] => array_filter($groupedLessonSchedule, fn($scheduleItem) => $scheduleItem['week-day'] == 2),
+    $weekDays[3] => array_filter($groupedLessonSchedule, fn($scheduleItem) => $scheduleItem['week-day'] == 3),
+    $weekDays[4] => array_filter($groupedLessonSchedule, fn($scheduleItem) => $scheduleItem['week-day'] == 4),
+    $weekDays[5] => array_filter($groupedLessonSchedule, fn($scheduleItem) => $scheduleItem['week-day'] == 5)
+];
+$groupedLessonSchedule = array_map(
+    function ($daySchedule) {
+        $lessonSchedules = [];
+        foreach ($daySchedule as $item) {
+            $lessonNumber = $item['lesson-number'];
+            if (array_key_exists($lessonNumber, $lessonSchedules)) {
+                $lessonSchedules[$lessonNumber][$item['variant']] = $item;
+            } else {
+                $lessonSchedules[$lessonNumber] = [
+                    $item['variant'] => $item
+                ];
+            }
+        }
+
+        return $lessonSchedules;
+    },
+    $groupedLessonSchedule
+);
+
 ?>
 <!doctype html>
 <html lang="uk">
@@ -43,6 +96,154 @@ if (is_null($currentUser)) {
             <div class="menu-content__item">
                 <h2 class="content-item__header">Розклад занять</h2>
                 <hr>
+                <div class="content-item__content">
+                    <div class="lesson-schedule">
+
+                        <?php if (($currentUser->getRole() === UserRoles::STUDENT
+                            || $currentUser->getRole() === UserRoles::PARENT)): ?>
+
+                            <?php if (isset($group)): ?>
+
+                                <h3 class="lesson-schedule-group">Група <?= $group->getReadableName(true) ?></h3>
+
+                            <?php endif; ?>
+
+                            <table class="lesson-schedule-table">
+                                <tr>
+                                    <th class="lesson-schedule-table-header__item lesson-schedule-table__item">День</th>
+                                    <th class="lesson-schedule-table-header__item lesson-schedule-table__item">Пара</th>
+                                    <th class="lesson-schedule-table-header__item lesson-schedule-table__item">Предмет</th>
+                                    <th class="lesson-schedule-table-header__item lesson-schedule-table__item">Викладач</th>
+                                </tr>
+
+                                <?php foreach ($groupedLessonSchedule as $day => $daySchedule): ?>
+
+                                    <?php foreach ($daySchedule as $lessonNumber => $lesson): ?>
+
+                                        <?php
+                                        $subjectText = '';
+                                        $teacherText = '';
+                                        if (array_key_first($lesson) === 3) {
+                                            $subjectText = $lesson[3]['discipline']['subject'];
+                                            $teacherText = $lesson[3]['discipline']['teacher'];
+                                        } else {
+                                            $subjectText = " / ";
+                                            $teacherText = " / ";
+                                            if (array_key_exists(1, $lesson)) {
+                                                $subjectText = $lesson[1]['discipline']['subject'] . $subjectText;
+                                                $teacherText = $lesson[1]['discipline']['teacher'] . $teacherText;
+                                            } else {
+                                                $subjectText = 'Вікно' . $subjectText;
+                                                $teacherText = 'Вікно' . $teacherText;
+                                            }
+                                            if (array_key_exists(2, $lesson)) {
+                                                $subjectText .= $lesson[2]['discipline']['subject'];
+                                                $teacherText .= $lesson[2]['discipline']['teacher'];
+                                            } else {
+                                                $subjectText .= 'Вікно';
+                                                $teacherText .= 'Вікно';
+                                            }
+                                        }
+                                        ?>
+
+                                        <tr class="lesson-schedule-table__row">
+
+                                            <?php if ($lessonNumber === array_key_first($daySchedule)): ?>
+
+                                                <td class="lesson-schedule-table__item lesson-schedule-table__day"
+                                                    rowspan="<?= count($daySchedule) ?>">
+                                                    <?= $day ?>
+                                                </td>
+
+                                            <?php endif; ?>
+
+                                            <td class="lesson-schedule-table__item lesson-schedule-table__lesson-number">
+                                                <?= $lessonNumber ?>
+                                            </td>
+                                            <td class="lesson-schedule-table__item lesson-schedule-table__subject">
+                                                <?= $subjectText ?>
+                                            </td>
+                                            <td class="lesson-schedule-table__item lesson-schedule-table__teacher">
+                                                <?= $teacherText ?>
+                                            </td>
+                                        </tr>
+
+                                    <?php endforeach; ?>
+
+                                <?php endforeach; ?>
+
+                            </table>
+
+                        <?php else: ?>
+
+                            <table class="lesson-schedule-table">
+                                <tr>
+                                    <th class="lesson-schedule-table-header__item lesson-schedule-table__item">День</th>
+                                    <th class="lesson-schedule-table-header__item lesson-schedule-table__item">Пара</th>
+                                    <th class="lesson-schedule-table-header__item lesson-schedule-table__item">Предмет</th>
+                                    <th class="lesson-schedule-table-header__item lesson-schedule-table__item">Викладач</th>
+                                </tr>
+
+                                <?php foreach ($groupedLessonSchedule as $day => $daySchedule): ?>
+
+                                    <?php foreach ($daySchedule as $lessonNumber => $lesson): ?>
+
+                                        <?php
+                                        $subjectText = '';
+                                        $groupText = '';
+                                        if (array_key_first($lesson) === 3) {
+                                            $subjectText = $lesson[3]['discipline']['subject'];
+                                            $groupText = $lesson[3]['discipline']['group']['name'];
+                                        } else {
+                                            $subjectText = " / ";
+                                            $groupText = " / ";
+                                            if (array_key_exists(1, $lesson)) {
+                                                $subjectText = $lesson[1]['discipline']['subject'] . $subjectText;
+                                                $groupText = $lesson[1]['discipline']['group']['name'] . $groupText;
+                                            } else {
+                                                $subjectText = 'Вікно' . $subjectText;
+                                            }
+                                            if (array_key_exists(2, $lesson)) {
+                                                $subjectText .= $lesson[2]['discipline']['subject'];
+                                                $groupText .= $lesson[2]['discipline']['group']['name'];
+                                            } else {
+                                                $subjectText .= 'Вікно';
+                                                $groupText .= 'Вікно';
+                                            }
+                                        }
+                                        ?>
+
+                                        <tr class="lesson-schedule-table__row">
+
+                                            <?php if ($lessonNumber === array_key_first($daySchedule)): ?>
+
+                                                <td class="lesson-schedule-table__item lesson-schedule-table__day"
+                                                    rowspan="<?= count($daySchedule) ?>">
+                                                    <?= $day ?>
+                                                </td>
+
+                                            <?php endif; ?>
+
+                                            <td class="lesson-schedule-table__item lesson-schedule-table__lesson-number">
+                                                <?= $lessonNumber ?>
+                                            </td>
+                                            <td class="lesson-schedule-table__item lesson-schedule-table__subject">
+                                                <?= $subjectText ?>
+                                            </td>
+                                            <td class="lesson-schedule-table__item lesson-schedule-table__group">
+                                                <?= $groupText ?>
+                                            </td>
+                                        </tr>
+
+                                    <?php endforeach; ?>
+
+                                <?php endforeach; ?>
+
+                            </table>
+
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
             <div class="menu-content__item hidden">
                 <h2 class="content-item__header">Розклад дзвінків</h2>
@@ -79,3 +280,5 @@ if (is_null($currentUser)) {
 
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>
+
+</html>

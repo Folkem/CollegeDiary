@@ -11,7 +11,7 @@
     border-radius: 1rem;
     padding: 1rem;
     display: flex;
-    height: 40vw;
+    height: fit-content;
 }
 
 /* Menu buttons */
@@ -96,4 +96,34 @@
 .call-schedule-table__item {
     padding: 0 0.5rem;
     text-align: center;
+}
+
+/* Lesson schedule */
+
+.lesson-schedule {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.lesson-schedule-group {
+    font-size: 1.75rem;
+    padding: 1rem;
+}
+
+.lesson-schedule-table {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: white;
+}
+
+.lesson-schedule-table-header__item {
+    font-size: 1.4rem;
+}
+
+.lesson-schedule-table__item {
+    padding: 0.25rem;
+    font-size: 1.2rem;
 }

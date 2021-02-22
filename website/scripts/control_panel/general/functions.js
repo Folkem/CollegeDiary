@@ -117,3 +117,12 @@ function uploadCallSchedule() {
     };
     ajaxRequest.send();
 }
+
+function uploadLessonSchedules() {
+    const ajaxRequest = new XMLHttpRequest();
+    ajaxRequest.open('POST', '/util/actions/get_lesson_schedules.php');
+    ajaxRequest.onload = () => {
+        window['lesson-schedules'] = JSON.parse(ajaxRequest.response);
+    };
+    ajaxRequest.send();
+}
