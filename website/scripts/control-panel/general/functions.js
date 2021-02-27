@@ -25,7 +25,7 @@ function onFileFormSubmit(userTypePrefix) {
     const loader = document.querySelector(`#${userTypePrefix}-loader`);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/user_file_form.php', true);
+    ajaxRequest.open('POST', '/util/actions/control-panel/user_file_form.php', true);
     ajaxRequest.onload = () => {
         try {
             const parsedJsonResponse = JSON.parse(ajaxRequest.response);
@@ -80,7 +80,7 @@ function setUpMenu() {
 
 function uploadRoles() {
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/get_user_roles.php');
+    ajaxRequest.open('POST', '/util/get/user-roles.php');
     ajaxRequest.onload = () => {
         window['userRoles'] = JSON.parse(ajaxRequest.response);
     };
@@ -93,7 +93,7 @@ function uploadUsers(globalVariableName = 'users', roleId = '-1') {
     const formData = new FormData();
     formData.append('roleId', roleId);
 
-    ajaxRequest.open('POST', '/util/actions/get_users.php');
+    ajaxRequest.open('POST', '/util/get/users.php');
     ajaxRequest.onload = () => {
         window[globalVariableName] = JSON.parse(ajaxRequest.response);
     };
@@ -102,7 +102,7 @@ function uploadUsers(globalVariableName = 'users', roleId = '-1') {
 
 function uploadGroups() {
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/get_groups.php');
+    ajaxRequest.open('POST', '/util/get/groups.php');
     ajaxRequest.onload = () => {
         window['groups'] = JSON.parse(ajaxRequest.response);
     };
@@ -111,7 +111,7 @@ function uploadGroups() {
 
 function uploadCallSchedule() {
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/get_call_schedule.php');
+    ajaxRequest.open('POST', '/util/get/call-schedule.php');
     ajaxRequest.onload = () => {
         window['call-schedule'] = JSON.parse(ajaxRequest.response);
     };
@@ -120,9 +120,10 @@ function uploadCallSchedule() {
 
 function uploadLessonSchedules() {
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/get_lesson_schedules.php');
+    ajaxRequest.open('POST', '/util/get/lesson-schedules.php');
     ajaxRequest.onload = () => {
-        window['lesson-schedules'] = JSON.parse(ajaxRequest.response);
+        console.log('redo get_lesson_schedules');
+        // window['lesson-schedules'] = JSON.parse(ajaxRequest.response);
     };
     ajaxRequest.send();
 }

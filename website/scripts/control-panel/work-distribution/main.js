@@ -40,7 +40,7 @@ function onWorkDistributionFileFormSubmit() {
     const loader = document.querySelector(`#work-distribution-loader`);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/work_distribution_file_form.php', true);
+    ajaxRequest.open('POST', '/util/actions/control-panel/work_distribution_file_form.php', true);
     // todo: remove result message element and move all messages to log message element
     ajaxRequest.onload = () => {
         try {

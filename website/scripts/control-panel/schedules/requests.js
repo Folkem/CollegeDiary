@@ -10,7 +10,7 @@ function requestCallScheduleItemUpdate(item) {
     formData.append('time-end', timeEnd);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/update_call_schedule.php');
+    ajaxRequest.open('POST', '/util/actions/update/call-schedule.php');
     ajaxRequest.onload = () => {
         try {
             const parsedResponse = JSON.parse(ajaxRequest.response);

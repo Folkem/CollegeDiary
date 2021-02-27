@@ -32,3 +32,13 @@
 .call-schedule-item__save-button--allowed:hover {
     color: #006600;
 }
+
+/* Lesson schedule */
+
+.lesson-schedule__form {
+
+}
+
+.lesson-schedule__group {
+    font-size: 1.5rem;
+}

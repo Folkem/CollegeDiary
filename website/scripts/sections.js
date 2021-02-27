@@ -64,7 +64,7 @@ function resetPassword() {
     formData.append('email', email);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/reset_password.php');
+    ajaxRequest.open('POST', '/util/actions/reset-password.php');
     ajaxRequest.onload = () => {
         let response;
         try {

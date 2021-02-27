@@ -2,7 +2,7 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
 
-// todo: remake get_lesson_schedules.php
+// todo: remake lesson-schedules.php
 
 $lessonScheduleVariants = LessonScheduleVariant::getValues();
 $schedules = LessonScheduleRepository::getLessonSchedules();

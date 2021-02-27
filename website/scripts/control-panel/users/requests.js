@@ -10,7 +10,7 @@ function requestUserAdd(userItem) {
     formData.append('group', userItem['group'].value);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/add_user.php', true);
+    ajaxRequest.open('POST', '/util/add/user.php', true);
     ajaxRequest.onload = () => {
         try {
             const responseObject = JSON.parse(ajaxRequest.response);
@@ -50,7 +50,7 @@ function requestUserUpdate(userItem) {
     formData.append('group', userItem['group'].value);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/update_user.php', true);
+    ajaxRequest.open('POST', '/util/update/user.php', true);
     ajaxRequest.onload = () => {
         try {
             const responseObject = JSON.parse(ajaxRequest.response);
@@ -95,7 +95,7 @@ function requestUserDelete(userItem) {
         formData.append('user-value', value);
 
         const ajaxRequest = new XMLHttpRequest();
-        ajaxRequest.open('POST', '/util/actions/control_panel/delete_user.php', true);
+        ajaxRequest.open('POST', '/util/delete/user.php', true);
         ajaxRequest.onload = () => {
             try {
                 const responseObject = JSON.parse(ajaxRequest.response);

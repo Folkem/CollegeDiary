@@ -7,7 +7,7 @@ function requestWorkDistributionRecordAdd(record) {
     formData.append('group', record['group'].value);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/add_work_distribution.php', true);
+    ajaxRequest.open('POST', '/util/add/work-distribution.php', true);
     ajaxRequest.onload = () => {
         try {
             const responseObject = JSON.parse(ajaxRequest.response);
@@ -44,7 +44,7 @@ function requestWorkDistributionRecordUpdate(record) {
     formData.append('group', record['group'].value);
 
     const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/actions/control_panel/update_work_distribution.php', true);
+    ajaxRequest.open('POST', '/util/update/work-distribution.php', true);
     ajaxRequest.onload = () => {
         try {
             const responseObject = JSON.parse(ajaxRequest.response);
@@ -78,7 +78,7 @@ function requestWorkDistributionRecordDelete(record) {
         formData.append('id', id);
 
         const ajaxRequest = new XMLHttpRequest();
-        ajaxRequest.open('POST', '/util/actions/control_panel/delete_work_distribution.php', true);
+        ajaxRequest.open('POST', '/util/delete/work_distribution.php', true);
         ajaxRequest.onload = () => {
             try {
                 const responseObject = JSON.parse(ajaxRequest.response);
