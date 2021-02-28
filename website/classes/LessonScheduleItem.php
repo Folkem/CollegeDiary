@@ -6,7 +6,7 @@ class LessonScheduleItem
     private int $id;
     private WorkDistributionRecord $discipline;
     private int $weekDay;
-    private CallScheduleItem $lessonNumber;
+    private int $lessonNumber;
     private int $variantNumber;
 
     public function getId(): int
@@ -43,12 +43,12 @@ class LessonScheduleItem
         return $this;
     }
 
-    public function getLessonNumber(): CallScheduleItem
+    public function getLessonNumber(): int
     {
         return $this->lessonNumber;
     }
 
-    public function setLessonNumber(CallScheduleItem $lessonNumber): LessonScheduleItem
+    public function setLessonNumber(int $lessonNumber): LessonScheduleItem
     {
         $this->lessonNumber = $lessonNumber;
         return $this;

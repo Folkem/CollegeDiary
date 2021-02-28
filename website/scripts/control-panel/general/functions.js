@@ -101,29 +101,69 @@ function uploadUsers(globalVariableName = 'users', roleId = '-1') {
 }
 
 function uploadGroups() {
-    const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/get/groups.php');
-    ajaxRequest.onload = () => {
-        window['groups'] = JSON.parse(ajaxRequest.response);
-    };
-    ajaxRequest.send();
+    return new Promise((resolve, reject) => {
+        const ajaxRequest = new XMLHttpRequest();
+        ajaxRequest.open('POST', '/util/get/groups.php');
+        ajaxRequest.onload = () => {
+            try {
+                window['groups'] = JSON.parse(ajaxRequest.response);
+                resolve();
+            } catch (e) {
+                reject(e);
+            }
+        };
+        ajaxRequest.send();
+    });
 }
 
 function uploadCallSchedule() {
-    const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/get/call-schedule.php');
-    ajaxRequest.onload = () => {
-        window['call-schedule'] = JSON.parse(ajaxRequest.response);
-    };
-    ajaxRequest.send();
+    return new Promise((resolve, reject) => {
+        const ajaxRequest = new XMLHttpRequest();
+        ajaxRequest.open('POST', '/util/get/call-schedule.php');
+        ajaxRequest.onload = () => {
+            try {
+                window['call-schedule'] = JSON.parse(ajaxRequest.response);
+                resolve();
+            } catch (e) {
+                reject(e);
+            }
+        };
+        ajaxRequest.send();
+    });
 }
 
 function uploadLessonSchedules() {
-    const ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('POST', '/util/get/lesson-schedules.php');
-    ajaxRequest.onload = () => {
-        console.log('redo get_lesson_schedules');
-        // window['lesson-schedules'] = JSON.parse(ajaxRequest.response);
-    };
-    ajaxRequest.send();
+    return new Promise((resolve, reject) => {
+        const ajaxRequest = new XMLHttpRequest();
+        ajaxRequest.open('POST', '/util/get/lesson-schedules.php');
+        ajaxRequest.onload = () => {
+            try {
+                window['lesson-schedules'] = JSON.parse(ajaxRequest.response);
+                resolve();
+            } catch (e) {
+                reject();
+            }
+        };
+        ajaxRequest.send();
+    });
+}
+
+function uploadReadableDisciplines() {
+    return new Promise((resolve, reject) => {
+        const ajaxRequest = new XMLHttpRequest();
+        ajaxRequest.open('POST', '/util/get/readable-disciplines.php');
+        ajaxRequest.onload = () => {
+            try {
+                window['readable-disciplines'] = JSON.parse(ajaxRequest.response);
+                resolve();
+            } catch (e) {
+                reject(e);
+            }
+        };
+        ajaxRequest.send();
+    });
+}
+
+function uploadLessonScheduleForGroup(groupId) {
+    // todo: uploadLessonScheduleForGroup(groupId)
 }

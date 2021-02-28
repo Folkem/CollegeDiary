@@ -24,13 +24,13 @@ if (is_null($currentUser) ||
     <link rel="stylesheet" href="/styles/util/reset.css">
     <link rel="stylesheet" href="/styles/sections.css">
     <link rel="stylesheet" href="/styles/util/general.css">
-    <link rel="stylesheet" href="/styles/control_panel/control_panel.css">
-    <link rel="stylesheet" href="/styles/control_panel/users.css">
+    <link rel="stylesheet" href="/styles/control-panel/control_panel.css">
+    <link rel="stylesheet" href="/styles/control-panel/users.css">
     <script src="/scripts/sections.js"></script>
-    <script src="/scripts/control_panel/general/functions.js"></script>
-    <script src="/scripts/control_panel/users/requests.js"></script>
-    <script src="/scripts/control_panel/users/elements.js"></script>
-    <script src="/scripts/control_panel/users/main.js"></script>
+    <script src="/scripts/control-panel/general/functions.js"></script>
+    <script src="/scripts/control-panel/users/requests.js"></script>
+    <script src="/scripts/control-panel/users/elements.js"></script>
+    <script src="/scripts/control-panel/users/main.js"></script>
 </head>
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>

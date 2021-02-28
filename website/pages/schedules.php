@@ -29,7 +29,7 @@ $groupedLessonSchedule = array_map(
                 ]
             ],
             'week-day' => $scheduleItem->getWeekDay(),
-            'lesson-number' => $scheduleItem->getLessonNumber()->getLessonNumber(),
+            'lesson-number' => $scheduleItem->getLessonNumber(),
             'variant' => $scheduleItem->getVariantNumber()
         ];
     },
@@ -150,7 +150,7 @@ $groupedLessonSchedule = array_map(
 
                                             <?php if ($lessonNumber === array_key_first($daySchedule)): ?>
 
-                                                <td class="lesson-schedule-table__item lesson-schedule-table__day"
+                                                <td class="lesson-schedule-table__item lesson-schedule-item__table-day"
                                                     rowspan="<?= count($daySchedule) ?>">
                                                     <?= $day ?>
                                                 </td>
@@ -217,7 +217,7 @@ $groupedLessonSchedule = array_map(
 
                                             <?php if ($lessonNumber === array_key_first($daySchedule)): ?>
 
-                                                <td class="lesson-schedule-table__item lesson-schedule-table__day"
+                                                <td class="lesson-schedule-table__item lesson-schedule-item__table-day"
                                                     rowspan="<?= count($daySchedule) ?>">
                                                     <?= $day ?>
                                                 </td>
@@ -280,5 +280,4 @@ $groupedLessonSchedule = array_map(
 
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>
-
 </html>

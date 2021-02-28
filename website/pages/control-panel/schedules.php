@@ -1,13 +1,11 @@
 <?php
 
-// todo: remake this page
-
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 
 if (is_null($currentUser) ||
-    $currentUser->getRole() !== UserRoles::ADMINISTRATOR &&
-    $currentUser->getRole() !== UserRoles::DEPARTMENT_HEAD) {
+    (($currentUser->getRole() !== UserRoles::ADMINISTRATOR) &&
+        ($currentUser->getRole() !== UserRoles::DEPARTMENT_HEAD))) {
     header("Location: /");
     return;
 }
@@ -25,13 +23,14 @@ if (is_null($currentUser) ||
     <link rel="stylesheet" href="/styles/util/normalize.css">
     <link rel="stylesheet" href="/styles/util/reset.css">
     <link rel="stylesheet" href="/styles/sections.css">
+    <link rel="stylesheet" href="/styles/control-panel/control_panel.css">
+    <link rel="stylesheet" href="/styles/control-panel/schedules.css">
     <link rel="stylesheet" href="/styles/util/general.css">
-    <link rel="stylesheet" href="/styles/control_panel/control_panel.css">
-    <link rel="stylesheet" href="/styles/control_panel/schedules.css">
     <script src="/scripts/sections.js"></script>
-    <script src="/scripts/control_panel/general/functions.js"></script>
-    <script src="/scripts/control_panel/schedules/requests.js"></script>
-    <script src="/scripts/control_panel/schedules/main.js"></script>
+    <script src="/scripts/control-panel/general/functions.js"></script>
+    <script src="/scripts/control-panel/schedules/elements.js"></script>
+    <script src="/scripts/control-panel/schedules/requests.js"></script>
+    <script src="/scripts/control-panel/schedules/main.js"></script>
 </head>
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
@@ -50,6 +49,17 @@ if (is_null($currentUser) ||
             <div class="menu-content__item">
                 <h2 class="content-item__header">Розклад занять</h2>
                 <hr>
+                <div class="content-item__content">
+                    <div class="loader lesson-schedule__loader" id="lesson-schedule-loader"></div>
+                    <div class="lesson-schedule hidden" id="lesson-schedule">
+                        <div class="lesson-schedule__list">
+                        </div>
+                        <div class="lesson-schedule__response-log" id="lesson-schedule__response-log">
+                            <div class="response-log__header">Лог</div>
+                            <div class="response-log__content"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="menu-content__item hidden">
                 <h2 class="content-item__header">Розклад дзвінків</h2>
@@ -102,3 +112,4 @@ if (is_null($currentUser) ||
 
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>
+</html>

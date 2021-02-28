@@ -108,22 +108,22 @@
     text-align: center;
 }
 
-.lesson-schedule-group {
+.lesson-schedule-item__group {
     font-size: 1.75rem;
     padding: 1rem;
 }
 
-.lesson-schedule-table {
+.lesson-schedule-item__lessons {
     padding: 1rem;
     border-radius: 1rem;
     background: white;
 }
 
-.lesson-schedule-table-header__item {
+.lesson-schedule-item__table-header-item {
     font-size: 1.4rem;
 }
 
-.lesson-schedule-table__item {
+.lesson-schedule-item__table-item {
     padding: 0.25rem;
     font-size: 1.2rem;
 }
