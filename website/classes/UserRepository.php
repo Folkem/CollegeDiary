@@ -242,4 +242,39 @@ class UserRepository
 
         return $result;
     }
+    
+    public static function getStudentForParent(int $idParent): ?User
+    {
+        self::load();
+        $result = null;
+        
+        $statement = self::$connection->prepare('select u.id, first_name, middle_name,
+            last_name, full_name, email, password, id_role as "role", avatar_path
+            from users u
+            right join students s on u.id = s.id_student
+            right join parents p on s.id = p.id_student
+            where p.id_parent = :id_parent');
+        
+        if ($statement !== false) {
+            if ($statement->execute(['id_parent' => $idParent])) {
+                if (($statementArray = $statement->fetch()) !== false) {
+                    $student = new User();
+                    
+                    $student->setId((int)$statementArray['id'])
+                        ->setFirstName($statementArray['first_name'])
+                        ->setMiddleName($statementArray['middle_name'])
+                        ->setLastName($statementArray['last_name'])
+                        ->setFullName($statementArray['full_name'])
+                        ->setEmail($statementArray['email'])
+                        ->setPassword($statementArray['password'])
+                        ->setRole((int)$statementArray['role'])
+                        ->setAvatarPath($statementArray['avatar_path']);
+                    
+                    $result = $student;
+                }
+            }
+        }
+        
+        return $result;
+    }
 }

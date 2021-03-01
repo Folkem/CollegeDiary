@@ -51,6 +51,8 @@ function setUpLessonSchedules() {
     const groups = window['groups'];
     const lessonSchedulesByGroups = window['lesson-schedules'];
 
+    const elementsToBeAdded = [];
+
     for (const groupKey in groups) {
         // noinspection JSUnfilteredForInLoop
         const groupName = groups[groupKey];
@@ -59,8 +61,10 @@ function setUpLessonSchedules() {
 
         // noinspection JSUnfilteredForInLoop
         const lessonScheduleItem = createLessonScheduleItemElement(groupSchedule, groupName, groupKey);
-        lessonScheduleList.appendChild(lessonScheduleItem);
+        elementsToBeAdded.push(lessonScheduleItem);
     }
+
+    lessonScheduleList.append(...elementsToBeAdded);
 }
 
 function setUpReadableDisciplines() {
@@ -167,9 +171,9 @@ window.addEventListener('load', () => {
     uploadCallSchedule()
         .then(setUpCallSchedules);
     uploadGroups()
-        .then(() => uploadLessonSchedules()
-            .then(setUpLessonSchedules)
-            .then(() => uploadReadableDisciplines()
-                .then(setUpReadableDisciplines))
-            .then(showLessonScheduleContent));
+        .then(uploadLessonSchedules)
+        .then(setUpLessonSchedules)
+        .then(uploadReadableDisciplines)
+        .then(setUpReadableDisciplines)
+        .then(showLessonScheduleContent);
 });

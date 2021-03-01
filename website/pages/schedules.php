@@ -8,10 +8,20 @@ if (is_null($currentUser)) {
     return;
 }
 
-$group = GroupRepository::getGroupForStudent($currentUser->getId());
+if ($currentUser->getRole() === UserRoles::PARENT) {
+    $student = UserRepository::getStudentForParent($currentUser->getId());
+    if (isset($student)) {
+        $group = GroupRepository::getGroupForStudent($student->getId());
+    }
+} else {
+    $group = GroupRepository::getGroupForStudent($currentUser->getId());
+}
+
 $weekDays = WeekDay::getValues();
 if ($currentUser->getRole() === UserRoles::TEACHER) {
     $lessonSchedule = LessonScheduleRepository::getTeacherLessonSchedule($currentUser->getId());
+} elseif ($currentUser->getRole() === UserRoles::PARENT) {
+    $lessonSchedule = LessonScheduleRepository::getStudentLessonSchedule($student->getId());
 } else {
     $lessonSchedule = LessonScheduleRepository::getStudentLessonSchedule($currentUser->getId());
 }
@@ -104,6 +114,15 @@ $groupedLessonSchedule = array_map(
 
                             <?php if (isset($group)): ?>
 
+                                <?php if ($currentUser->getRole() === UserRoles::PARENT): ?>
+                            
+                                    <h3 class="lesson-schedule-user">
+                                        Студент
+                                        <?= $student->getFullName() ?? 'Дітей в базі даних не знайдено' ?>
+                                    </h3>
+
+                                <?php endif; ?>
+                            
                                 <h3 class="lesson-schedule-group">Група <?= $group->getReadableName(true) ?></h3>
 
                             <?php endif; ?>
@@ -115,7 +134,7 @@ $groupedLessonSchedule = array_map(
                                     <th class="lesson-schedule-table-header__item lesson-schedule-table__item">Предмет</th>
                                     <th class="lesson-schedule-table-header__item lesson-schedule-table__item">Викладач</th>
                                 </tr>
-
+                                
                                 <?php foreach ($groupedLessonSchedule as $day => $daySchedule): ?>
 
                                     <?php foreach ($daySchedule as $lessonNumber => $lesson): ?>
