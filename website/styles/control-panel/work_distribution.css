@@ -1,0 +1,160 @@
+.work-distribution-form__items {
+    flex: 7;
+    box-sizing: content-box;
+    height: fit-content;
+}
+
+.work-distribution-form__header {
+    position: sticky;
+    top: 0;
+    height: fit-content;
+}
+
+.work-distribution-form__header-item {
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    height: fit-content;
+    align-self: center;
+    padding: 0.7rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.work-distribution-form__headers-list {
+    display: grid;
+    grid-template-columns: var(--work-distribution-form-grid-template);
+    height: fit-content;
+    background: #cccccc;
+    box-sizing: border-box;
+}
+
+.work-distribution__response-log {
+    flex: 5;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.work-distribution-form__add-button {
+    position: sticky;
+    top: 0;
+    font-size: 2rem;
+    padding: 0.5rem;
+    height: fit-content;
+    cursor: pointer;
+    background-color: #ededed;
+}
+
+.work-distribution-form__add-button:hover {
+    background-color: #d4d4d4;
+}
+
+.work-distribution-form__add-icon {
+    background-color: #32cd32;
+    border-radius: 50%;
+}
+
+.work-distribution-form__add-button:hover {
+    background-color: #32cd32;
+}
+
+.work-distribution-form__sort-button {
+    align-self: center;
+    cursor: pointer;
+}
+
+.work-distribution-file {
+    flex: 15;
+    overflow-y: scroll;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.work-distribution-form {
+    flex: 15;
+    overflow-y: scroll;
+    height: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.work-distribution-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+/* Record item */
+
+.work-distribution-item {
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: var(--work-distribution-form-grid-template);
+}
+
+.work-distribution-item--not-added {
+    background-color: rgba(122, 204, 41, 0.2);
+}
+
+.work-distribution-item__component {
+    padding: 0.25rem;
+    align-self: center;
+    height: fit-content;
+    word-break: break-all;
+}
+
+.work-distribution-item__id {
+    display: none;
+}
+
+.work-distribution-item__teacher, .work-distribution-item__group {
+    text-align: center;
+}
+
+.work-distribution-item__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.work-distribution-item__button {
+    cursor: pointer;
+    width: 50%;
+}
+
+.work-distribution-item__button-add {
+    color: #008000;
+}
+
+.work-distribution-item__button-add:hover {
+    color: #004d00;
+}
+
+.work-distribution-item__button-update {
+    cursor: not-allowed;
+}
+
+.work-distribution-item__button-update--allowed {
+    cursor: pointer;
+    color: #ffb833;
+}
+
+.work-distribution-item__button-update--allowed:hover {
+    color: #cc9329;
+}
+
+.work-distribution-item__button-delete {
+    color: #ff0000;
+}
+
+.work-distribution-item__button-delete:hover {
+    color: #990000;
+}

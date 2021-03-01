@@ -90,6 +90,7 @@
 }
 
 .form-item {
+    width: 100%;
     display: flex;
     flex-direction: row;
     font-size: 1.2rem;
@@ -101,7 +102,7 @@
 .form__label {
     align-self: center;
     padding-right: 1rem;
-    flex: 1;
+    flex: 2;
 }
 
 .form__input {

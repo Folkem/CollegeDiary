@@ -23,11 +23,11 @@ $notificationCount = NotificationRepository::
     <title>Повідомлення <?= $notificationCount > 0 ? "($notificationCount)" : '' ?>
         — Онлайн-щоденник</title>
     <link rel="stylesheet" href="/styles/font-awesome/all.min.css">
-    <link rel="stylesheet" href="/styles/normalize.css">
-    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/util/normalize.css">
+    <link rel="stylesheet" href="/styles/util/reset.css">
     <link rel="stylesheet" href="/styles/sections.css">
     <link rel="stylesheet" href="/styles/notifications.css">
-    <link rel="stylesheet" href="/styles/general.css">
+    <link rel="stylesheet" href="/styles/util/general.css">
     <script src="/scripts/sections.js"></script>
     <script src="/scripts/notifications.js"></script>
 </head>

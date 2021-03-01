@@ -1,0 +1,169 @@
+/* Student's file form */
+
+.student-form {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.student-form__response-log {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Teacher's file form */
+
+.teacher-form {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.teacher-form__response-log {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* User's response log */
+
+.users-response-log {
+    flex: 3;
+}
+
+/* User's form */
+
+.users-form {
+    flex: 15;
+    overflow-y: scroll;
+    height: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.users-form__user-list {
+    box-sizing: content-box;
+    height: fit-content;
+}
+
+.users-form__add-button {
+    position: sticky;
+    top: 0;
+    font-size: 2rem;
+    padding: 0.5rem;
+    height: fit-content;
+    cursor: pointer;
+    background-color: #ededed;
+}
+
+.users-form__add-button:hover {
+    background-color: #d4d4d4;
+}
+
+.users-form__add-icon {
+    background-color: #32cd32;
+    border-radius: 50%;
+}
+
+.users-form__add-button:hover {
+    background-color: #32cd32;
+}
+
+.users-form__header {
+    position: sticky;
+    top: 0;
+    height: fit-content;
+}
+
+.users-form__headers-list {
+    display: grid;
+    grid-template-columns: var(--user-form-grid-template);
+    height: fit-content;
+    background: #cccccc;
+    box-sizing: border-box;
+}
+
+.users-form__header-item {
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    height: fit-content;
+    align-self: center;
+    padding: 0.7rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.users-form__sort-button {
+    align-self: center;
+    cursor: pointer;
+}
+
+/* User item */
+
+.user-item {
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: var(--user-form-grid-template);
+}
+
+.user-item--not-added {
+    background-color: rgba(122, 204, 41, 0.2);
+}
+
+.user-item__component {
+    padding: 0.25rem;
+    align-self: center;
+    height: fit-content;
+    word-break: break-all;
+}
+
+.user-item__id {
+    display: none;
+}
+
+.user-item__role, .user-item__group {
+    text-align: center;
+}
+
+.user-item__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.user-item__button {
+    cursor: pointer;
+}
+
+.user-item__button-add {
+    color: #008000;
+}
+
+.user-item__button-add:hover {
+    color: #004d00;
+}
+
+.user-item__button-update {
+    cursor: not-allowed;
+}
+
+.user-item__button-update--allowed {
+    cursor: pointer;
+    color: #ffb833;
+}
+
+.user-item__button-update--allowed:hover {
+    color: #cc9329;
+}
+
+.user-item__button-delete {
+    color: #ff0000;
+}
+
+.user-item__button-delete:hover {
+    color: #990000;
+}

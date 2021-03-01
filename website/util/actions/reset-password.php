@@ -4,6 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/configs.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/util/logging.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/util/functions/general.php";
 
 if (isset($_POST['email'])) {
     $response = [];
@@ -16,7 +17,7 @@ if (isset($_POST['email'])) {
     } else {
         $userEmail = $email;
         $subject = 'Заміна паролю';
-        $newPassword = random_str(16);
+        $newPassword = getRandomString(16);
         $messageContent = <<<MESSAGE
 <style>
     .main-text {
@@ -64,22 +65,4 @@ MESSAGE;
     echo $jsonResponse;
 } else {
     header('Location: /');
-}
-
-// TODO: move to normal place
-function random_str(
-    int $length = 64,
-    string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-): string
-{
-    if ($length < 1) {
-        throw new RangeException("Length must be a positive integer");
-    }
-    $pieces = [];
-    $max = mb_strlen($keyspace, '8bit') - 1;
-    for ($i = 0; $i < $length; ++$i) {
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $pieces [] = $keyspace[random_int(0, $max)];
-    }
-    return implode('', $pieces);
 }

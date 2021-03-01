@@ -11,10 +11,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Новини — Онлайн-щоденник</title>
     <link rel="stylesheet" href="/styles/font-awesome/all.min.css">
-    <link rel="stylesheet" href="/styles/normalize.css">
-    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/util/normalize.css">
+    <link rel="stylesheet" href="/styles/util/reset.css">
     <link rel="stylesheet" href="/styles/sections.css">
-    <link rel="stylesheet" href="/styles/general.css">
+    <link rel="stylesheet" href="/styles/util/general.css">
     <link rel="stylesheet" href="/styles/news.css">
     <script src="/scripts/sections.js"></script>
     <script src="/scripts/news.js"></script>
@@ -29,6 +29,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
         $imagesPath = $_SERVER["DOCUMENT_ROOT"] . "/media/news_images/";
 
         $newsArray = NewsRepository::getNews();
+        usort(
+            $newsArray,
+            function ($firstNewsItem, $secondNewsItem) {
+                $firstDate = $firstNewsItem->getDate();
+                $secondDate = $secondNewsItem->getDate();
+
+                $difference = $firstDate->diff($secondDate);
+
+                if ($difference->days == 0) {
+                    return 0;
+                } elseif ($difference->invert == 0) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        );
 
         foreach ($newsArray as $item): ?>
 
