@@ -23,10 +23,12 @@ DROP TABLE IF EXISTS `call_schedule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `call_schedule` (
-  `number` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `number` int unsigned NOT NULL,
   `start` time NOT NULL,
   `end` time NOT NULL,
-  PRIMARY KEY (`number`),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `number` (`number`),
   UNIQUE KEY `start` (`start`),
   UNIQUE KEY `end` (`end`),
   CONSTRAINT `call_schedule_chk_1` CHECK ((`end` > `start`))
@@ -59,14 +61,14 @@ CREATE TABLE `grades` (
   `id_lesson` int unsigned NOT NULL,
   `id_student` int unsigned NOT NULL,
   `grade` varchar(3) DEFAULT NULL,
-  `absent` enum('Відсутній','Присутній') NOT NULL DEFAULT 'Присутній',
+  `presence` enum('Відсутній','Присутній') NOT NULL DEFAULT 'Присутній',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_lesson` (`id_lesson`,`id_student`),
   KEY `id_student` (`id_student`),
   CONSTRAINT `grades_ibfk_1` FOREIGN KEY (`id_lesson`) REFERENCES `lessons` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `grades_ibfk_2` FOREIGN KEY (`id_student`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `grades_chk_1` CHECK (((`grade` is null) or regexp_like(`grade`,_utf8mb3'^(100|[1-9][0-9]|[1-9])$'))),
-  CONSTRAINT `grades_chk_2` CHECK (((`absent` = _utf8mb4'Присутній') or (`grade` is null)))
+  CONSTRAINT `grades_chk_2` CHECK (((`presence` = _utf8mb4'Присутній') or (`grade` is null)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,17 +116,17 @@ DROP TABLE IF EXISTS `lesson_schedules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lesson_schedules` (
-  `id_group` int unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `id_discipline` int unsigned NOT NULL,
   `week_day` char(1) NOT NULL,
-  `id_lesson_number` int unsigned NOT NULL,
-  `variant` enum('Чисельник','Знаменник','Постійно') NOT NULL,
-  UNIQUE KEY `id_group` (`id_group`,`week_day`,`id_lesson_number`),
+  `id_lesson_number` int unsigned DEFAULT NULL,
+  `variant` enum('Чисельник','Знаменник','Постійно') NOT NULL DEFAULT 'Постійно',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `record` (`id_discipline`,`week_day`,`id_lesson_number`,`variant`),
   KEY `id_discipline` (`id_discipline`),
   KEY `id_lesson_number` (`id_lesson_number`),
-  CONSTRAINT `lesson_schedules_ibfk_1` FOREIGN KEY (`id_group`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `lesson_schedules_ibfk_2` FOREIGN KEY (`id_discipline`) REFERENCES `work_distribution` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `lesson_schedules_ibfk_3` FOREIGN KEY (`id_lesson_number`) REFERENCES `call_schedule` (`number`) ON UPDATE CASCADE,
+  CONSTRAINT `lesson_schedules_ibfk_3` FOREIGN KEY (`id_lesson_number`) REFERENCES `call_schedule` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `lesson_schedules_chk_1` CHECK (regexp_like(`week_day`,_utf8mb3'^[1-5]$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -240,6 +242,23 @@ CREATE TABLE `notifications` (
   KEY `id_user` (`id_user`),
   CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `parents`
+--
+
+DROP TABLE IF EXISTS `parents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `parents` (
+  `id_parent` int unsigned NOT NULL,
+  `id_student` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`id_parent`),
+  KEY `id_student` (`id_student`),
+  CONSTRAINT `parents_ibfk_1` FOREIGN KEY (`id_parent`) REFERENCES `users` (`id`),
+  CONSTRAINT `parents_ibfk_2` FOREIGN KEY (`id_student`) REFERENCES `students` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -371,4 +390,4 @@ CREATE TABLE `work_distribution` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-15 15:42:58
+-- Dump completed on 2021-03-01 18:14:15
