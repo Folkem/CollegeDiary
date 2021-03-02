@@ -85,6 +85,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
                                     <li>
                                         <a class="link" href="/pages/schedules.php">Розклади</a>
                                     </li>
+                                    <li>
+                                        <a class="link" href="/pages/disciplines.php">Дисципліни</a>
+                                    </li>
                                 <?php endif; ?>
                                 <li>
                                     <p class="link" id="user-exit-button">Вийти</p>

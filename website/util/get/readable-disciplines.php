@@ -8,7 +8,7 @@ $groupedDisciplines = array_map(
         fn($discipline) => [
             'id' => $discipline->getId(),
             'subject-teacher' =>
-                $discipline->getSubject() . ' — ' . $discipline->getTeacher()->getFullName(),
+                $discipline->getSubjectTeacher(),
         ],
         $disciplineArray
     ),

@@ -80,9 +80,8 @@ class WorkDistributionRecord
         return $this;
     }
 
-    public function getFullName(): string
+    public function getSubjectTeacher(): string
     {
-        return $this->getSubject() . " (" . $this->getTeacher()->getFullName() .
-            "; " . $this->getGroup()->getReadableName(false) . ")";
+        return $this->getSubject() . ' — ' . $this->getTeacher()->getFullName();
     }
 }
