@@ -50,7 +50,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
         foreach ($newsArray as $item): ?>
 
             <div class="news-item">
-                <a class="link news-item-link" href="/pages/news_item.php?item=<?= $item->getId() ?>">
+                <a class="link news-item-link" href="/pages/news-item.php?item=<?= $item->getId() ?>">
                     <?php if (file_exists($imagesPath . $item->getImagePath())): ?>
 
                         <div class="news-item__image-block">
