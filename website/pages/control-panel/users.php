@@ -313,3 +313,4 @@ if (is_null($currentUser) ||
 
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/footer.php"; ?>
 </body>
+</html>
