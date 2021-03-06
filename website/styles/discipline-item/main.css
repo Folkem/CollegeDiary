@@ -1,0 +1,52 @@
+.wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    height: fit-content;
+    padding: 1rem 10%;
+}
+
+.wrapper-content {
+    background-color: #f0f0f0;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    height: fit-content;
+    min-height: 20rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-button-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.menu-button {
+    width: 100%;
+    padding: 0.25rem 2rem;
+    background-color: #d9d9d9;
+    text-align: center;
+    font-size: 2rem;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+.menu-button:hover {
+    background-color: #cccccc;
+}
+
+.menu-button--selected {
+    background-color: #bfbfbf;
+    cursor: default;
+}
+
+.menu-button--selected:hover {
+    background-color: #bfbfbf;
+}
+
+.menu-content-block {
+    padding: 1rem;
+}

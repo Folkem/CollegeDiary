@@ -1,0 +1,85 @@
+.lessons-block {
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.lessons-form-block, .lessons-list-block {
+    width: 100%;
+    height: fit-content;
+    min-height: 30rem;
+}
+
+.lessons-list-block__header {
+    display: grid;
+    grid-template-columns: 50% 25% 15% 10%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.lessons-list__header-element {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+.lesson {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 25% 15% 10%;
+    font-size: 1.2rem;
+}
+
+.lesson__component {
+    padding: 0.5rem 0;
+}
+
+.lesson__id {
+    display: none;
+}
+
+.lesson__type, .lesson__date {
+    text-align: center;
+}
+
+.lesson__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.lesson-button {
+    cursor: pointer;
+}
+
+.lesson-button:hover {
+    color: #4d4d4d;
+}
+
+.lessons-form-block {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.lessons-form-block__header {
+    align-self: center;
+    font-size: 1.5rem;
+    padding: 0.5rem 0;
+}
+
+.lessons-form {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    gap: 1rem;
+}
+
+.lessons-form__button {
+    grid-area: button;
+    align-self: center;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    background-color: #2bb32b;
+    padding: 0.4rem 0.7rem;
+}

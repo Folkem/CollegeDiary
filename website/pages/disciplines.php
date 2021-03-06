@@ -29,22 +29,23 @@ if (is_null($currentUser)) {
 
 <div class="wrapper">
     <div class="content">
-
         <div class="disciplines">
-
             <div class="discipline-header">
-                <div class="discipline-header__item discipline-header__subject">Предмет</div>
-                <div class="discipline-header__item discipline-header__teacher">Викладач</div>
-                <div class="discipline-header__item discipline-header__link">Посилання</div>
+                <div class="discipline-header__item">Предмет</div>
+                <div class="discipline-header__item">
+                    <?= $currentUser->getRole() === UserRoles::TEACHER ? 'Група' : 'Викладач' ?>
+                </div>
+                <div class="discipline-header__item">Посилання</div>
             </div>
-
             <div class="discipline-list">
                 
                 <?php
                 
                 if ($currentUser->getRole() === UserRoles::TEACHER) {
+                    $role = 'teacher';
                     $disciplinesArray = WorkDistributionRepository::getRecordsForTeacher($currentUser->getId());
                 } else {
+                    $role = 'student';
                     if ($currentUser->getRole() === UserRoles::STUDENT) {
                         $group = GroupRepository::getGroupForStudent($currentUser->getId());
                     } else {
@@ -58,23 +59,23 @@ if (is_null($currentUser)) {
                 foreach ($disciplinesArray as $discipline): ?>
 
                     <div class="discipline">
-                        <div class="discipline__item discipline__subject">
+                        <div class="discipline__item">
                             <?= $discipline->getSubject() ?>
                         </div>
-                        <div class="discipline__item discipline__teacher">
-                            <?= $discipline->getTeacher()->getFullName() ?>
+                        <div class="discipline__item">
+                            <?= $currentUser->getRole() === UserRoles::TEACHER ?
+                                $discipline->getGroup()->getReadableName(true) :
+                                $discipline->getTeacher()->getFullName() ?>
                         </div>
-                        <div class="discipline__item discipline__link">
-                            <a href="/pages/discipline-item.php?id=<?= $discipline->getId() ?>">Посилання</a>
+                        <div class="discipline__item">
+                            <a href="/pages/discipline-item/<?= $role ?>.php?id=<?= $discipline->getId() ?>">Посилання</a>
                         </div>
                     </div>
                 
                 <?php endforeach; ?>
 
             </div>
-
         </div>
-
     </div>
 </div>
 
