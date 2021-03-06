@@ -1,0 +1,36 @@
+.lessons-list-block {
+    width: 100%;
+    height: fit-content;
+    min-height: 30rem;
+}
+
+.lessons-list-block__header {
+    display: grid;
+    grid-template-columns: 50% 25% 15% 10%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.lessons-list__header-element {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+.lesson {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 25% 15% 10%;
+    font-size: 1.2rem;
+}
+
+.lesson__component {
+    padding: 0.5rem 0;
+}
+
+.lesson__id {
+    display: none;
+}
+
+.lesson__type, .lesson__date {
+    text-align: center;
+}

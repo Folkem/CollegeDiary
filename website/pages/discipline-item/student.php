@@ -7,7 +7,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/util/logging.php";
 $discipline = null;
 $redirect = true;
 
-if (is_null($currentUser) || $currentUser->getRole() !== UserRoles::TEACHER) {
+if (is_null($currentUser) ||
+    ($currentUser->getRole() !== UserRoles::STUDENT &&
+        $currentUser->getRole() !== UserRoles::PARENT)) {
     header('Location: /');
     return;
 }
@@ -18,7 +20,18 @@ if (isset($_GET['id'])) {
         
         $discipline = WorkDistributionRepository::getRecordById($idDiscipline);
         
-        $redirect = $discipline->getTeacher()->getId() !== $currentUser->getId();
+        $student = $currentUser;
+        if ($currentUser->getRole() === UserRoles::PARENT) {
+            $student = UserRepository::getStudentForParent($currentUser->getId());
+        }
+        
+        try {
+            $group = GroupRepository::getGroupForStudent($student->getId());
+            
+            $redirect = $discipline->getGroup()->getId() !== $group->getId();
+        } catch (Throwable $exception) {
+            $redirect = true;
+        }
     } catch (Exception $exception) {
         $redirect = true;
     }
@@ -35,23 +48,21 @@ if ($redirect == true) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $discipline->getSubject() . ' — ' . $discipline->getGroup()->getReadableName(true) ?> —
-        Онлайн-щоденник</title>
+    <title><?= $discipline->getSubjectTeacher() ?> — Онлайн-щоденник</title>
     <link rel="stylesheet" href="/styles/font-awesome/all.min.css">
     <link rel="stylesheet" href="/styles/util/normalize.css">
     <link rel="stylesheet" href="/styles/util/reset.css">
     <link rel="stylesheet" href="/styles/discipline-item/main.css">
-    <link rel="stylesheet" href="/styles/discipline-item/teacher.css">
-    <link rel="stylesheet" href="/styles/sections.css">
+    <link rel="stylesheet" href="/styles/discipline-item/student.css">
     <link rel="stylesheet" href="/styles/util/general.css">
+    <link rel="stylesheet" href="/styles/sections.css">
     <script>
         const ID_DISCIPLINE = <?= $idDiscipline ?>;
     </script>
     <script src="/scripts/sections.js"></script>
     <script src="/scripts/discipline-item/functions.js"></script>
-    <script src="/scripts/discipline-item/teacher/elements.js"></script>
-    <script src="/scripts/discipline-item/teacher/request.js"></script>
-    <script src="/scripts/discipline-item/teacher/main.js"></script>
+    <script src="/scripts/discipline-item/student/elements.js"></script>
+    <script src="/scripts/discipline-item/student/main.js"></script>
 </head>
 <body>
 <?php require_once $_SERVER['DOCUMENT_ROOT'] . "/sections/header.php"; ?>
@@ -64,31 +75,17 @@ if ($redirect == true) {
             <div class="menu-button" data-block="homework-block">Домашнє завдання</div>
         </div>
         <div class="menu-content-list">
-            <div class="menu-content-block lessons-block" id="lessons-block">
-
-                <div class="lessons-form-block">
-                    <h3 class="lessons-form-block__header">Форма редагування</h3>
-                    <div class="lessons-form-block__form lessons-form">
-                        <input class="lessons-form__date" type="date" id="lessons-form-date"
-                            value="<?= date('Y-m-d') ?>">
-                        <select class="lessons-form__type" id="lessons-form-type"></select>
-                        <textarea class="lessons-form__comment" rows="10" id="lessons-form-comment"></textarea>
-                        <button class="lessons-form__button" id="lessons-form-button"
-                                type="submit">Зберегти зміни</button>
-                    </div>
-                </div>
-
+            <div class="menu-content-block" id="lessons-block">
                 <div class="lessons-list-block">
                     <div class="lessons-list-block__header">
                         <div class="lessons-list__header-element">Опис</div>
                         <div class="lessons-list__header-element">Тип заняття</div>
                         <div class="lessons-list__header-element">Дата</div>
                     </div>
-                    <div class="lessons-list-block__list" id="lessons-list">
+                    <div class="lessons-list" id="lessons-list">
 
                     </div>
                 </div>
-
             </div>
             <div class="menu-content-block hidden" id="grades-block">
                 Grades
