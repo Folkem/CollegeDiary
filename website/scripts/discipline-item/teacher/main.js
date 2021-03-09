@@ -22,10 +22,11 @@ function setUpMenu() {
     });
 }
 
-function setUpLessons(lessonsArray) {
+function setUpLessons() {
+    const lessons = window['lessons'];
     const listBlock = document.querySelector('.lessons-list-block__list');
 
-    for (const lessonObject of lessonsArray) {
+    for (const lessonObject of lessons) {
         const lessonElement = createLessonElement(lessonObject);
 
         listBlock.appendChild(lessonElement);
@@ -80,9 +81,26 @@ function setUpLessonsForm() {
     });
 }
 
+function setUpGrades() {
+    if (window['grades'] === undefined) {
+        console.error('Оцінки ще не вспіли завантажитися');
+        return;
+    }
+    const gradesElement = document.querySelector('.grades');
+
+    const headerElement = createGradeHeaderElement();
+    const listElement = createGradeListElement();
+
+    gradesElement.appendChild(headerElement);
+    gradesElement.appendChild(listElement);
+}
+
 window.addEventListener('load', () => {
     setUpMenu();
     uploadLessons(ID_DISCIPLINE)
+        .then((lessons) => {
+            window['lessons'] = lessons;
+        })
         .then(setUpLessons)
         .catch(() => alert('Помилка при завантаженні даних занять'));
     uploadLessonTypes()
@@ -90,4 +108,13 @@ window.addEventListener('load', () => {
             window['lesson-types'] = lessonTypes;
         })
         .then(setUpLessonsForm);
+    uploadGrades(ID_DISCIPLINE)
+        .then((grades) => {
+            window['grades'] = grades['data'];
+        })
+        .then(setUpGrades)
+        .catch((e) => {
+            console.error(`${e}`);
+            alert('Помилка при завантаженні оцінок');
+        });
 });

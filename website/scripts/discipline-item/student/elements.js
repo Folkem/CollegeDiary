@@ -23,3 +23,25 @@ function createLessonElement(lessonObject) {
 
     return element;
 }
+
+function createGradeElement(gradeObject) {
+    const element = document.createElement('div');
+    const gradeValueElement = document.createElement('div');
+    const lessonTypeElement = document.createElement('div');
+    const dateElement = document.createElement('div');
+
+    element.className = 'grade';
+    gradeValueElement.className = 'grade__value grade__component';
+    lessonTypeElement.className = 'grade__type grade__component';
+    dateElement.className = 'grade__date grade__component';
+
+    gradeValueElement.innerHTML = gradeObject['grade'];
+    lessonTypeElement.innerHTML = gradeObject['lesson']['type'];
+    dateElement.innerHTML = gradeObject['date'];
+
+    element.appendChild(gradeValueElement);
+    element.appendChild(lessonTypeElement);
+    element.appendChild(dateElement);
+
+    return element;
+}

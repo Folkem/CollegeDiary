@@ -58,6 +58,7 @@ if ($redirect == true) {
     <link rel="stylesheet" href="/styles/sections.css">
     <script>
         const ID_DISCIPLINE = <?= $idDiscipline ?>;
+        const ID_STUDENT = <?= $student->getId() ?>;
     </script>
     <script src="/scripts/sections.js"></script>
     <script src="/scripts/discipline-item/functions.js"></script>
@@ -88,7 +89,16 @@ if ($redirect == true) {
                 </div>
             </div>
             <div class="menu-content-block hidden" id="grades-block">
-                Grades
+                <div class="grades-list-block">
+                    <div class="grades-list-block__header">
+                        <div class="grades-list__header-element">Оцінка</div>
+                        <div class="grades-list__header-element">Тип заняття</div>
+                        <div class="grades-list__header-element">Дата</div>
+                    </div>
+                    <div class="grades-list" id="grades-list">
+
+                    </div>
+                </div>
             </div>
             <div class="menu-content-block hidden" id="homework-block">
                 Homework

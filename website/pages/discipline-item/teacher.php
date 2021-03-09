@@ -59,12 +59,12 @@ if ($redirect == true) {
 <div class="wrapper">
     <div class="wrapper-content">
         <div class="menu-button-list">
-            <div class="menu-button menu-button--selected" data-block="lessons-block">Заняття</div>
-            <div class="menu-button" data-block="grades-block">Оцінки</div>
+            <div class="menu-button" data-block="lessons-block">Заняття</div>
+            <div class="menu-button menu-button--selected" data-block="grades-block">Оцінки</div>
             <div class="menu-button" data-block="homework-block">Домашнє завдання</div>
         </div>
         <div class="menu-content-list">
-            <div class="menu-content-block lessons-block" id="lessons-block">
+            <div class="menu-content-block lessons-block hidden" id="lessons-block">
 
                 <div class="lessons-form-block">
                     <h3 class="lessons-form-block__header">Форма редагування</h3>
@@ -90,8 +90,10 @@ if ($redirect == true) {
                 </div>
 
             </div>
-            <div class="menu-content-block hidden" id="grades-block">
-                Grades
+            <div class="menu-content-block" id="grades-block">
+                <div class="grades">
+                
+                </div>
             </div>
             <div class="menu-content-block hidden" id="homework-block">
                 Homework

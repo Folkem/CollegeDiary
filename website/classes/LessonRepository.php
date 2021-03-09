@@ -83,4 +83,32 @@ class LessonRepository
         
         return $result;
     }
+    
+    public static function getLessonById(int $idLesson): ?Lesson
+    {
+        self::load();
+        $result = null;
+        
+        $statement = self::$connection->prepare('select * from lessons where id = :id');
+        
+        if ($statement !== false) {
+            if ($statement->execute([':id' => $idLesson])) {
+                if (($statementArray = $statement->fetch()) !== false) {
+                    $date = DateTimeImmutable::createFromFormat('Y-m-d', $statementArray['date']);
+                    $discipline = WorkDistributionRepository::getRecordById($statementArray['id_discipline']);
+                    
+                    $lesson = (new Lesson())
+                        ->setId((int)$statementArray['id'])
+                        ->setComment($statementArray['comment'])
+                        ->setDiscipline($discipline)
+                        ->setDate($date)
+                        ->setType($statementArray['id_lesson_type']);
+    
+                    $result = $lesson;
+                }
+            }
+        }
+        
+        return $result;
+    }
 }

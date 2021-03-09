@@ -22,7 +22,8 @@ function setUpMenu() {
     });
 }
 
-function setUpLessons(lessonsArray) {
+function setUpLessons() {
+    const lessonsArray = window['lessons'];
     const listBlock = document.querySelector('.lessons-list');
 
     for (const lessonObject of lessonsArray) {
@@ -32,8 +33,25 @@ function setUpLessons(lessonsArray) {
     }
 }
 
+function setUpGrades() {
+    const gradesObject = Object.values(window['grades']).reverse();
+    const gradesBlock = document.querySelector('.grades-list');
+
+    for (const gradeObject of gradesObject) {
+        if (gradeObject['grade'] === null) continue;
+
+        const gradeElement = createGradeElement(gradeObject);
+
+        gradesBlock.appendChild(gradeElement);
+    }
+}
+
 window.addEventListener('load', () => {
     setUpMenu();
     uploadLessons(ID_DISCIPLINE)
+        .then((responseObject) => window['lessons'] = responseObject)
         .then(setUpLessons);
+    uploadGrades(ID_DISCIPLINE, ID_STUDENT)
+        .then((responseObject) => window['grades'] = responseObject['data'])
+        .then(setUpGrades);
 });
