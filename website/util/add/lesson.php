@@ -1,7 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/auth_check.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 if (isset($currentUser) && $currentUser->getRole() === UserRoles::TEACHER) {
     if (isset($_POST['id-discipline'], $_POST['date'], $_POST['type'], $_POST['comment'])) {

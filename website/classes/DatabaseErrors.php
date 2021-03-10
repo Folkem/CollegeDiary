@@ -1,5 +1,6 @@
 <?php
 
+
 class DatabaseErrors
 {
     private function __construct()

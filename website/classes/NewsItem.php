@@ -1,5 +1,6 @@
 <?php
 
+
 class NewsItem
 {
     private int $id;

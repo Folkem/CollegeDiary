@@ -7,5 +7,14 @@
     "swiftmailer/swiftmailer": "^v6.2.5",
     "egulias/email-validator": "^2.1.25",
     "shuchkin/simplexlsx": ">=0.8.21"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "classes"
+    },
+    "files": [
+      "util/auth_check.php",
+      "util/logging.php"
+    ]
   }
 }

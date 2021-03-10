@@ -1,7 +1,4 @@
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
-?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php"; ?>
 <!doctype html>
 <html lang="uk">
 <head>

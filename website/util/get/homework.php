@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 if (isset($_POST['id-discipline'])) {
     $idDiscipline = (int)$_POST['id-discipline'];

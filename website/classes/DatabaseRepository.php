@@ -1,7 +1,8 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/configs.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
+
 
 class DatabaseRepository
 {

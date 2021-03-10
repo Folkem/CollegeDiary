@@ -1,7 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/auth_check.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 if (isset($_POST['news-item-id'], $_POST['comment-text'], $currentUser)) {
     $newsItemId = intval($_POST['news-item-id']);

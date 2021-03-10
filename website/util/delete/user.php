@@ -3,8 +3,7 @@
 use Egulias\EmailValidator\EmailValidator;
 use Egulias\EmailValidator\Validation\RFCValidation;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/auth_check.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . '/util/functions/general.php';
 
 if (

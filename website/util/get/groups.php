@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 $groups = GroupRepository::getGroups();
 $groups = array_combine(

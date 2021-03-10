@@ -1,7 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/util/logging.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 if (isset($_POST['email'], $_POST['password'])) {
     $email = $_POST['email'];

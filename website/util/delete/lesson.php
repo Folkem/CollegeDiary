@@ -1,7 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/auth_check.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 if (isset($currentUser, $_POST['id-lesson']) && ($currentUser->getRole() === UserRoles::TEACHER)) {
     $idLesson = (int) $_POST['id-lesson'];

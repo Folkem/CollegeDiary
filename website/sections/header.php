@@ -1,7 +1,3 @@
-<?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/util/auth_check.php";
-?>
-
 <header class="header">
     <?php if (is_null($currentUser)): ?>
         <div class="login-menu-cover hidden" id="login-menu">

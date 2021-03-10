@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/util/loader.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/vendor/autoload.php";
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -24,3 +24,5 @@ $logger->pushHandler(new StreamHandler(
     $_SERVER['DOCUMENT_ROOT'] . "/log/all.log",
     Logger::DEBUG
 ));
+
+$GLOBALS['logger'] = $logger;
