@@ -95,6 +95,54 @@ function setUpGrades() {
     gradesElement.appendChild(listElement);
 }
 
+function setUpHomework() {
+    const homework = window['homework'];
+    const listBlock = document.querySelector('.homework-list-block__list');
+
+    for (const homeworkObject of homework) {
+        const homeworkElement = createHomeworkElement(homeworkObject);
+
+        listBlock.appendChild(homeworkElement);
+    }
+}
+
+function setUpHomeworkForm() {
+    const homeworkCreateDateElement = document.querySelector('#homework-form-create-date');
+    const homeworkScheduleDateElement = document.querySelector('#homework-form-schedule-date');
+    const homeworkTextElement = document.querySelector('#homework-form-text');
+    const homeworkButtonElement = document.querySelector('#homework-form-button');
+
+    const listBlock = document.querySelector('.homework-list-block__list');
+
+    homeworkButtonElement.addEventListener('click', () => {
+        const homeworkCreatedDateValue = homeworkCreateDateElement.value;
+        const homeworkScheduledDateValue = homeworkScheduleDateElement.value;
+        const homeworkTextValue = homeworkTextElement.value;
+
+        requestHomeworkAdd({
+            'id-discipline': ID_DISCIPLINE,
+            'created-date': homeworkCreatedDateValue,
+            'scheduled-date': homeworkScheduledDateValue,
+            'text': homeworkTextValue
+        }).then((responseObject) => {
+            if (responseObject['status'] === 'success') {
+                const newHomeworkElement = createHomeworkElement({
+                    'id': responseObject['id'],
+                    'created-date': homeworkCreatedDateValue,
+                    'scheduled-date': homeworkScheduledDateValue,
+                    'text': homeworkTextValue
+                });
+                listBlock.insertBefore(newHomeworkElement, listBlock.firstChild);
+            } else {
+                alert(responseObject['message']);
+            }
+        }).catch((error) => {
+            console.error(`error: ${error}`);
+            alert('Необроблена помилка');
+        });
+    });
+}
+
 window.addEventListener('load', () => {
     setUpMenu();
     uploadLessons(ID_DISCIPLINE)
@@ -117,4 +165,11 @@ window.addEventListener('load', () => {
             console.error(`${e}`);
             alert('Помилка при завантаженні оцінок');
         });
+    uploadHomework(ID_DISCIPLINE)
+        .then((homework) => {
+            window['homework'] = homework;
+        })
+        .then(setUpHomework)
+        .then(setUpHomeworkForm)
+        .catch(() => alert('Помилка при завантаженні даних домашнього завдання'));
 });

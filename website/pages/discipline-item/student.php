@@ -71,12 +71,12 @@ if ($redirect == true) {
 <div class="wrapper">
     <div class="wrapper-content">
         <div class="menu-button-list">
-            <div class="menu-button menu-button--selected" data-block="lessons-block">Заняття</div>
+            <div class="menu-button" data-block="lessons-block">Заняття</div>
             <div class="menu-button" data-block="grades-block">Оцінки</div>
-            <div class="menu-button" data-block="homework-block">Домашнє завдання</div>
+            <div class="menu-button menu-button--selected" data-block="homework-block">Домашнє завдання</div>
         </div>
         <div class="menu-content-list">
-            <div class="menu-content-block" id="lessons-block">
+            <div class="menu-content-block hidden" id="lessons-block">
                 <div class="lessons-list-block">
                     <div class="lessons-list-block__header">
                         <div class="lessons-list__header-element">Опис</div>
@@ -100,8 +100,17 @@ if ($redirect == true) {
                     </div>
                 </div>
             </div>
-            <div class="menu-content-block hidden" id="homework-block">
-                Homework
+            <div class="menu-content-block" id="homework-block">
+                <div class="homework-list-block">
+                    <div class="homework-list-block__header">
+                        <div class="homework-list__header-element">Завдання</div>
+                        <div class="homework-list__header-element">Дата публікації</div>
+                        <div class="homework-list__header-element">Дата здачі</div>
+                    </div>
+                    <div class="homework-list" id="homework-list">
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -46,6 +46,17 @@ function setUpGrades() {
     }
 }
 
+function setUpHomework() {
+    const homeworkArray = window['homework'];
+    const listBlock = document.querySelector('.homework-list');
+
+    for (const homeworkObject of homeworkArray) {
+        const homeworkElement = createHomeworkElement(homeworkObject);
+
+        listBlock.appendChild(homeworkElement);
+    }
+}
+
 window.addEventListener('load', () => {
     setUpMenu();
     uploadLessons(ID_DISCIPLINE)
@@ -54,4 +65,7 @@ window.addEventListener('load', () => {
     uploadGrades(ID_DISCIPLINE, ID_STUDENT)
         .then((responseObject) => window['grades'] = responseObject['data'])
         .then(setUpGrades);
+    uploadHomework(ID_DISCIPLINE)
+        .then((responseObject) => window['homework'] = responseObject)
+        .then(setUpHomework);
 });

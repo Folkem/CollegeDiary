@@ -213,3 +213,71 @@ function createGradeValueSelectElement() {
 
     return element;
 }
+
+function createHomeworkElement(homeworkObject) {
+    const element = document.createElement('div');
+    const idElement = document.createElement('div');
+    const textElement = document.createElement('div');
+    const scheduledDateElement = document.createElement('div');
+    const createdDateElement = document.createElement('div');
+    const buttonsElement = document.createElement('div');
+
+    element.className = 'homework';
+    idElement.className = 'homework__id homework__component';
+    textElement.className = 'homework__text homework__component';
+    scheduledDateElement.className = 'homework__date homework__component';
+    createdDateElement.className = 'homework__date homework__component';
+    buttonsElement.className = 'homework__buttons homework_component';
+
+    idElement.innerHTML = homeworkObject['id'];
+    textElement.innerHTML = homeworkObject['text'];
+    scheduledDateElement.innerHTML = homeworkObject['scheduled-date'];
+    createdDateElement.innerHTML = homeworkObject['created-date'];
+
+    const editButtonElement = createEditHomeworkButton(homeworkObject);
+    const deleteButtonElement = createDeleteHomeworkButton(homeworkObject, element);
+
+    buttonsElement.appendChild(editButtonElement);
+    buttonsElement.appendChild(deleteButtonElement);
+
+    element.appendChild(idElement);
+    element.appendChild(textElement);
+    element.appendChild(createdDateElement);
+    element.appendChild(scheduledDateElement);
+    element.appendChild(buttonsElement);
+
+    return element;
+}
+
+function createEditHomeworkButton(homeworkObject) {
+    const element = document.createElement('i');
+
+    element.className = 'fa fa-edit fa-lg homework-button homework-button-edit';
+
+    element.setAttribute('title', 'Поки що не підтримується');
+
+    element.addEventListener('click', () => {
+        //todo
+    });
+
+    return element;
+}
+
+function createDeleteHomeworkButton(homeworkObject, homeworkElement) {
+    const element = document.createElement('i');
+
+    element.className = 'fa fa-trash fa-lg homework-button';
+
+    element.addEventListener('click', () => {
+        requestHomeworkDelete(homeworkObject['id'])
+            .then(() => {
+                //todo: delete homework check
+
+                const listElement = document.querySelector('#homework-list');
+                listElement.removeChild(homeworkElement);
+            })
+            .catch(() => alert('Виникла помилка під час видалення заняття'));
+    });
+
+    return element;
+}

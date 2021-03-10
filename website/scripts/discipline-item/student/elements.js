@@ -45,3 +45,29 @@ function createGradeElement(gradeObject) {
 
     return element;
 }
+
+function createHomeworkElement(homeworkObject) {
+    const element = document.createElement('div');
+    const idElement = document.createElement('div');
+    const textElement = document.createElement('div');
+    const createdDateElement = document.createElement('div');
+    const scheduledDateElement = document.createElement('div');
+
+    element.className = 'lesson';
+    idElement.className = 'homework__id homework__component';
+    textElement.className = 'homework__comment homework__component';
+    createdDateElement.className = 'homework__date homework__component';
+    scheduledDateElement.className = 'homework__date homework__component';
+
+    idElement.innerHTML = homeworkObject['id'];
+    textElement.innerHTML = homeworkObject['text'];
+    createdDateElement.innerHTML = homeworkObject['created-date'];
+    scheduledDateElement.innerHTML = homeworkObject['scheduled-date'];
+
+    element.appendChild(idElement);
+    element.appendChild(textElement);
+    element.appendChild(createdDateElement);
+    element.appendChild(scheduledDateElement);
+
+    return element;
+}

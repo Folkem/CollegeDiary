@@ -59,12 +59,12 @@ if ($redirect == true) {
 <div class="wrapper">
     <div class="wrapper-content">
         <div class="menu-button-list">
-            <div class="menu-button" data-block="lessons-block">Заняття</div>
-            <div class="menu-button menu-button--selected" data-block="grades-block">Оцінки</div>
+            <div class="menu-button menu-button--selected" data-block="lessons-block">Заняття</div>
+            <div class="menu-button" data-block="grades-block">Оцінки</div>
             <div class="menu-button" data-block="homework-block">Домашнє завдання</div>
         </div>
         <div class="menu-content-list">
-            <div class="menu-content-block lessons-block hidden" id="lessons-block">
+            <div class="menu-content-block lessons-block" id="lessons-block">
 
                 <div class="lessons-form-block">
                     <h3 class="lessons-form-block__header">Форма редагування</h3>
@@ -90,13 +90,39 @@ if ($redirect == true) {
                 </div>
 
             </div>
-            <div class="menu-content-block" id="grades-block">
+            <div class="menu-content-block hidden" id="grades-block">
                 <div class="grades">
                 
                 </div>
             </div>
-            <div class="menu-content-block hidden" id="homework-block">
-                Homework
+            <div class="menu-content-block homework-block hidden" id="homework-block">
+
+                <div class="homework-form-block">
+                    <h3 class="homework-form-block__header">Форма редагування</h3>
+                    <div class="homework-form-block__form homework-form">
+                        <input class="homework-form__date" type="date" id="homework-form-create-date"
+                               value="<?= date('Y-m-d') ?>">
+                        <input class="homework-form__date" type="date" id="homework-form-schedule-date"
+                               value="<?= date('Y-m-d',
+                                   mktime(0, 0, 0, date('m'),
+                                       date('d') + 7, date('Y'))) ?>">
+                        <textarea class="homework-form__comment" rows="10" id="homework-form-text"></textarea>
+                        <button class="homework-form__button" id="homework-form-button"
+                                type="submit">Зберегти зміни</button>
+                    </div>
+                </div>
+
+                <div class="homework-list-block">
+                    <div class="homework-list-block__header">
+                        <div class="homework-list__header-element">Завдання</div>
+                        <div class="homework-list__header-element">Дата публікації</div>
+                        <div class="homework-list__header-element">Дата здачі</div>
+                    </div>
+                    <div class="homework-list-block__list" id="homework-list">
+
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>
