@@ -93,6 +93,25 @@ CREATE TABLE `groups` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `homework`
+--
+
+DROP TABLE IF EXISTS `homework`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `homework` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id_discipline` int unsigned NOT NULL,
+  `text` text NOT NULL,
+  `created_at` date NOT NULL,
+  `scheduled_to` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_discipline` (`id_discipline`),
+  CONSTRAINT `homework_ibfk_1` FOREIGN KEY (`id_discipline`) REFERENCES `work_distribution` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `keywords`
 --
 
@@ -390,4 +409,4 @@ CREATE TABLE `work_distribution` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-08 17:41:38
+-- Dump completed on 2021-03-10 21:51:52
