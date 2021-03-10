@@ -60,15 +60,15 @@ CREATE TABLE `grades` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `id_lesson` int unsigned NOT NULL,
   `id_student` int unsigned NOT NULL,
-  `grade` varchar(3) DEFAULT NULL,
-  `presence` enum('Відсутній','Присутній') NOT NULL DEFAULT 'Присутній',
+  `grade` int unsigned DEFAULT NULL,
+  `presence` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_lesson` (`id_lesson`,`id_student`),
   KEY `id_student` (`id_student`),
   CONSTRAINT `grades_ibfk_1` FOREIGN KEY (`id_lesson`) REFERENCES `lessons` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `grades_ibfk_2` FOREIGN KEY (`id_student`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `grades_chk_1` CHECK (((`grade` is null) or regexp_like(`grade`,_utf8mb3'^(100|[1-9][0-9]|[1-9])$'))),
-  CONSTRAINT `grades_chk_2` CHECK (((`presence` = _utf8mb4'Присутній') or (`grade` is null)))
+  CONSTRAINT `grades_ibfk_2` FOREIGN KEY (`id_student`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `grades_chk_1` CHECK (((`grade` is null) or (`grade` <= 100))),
+  CONSTRAINT `grades_chk_2` CHECK (((`presence` = true) or (`grade` is null)))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -90,6 +90,25 @@ CREATE TABLE `groups` (
   CONSTRAINT `groups_chk_1` CHECK (regexp_like(`group_number`,_utf8mb3'^[1-9]$')),
   CONSTRAINT `groups_chk_2` CHECK (regexp_like(`group_year`,_utf8mb3'^[1-9]$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `homework`
+--
+
+DROP TABLE IF EXISTS `homework`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `homework` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id_discipline` int unsigned NOT NULL,
+  `text` text NOT NULL,
+  `created_at` date NOT NULL,
+  `scheduled_to` date NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_discipline` (`id_discipline`),
+  CONSTRAINT `homework_ibfk_1` FOREIGN KEY (`id_discipline`) REFERENCES `work_distribution` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,4 +409,4 @@ CREATE TABLE `work_distribution` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-01 18:14:15
+-- Dump completed on 2021-03-10 21:51:52

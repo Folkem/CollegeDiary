@@ -158,7 +158,7 @@ class GroupRepository
             $specialities
         );
         $statement = self::$connection->prepare('
-            select * from `groups` g 
+            select g.* from `groups` g
             left join students s on g.id = s.id_group
             where s.id_student = :id
         ');

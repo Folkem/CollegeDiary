@@ -102,7 +102,9 @@ class WorkDistributionRepository
                 }
             } catch (Exception $e) {
                 if ($e->getCode() == DatabaseErrors::DUPLICATE_ENTRY) {
-                    $result['error_messages'][] = 'Запис "' . $record->getFullName() . '" вже є';
+                    $recordFullName = $record->getSubject() . " (" . $record->getTeacher()->getFullName() .
+                        "; " . $record->getGroup()->getReadableName(false) . ")";
+                    $result['error_messages'][] = 'Запис "' . $recordFullName . '" вже є';
                 } else {
                     $result['error_messages'][] = 'Помилка ' . $e->getCode();
                 }
@@ -273,6 +275,49 @@ class WorkDistributionRepository
         
         if ($statement !== false) {
             if ($statement->execute(['id_group' => $idGroup])) {
+                while (($statementArray = $statement->fetch()) !== false) {
+                    $teacher = $teachers[$statementArray['id_teacher']];
+                    $group = $groups[$statementArray['id_group']];
+                    
+                    $record = (new WorkDistributionRecord())
+                        ->setId((int)$statementArray['id'])
+                        ->setSubject($statementArray['subject'])
+                        ->setTeacher($teacher)
+                        ->setGroup($group);
+                    $result[] = $record;
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
+    public static function getRecordsForTeacher(int $idTeacher): array
+    {
+        self::load();
+        $result = [];
+        
+        $teachers = UserRepository::getUsersWithRole(UserRoles::TEACHER);
+        $teachers = array_combine(
+            array_map(
+                fn($teacher) => $teacher->getId(),
+                $teachers
+            ),
+            $teachers
+        );
+        $groups = GroupRepository::getGroups();
+        $groups = array_combine(
+            array_map(
+                fn($group) => $group->getId(),
+                $groups
+            ),
+            $groups
+        );
+        
+        $statement = self::$connection->prepare('select * from work_distribution where id_teacher = :id_teacher');
+        
+        if ($statement !== false) {
+            if ($statement->execute(['id_teacher' => $idTeacher])) {
                 while (($statementArray = $statement->fetch()) !== false) {
                     $teacher = $teachers[$statementArray['id_teacher']];
                     $group = $groups[$statementArray['id_group']];

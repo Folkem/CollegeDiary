@@ -1,0 +1,55 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 2rem 10%;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    min-height: 30rem;
+    border-radius: 1rem;
+    background-color: #e6e6e6;
+    box-sizing: border-box;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.disciplines {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+    height: 50%;
+}
+
+.discipline-header {
+    text-align: center;
+    align-self: center;
+    display: grid;
+    grid-template-columns: 50% 30% 20%;
+    width: 100%;
+    justify-content: space-around;
+    font: bold 1.5rem sans-serif;
+}
+
+.discipline-header__item {
+    padding: 0.5rem;
+}
+
+.discipline-list {
+    text-align: center;
+    align-self: center;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.discipline {
+    display: grid;
+    grid-template-columns: 50% 30% 20%;
+    word-wrap: break-word;
+    padding: 0.2rem;
+}

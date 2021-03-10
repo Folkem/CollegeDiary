@@ -99,7 +99,7 @@ function createDayScheduleElement(day, daySchedule, groupId) {
 
     for (const lessonNumber in daySchedule) {
         // noinspection JSUnfilteredForInLoop
-        const lessonItem = createLessonItem(day, lessonNumber, daySchedule[lessonNumber], groupId);
+        const lessonItem = createLessonItemElement(day, lessonNumber, daySchedule[lessonNumber], groupId);
 
         element.appendChild(lessonItem);
     }
@@ -107,7 +107,7 @@ function createDayScheduleElement(day, daySchedule, groupId) {
     return element;
 }
 
-function createLessonItem(day, lessonNumber, lessonDisciplines, groupId) {
+function createLessonItemElement(day, lessonNumber, lessonDisciplines, groupId) {
     const element = document.createElement('div');
     const lessonNumberElement = document.createElement('div');
     const lessonDisciplinesElement = createLessonItemDisciplinesElement(day, lessonNumber, lessonDisciplines, groupId);

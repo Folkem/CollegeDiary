@@ -20,8 +20,7 @@ class UserRepository
         self::load();
         $result = [];
 
-        $statement = self::$connection->query("select id, first_name, middle_name,
-                last_name, full_name, email, password, id_role as 'role', avatar_path from users");
+        $statement = self::$connection->query('select * from users');
 
         if ($statement !== false) {
             while (($statementArray = $statement->fetch()) !== false) {
@@ -33,7 +32,7 @@ class UserRepository
                     ->setFullName($statementArray['full_name'])
                     ->setEmail($statementArray['email'])
                     ->setPassword($statementArray['password'])
-                    ->setRole((int)$statementArray['role'])
+                    ->setRole((int)$statementArray['id_role'])
                     ->setAvatarPath($statementArray['avatar_path']);
                 $result[] = $user;
             }
@@ -44,7 +43,7 @@ class UserRepository
 
     public static function getUsersWithRole(int $role): array
     {
-        return self::getUsersByField('role', $role, false);
+        return self::getUsersByField('id_role', $role, false);
     }
 
     public static function getUserById(int $id): ?User
@@ -62,11 +61,11 @@ class UserRepository
         self::load();
         $result = true;
 
-        $statement = self::$connection->prepare("update users 
+        $statement = self::$connection->prepare('update users
             set first_name = :first_name, middle_name = :middle_name,
                 last_name = :last_name, email = :email, id_role = :id_role,
                 password = :password, avatar_path = :avatar_path
-            where users.id = :id");
+            where users.id = :id');
 
         if ($statement !== false) {
             $statement->bindValue(':id', $user->getId());
@@ -189,7 +188,7 @@ class UserRepository
 
     private static function getSingleUserByField(string $field, string $value): ?User
     {
-        return self::getUsersByField($field, $value, true)[0];
+        return self::getUsersByField($field, $value, true)[0] ?? null;
     }
 
     private static function getUsersByField(string $field, $value, bool $single): array
@@ -206,14 +205,13 @@ class UserRepository
             case 'email':
                 $actualField = 'email';
                 break;
-            case 'role':
+            case 'id_role':
                 $actualField = 'id_role';
                 break;
         }
 
         if ($actualField !== null) {
-            $statement = self::$connection->prepare("select id, first_name, middle_name,
-                last_name, full_name, email, password, id_role as 'role', avatar_path from users
+            $statement = self::$connection->prepare("select * from users
                 where $actualField = :value");
 
             if ($statement !== false) {
@@ -229,7 +227,7 @@ class UserRepository
                         ->setFullName($statementArray['full_name'])
                         ->setEmail($statementArray['email'])
                         ->setPassword($statementArray['password'])
-                        ->setRole((int)$statementArray['role'])
+                        ->setRole((int)$statementArray['id_role'])
                         ->setAvatarPath($statementArray['avatar_path']);
 
                     $result[] = $user;
@@ -248,8 +246,7 @@ class UserRepository
         self::load();
         $result = null;
         
-        $statement = self::$connection->prepare('select u.id, first_name, middle_name,
-            last_name, full_name, email, password, id_role as "role", avatar_path
+        $statement = self::$connection->prepare('select u.*
             from users u
             right join students s on u.id = s.id_student
             right join parents p on s.id = p.id_student
@@ -267,10 +264,129 @@ class UserRepository
                         ->setFullName($statementArray['full_name'])
                         ->setEmail($statementArray['email'])
                         ->setPassword($statementArray['password'])
-                        ->setRole((int)$statementArray['role'])
+                        ->setRole((int)$statementArray['id_role'])
                         ->setAvatarPath($statementArray['avatar_path']);
                     
                     $result = $student;
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
+    public static function getStudentsByGroup(int $idGroup): array
+    {
+        self::load();
+        $result = [];
+    
+        $statement = self::$connection->prepare('
+            select u.* from users u
+            left join students s on u.id = s.id_student
+            where s.id_group = :id_group
+        ');
+    
+        if ($statement !== false) {
+            if ($statement->execute([':id_group' => $idGroup])) {
+                while (($statementArray = $statement->fetch()) !== false) {
+                    $user = new User();
+                    $user->setId((int)$statementArray['id'])
+                        ->setFirstName($statementArray['first_name'])
+                        ->setMiddleName($statementArray['middle_name'])
+                        ->setLastName($statementArray['last_name'])
+                        ->setFullName($statementArray['full_name'])
+                        ->setEmail($statementArray['email'])
+                        ->setPassword($statementArray['password'])
+                        ->setRole((int)$statementArray['id_role'])
+                        ->setAvatarPath($statementArray['avatar_path']);
+                    $result[] = $user;
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
+    public static function getStudentById(int $idStudent): ?User
+    {
+        self::load();
+        $result = null;
+    
+        $statement = self::$connection->prepare('
+            select u.* from users u
+            left join students s on u.id = s.id_student
+            where s.id = :id
+        ');
+        
+        if ($statement !== false) {
+            if ($statement->execute([':id' => $idStudent])) {
+                if (($statementArray = $statement->fetch()) !== false) {
+                    $user = (new User())
+                        ->setId((int)$statementArray['id'])
+                        ->setFirstName($statementArray['first_name'])
+                        ->setMiddleName($statementArray['middle_name'])
+                        ->setLastName($statementArray['last_name'])
+                        ->setFullName($statementArray['full_name'])
+                        ->setEmail($statementArray['email'])
+                        ->setPassword($statementArray['password'])
+                        ->setRole((int)$statementArray['id_role'])
+                        ->setAvatarPath($statementArray['avatar_path']);
+                    $result = $user;
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
+    public static function getStudentsByDiscipline(int $idDiscipline): array
+    {
+        self::load();
+        $result = [];
+        
+        $statement = self::$connection->prepare('
+            select u.* from users u
+            left join students s on u.id = s.id_student
+            left join work_distribution wd on s.id_group = wd.id_group
+            where wd.id = :id_discipline
+        ');
+        
+        if ($statement !== false) {
+            if ($statement->execute([':id_discipline' => $idDiscipline])) {
+                while (($statementArray = $statement->fetch()) !== false) {
+                    $user = new User();
+                    $user->setId((int)$statementArray['id'])
+                        ->setFirstName($statementArray['first_name'])
+                        ->setMiddleName($statementArray['middle_name'])
+                        ->setLastName($statementArray['last_name'])
+                        ->setFullName($statementArray['full_name'])
+                        ->setEmail($statementArray['email'])
+                        ->setPassword($statementArray['password'])
+                        ->setRole((int)$statementArray['id_role'])
+                        ->setAvatarPath($statementArray['avatar_path']);
+                    $result[] = $user;
+                }
+            }
+        }
+        
+        return $result;
+    }
+    
+    public static function getStudentIdByUserId(int $idUser): ?int
+    {
+        self::load();
+        $result = null;
+        
+        $statement = self::$connection->prepare('
+            select s.id from students s
+            left join users u on s.id_student = u.id
+            where u.id = :id_user
+        ');
+        
+        if ($statement !== false) {
+            if ($statement->execute([':id_user' => $idUser])) {
+                if (($statementArray = $statement->fetch()) !== false) {
+                    $result = (int) $statementArray['id'];
                 }
             }
         }

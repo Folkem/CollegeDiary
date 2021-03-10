@@ -6,7 +6,6 @@
     "ext-mbstring": "*",
     "swiftmailer/swiftmailer": "^v6.2.5",
     "egulias/email-validator": "^2.1.25",
-    "shuchkin/simplexlsx": ">=0.8.21",
-    "ext-xdebug": "*"
+    "shuchkin/simplexlsx": ">=0.8.21"
   }
 }
