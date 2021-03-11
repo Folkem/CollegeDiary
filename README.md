@@ -1,4 +1,4 @@
-# PGFK unofficial web-app diary!
+# PGDK unofficial web-app diary!
 
 ## Welcome to the college-diary.edu project!
 

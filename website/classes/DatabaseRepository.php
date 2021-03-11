@@ -1,7 +1,7 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/configs.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/util/loader.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . "/../vendor/autoload.php";
+
 
 class DatabaseRepository
 {
@@ -33,8 +33,8 @@ class DatabaseRepository
 
     private static function connect(): void
     {
-        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME;
-        self::$connection = new PDO($dsn, DB_USER, DB_PASS);
+        $dsn = 'mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'];
+        self::$connection = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASS']);
         self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 }

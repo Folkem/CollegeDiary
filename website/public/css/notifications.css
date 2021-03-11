@@ -1,0 +1,156 @@
+/* Wrapper */
+
+.wrapper {
+    padding: 1rem 10%;
+    /* TODO: wrapper css */
+}
+
+/* Pop-up message */
+
+.pop-up-message {
+    top: 0;
+    z-index: 3;
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pop-up-message__content {
+    padding: 2rem;
+    font-weight: bolder;
+    width: fit-content;
+    height: fit-content;
+    background: #d3d3d3;
+    border-radius: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pop-up-message__content--error {
+    background: darkred;
+}
+
+.pop-up-message__content--warning {
+    background: orange;
+}
+
+/* Notification controls */
+
+.controls {
+    /*padding: 1rem;*/
+    display: flex;
+    flex-direction: row;
+}
+
+.control-item {
+    font-size: 1.4rem;
+    width: 100%;
+    padding: 1rem;
+    background: #e6e6e6;
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.control-item:hover {
+    background: #cccccc;
+}
+
+.notifications-buttons__item {
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 1rem;
+    border-radius: 1rem 1rem 0 0;
+    border: 1px solid black;
+    background: #e6e6e6;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.notifications-buttons__item--active {
+    border-bottom: none;
+    background: #ededed;
+    cursor: default;
+}
+
+.notifications-list {
+    overflow-y: scroll;
+    height: 30vw;
+}
+
+/* Notification css */
+
+.notification {
+    height: fit-content;
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 7.5% 10% 47.5% 25% 10%;
+    font-size: 1.2rem;
+}
+
+.notification--unread {
+    background: #cccccc;
+}
+
+.notification--read {
+    background: #ededed;
+}
+
+.notification__id {
+    display: none;
+}
+
+.notification__publish-date-pure {
+    display: none;
+}
+
+.notification__publish-date {
+    height: fit-content;
+    text-align: center;
+    align-self: center;
+}
+
+.notification__time {
+    height: fit-content;
+    text-align: center;
+    align-self: center;
+}
+
+.notification__comment {
+    height: fit-content;
+    align-self: center;
+}
+
+.notification__link {
+    height: fit-content;
+    color: #7e33ff;
+    font-weight: bold;
+    justify-self: center;
+    align-self: center;
+}
+
+.notification__link:hover {
+    color: #712ee6;
+}
+
+.notification__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.notification__button {
+    background: none;
+    cursor: pointer;
+}

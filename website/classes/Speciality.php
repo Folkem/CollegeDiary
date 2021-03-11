@@ -1,5 +1,6 @@
 <?php
 
+
 class Speciality
 {
     private int $id;
