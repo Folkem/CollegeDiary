@@ -1,7 +1,6 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/../vendor/autoload.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/../util/configs.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/../util/functions/general.php";
 
 if (isset($_POST['email'])) {
@@ -34,13 +33,17 @@ MESSAGE;
         $userWasUpdated = UserRepository::updateUser($foundUser);
 
         if ($userWasUpdated) {
-            $transport = new Swift_SmtpTransport(MAIL_SMTP_HOST, MAIL_SMTP_PORT, MAIL_SMTP_ENC);
-            $transport->setUsername(MAIL_USER)->setPassword(MAIL_PASS);
+            $transport = new Swift_SmtpTransport(
+                $_ENV['MAIL_SMTP_HOST'],
+                $_ENV['MAIL_SMTP_PORT'],
+                $_ENV['MAIL_SMTP_ENC']
+            );
+            $transport->setUsername($_ENV['MAIL_USER'])->setPassword($_ENV['MAIL_PASS']);
 
             $mailer = new Swift_Mailer($transport);
 
             $message = (new Swift_Message($subject))
-                ->setFrom([MAIL_USER => 'Онлайн-щоденник'])
+                ->setFrom([$_ENV['MAIL_USER'] => 'Онлайн-щоденник'])
                 ->setTo([$userEmail])
                 ->setBody($messageContent);
             $message->setContentType('text/html');

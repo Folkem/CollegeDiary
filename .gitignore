@@ -1,8 +1,8 @@
 website/.idea
-website/media/user_avatars
-website/media/news_images
+website/public/media/user_avatars
+website/public/media/news_images
 website/composer.lock
 website/vendor
 website/log
 website/apache_log
-website/util/configs.php
+*.env
