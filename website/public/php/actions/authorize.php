@@ -6,43 +6,30 @@ if (isset($_POST['email'], $_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $users = UserRepository::getUsers();
-    $selectedUsers = array_filter(
-        $users,
-        fn($user) => (strcasecmp($email, $user->getEmail()) == 0)
-    );
-    $selectedUsers = array_filter(
-        $selectedUsers,
-        fn($user) => password_verify($password, $user->getPassword())
-    );
-    $selectedUsers = array_values($selectedUsers);
+    $user = UserRepository::getUserByEmail($email);
 
     $response = [];
 
-    if (count($selectedUsers) > 1) {
-        $repeatedId = $selectedUsers[0]->getId();
-        $response['message'] = 'Вибачте, виникла помилка при обробці вашого запиту. 
-        Спробуйте пізніше';
-        $response['action'] = 'none';
-        $logger->error("Було знайдено {userCount} користувачів з id = {id}",
-            ["userCount" => count($selectedUsers), "id" => $repeatedId]);
-    } else if (count($selectedUsers) == 1) {
-        $selectedUser = $selectedUsers[0];
-        if (session_status() === PHP_SESSION_DISABLED) {
-            session_start();
-        }
-        $_SESSION['user'] = $selectedUser;
-
+    if (isset($user) && password_verify($password, $user->getPassword())) {
+        $_SESSION['user'] = $user;
         $response['message'] = 'Ви успішно увійшли в ваш обліковий запис, ' .
-            $selectedUser->getFullName();
+            $user->getFullName();
         $response['action'] = 'reload';
+        $logger->info(
+            "User {$user->getEmail()} has logged in"
+        );
     } else {
         $response['message'] = 'Користувача з вказаними даними не було знайдено';
         $response['action'] = 'none';
+        $logger->info(
+            "User tried to log in with email: {$email}"
+        );
     }
-
-    $jsonResponse = json_encode($response);
-    echo $jsonResponse;
+    
+    echo json_encode($response);
 } else {
-    header('Location: /');
+    echo json_encode([
+        'message' => 'Не вказані наступні дані: email, password',
+        'action' => 'none'
+    ]);
 }
