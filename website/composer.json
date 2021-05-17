@@ -18,5 +18,9 @@
       "util/logging.php",
       "util/load-env.php"
     ]
-  }
+  },
+  "name": "folkem/college-diary",
+  "description": "Website for working with online student college diary"
 }
+
+
