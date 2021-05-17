@@ -33,7 +33,7 @@ function onUserExit() {
     ajaxRequest.open('GET', '/php/actions/logout.php');
     ajaxRequest.onload = () => {
         location.reload();
-    }
+    };
     ajaxRequest.send();
 }
 

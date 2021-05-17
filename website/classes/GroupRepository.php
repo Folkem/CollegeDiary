@@ -37,8 +37,8 @@ class GroupRepository
             while (($statementArray = $statement->fetch()) !== false) {
                 $group = new Group();
                 $group->setId($statementArray['id'])
-                    ->setGroupNumber($statementArray['group_number'])
-                    ->setGroupYear($statementArray['group_year'])
+                    ->setGroupNumber($statementArray['number'])
+                    ->setGroupYear($statementArray['year'])
                     ->setSpeciality($specialityMap[$statementArray['id_speciality']]);
                 $result[] = $group;
             }
@@ -93,7 +93,7 @@ class GroupRepository
         self::load();
         $result = false;
 
-        $statement = self::$connection->prepare('replace into students 
+        $statement = self::$connection->prepare('replace into students
             (id_group, id_student) values (:id_group, :id_student)');
 
         if ($statement !== false) {
@@ -137,8 +137,8 @@ class GroupRepository
                 $result = new Group();
                 $result->setId($statementArray['id']);
                 $result->setSpeciality($speciality);
-                $result->setGroupYear($statementArray['group_year']);
-                $result->setGroupNumber($statementArray['group_number']);
+                $result->setGroupYear($statementArray['year']);
+                $result->setGroupNumber($statementArray['number']);
             }
         }
 
@@ -171,8 +171,8 @@ class GroupRepository
 
                 $group = new Group();
                 $group->setId((int)$statementArray['id'])
-                    ->setGroupNumber((int)$statementArray['group_number'])
-                    ->setGroupYear((int)$statementArray['group_year'])
+                    ->setGroupNumber((int)$statementArray['number'])
+                    ->setGroupYear((int)$statementArray['year'])
                     ->setSpeciality($speciality);
 
                 $result = $group;
