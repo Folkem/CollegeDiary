@@ -1,9 +1,0 @@
-Options -Indexes +FollowSymLinks
-DirectoryIndex /pages/news.php
-ErrorDocument 404 /pages/error.php
-ErrorDocument 500 /pages/error.php
-RewriteEngine On
-RewriteBase /
-RewriteCond %{HTTP_HOST} !^/pages[\w/]+$
-RewriteRule ^([\w.]+)$ /pages/$1
-RewriteRule ^([\w/]+)$ $1.php [L]
