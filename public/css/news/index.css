@@ -163,6 +163,7 @@ a {
 a:hover {
 	background-size: 100% 2px;
 	transition: all 0.3s ease;
+	color: #2c6dbf;
 }
 
 .header-body {
@@ -367,6 +368,14 @@ a:hover {
 .about hr {
 	background-color: #2c6dbf;
 }
+.pgdk-news a {
+	background: none;
+}
+.pgdk-news a:hover {
+	text-decoration: none;
+	color: white;
+	transition: none;
+}
 .news {
 	margin: 50px 0px 0px 0px;
 	height: 1000px;
@@ -375,11 +384,11 @@ a:hover {
 	height: 1000px;
 	display: flex;
 	flex-direction: row;
-	gap: 35px;
+	gap: 55px;
 }
-
 .search-column {
 	width: 430px;
+	max-height: 190px;
 	background-color: #2c6dbf;
 	display: flex;
 	flex-direction: column;
@@ -413,6 +422,37 @@ a:hover {
 	font-family: "GothamPro";
 	font-size: 15px;
 	line-height: 120%;
+}
+.news-element-date {
+	font-family: "GothamPro";
+	margin-top: 10px;
+	font-size: 16px;
+	border-radius: 4rem;
+	background-color: #2c6dbf;
+	color: #fff;
+	padding: 4px 8px;
+	width: fit-content;
+}
+.news-search,
+.tag-search {
+	width: 380px;
+	margin: 20px 0px 0px 20px;
+	font-family: "GothamPro";
+	border-radius: 2rem;
+	padding: 10px 0 10px 15px;
+	color: #505050;
+}
+.datepicker-from,
+.datepicker-to {
+	width: 160px;
+	margin: 20px 0px 0px 20px;
+	font-family: "GothamPro";
+	border-radius: 2rem;
+	padding: 10px 15px 10px 15px;
+	color: #505050;
+}
+.search-wrapper :nth-child(3) {
+	margin: 20px 0px 0px 55px;
 }
 /*? === MAIN END === */
 

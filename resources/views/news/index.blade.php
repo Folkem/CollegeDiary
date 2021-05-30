@@ -40,8 +40,10 @@
                 <div class="search-column">
                     <div class="search-panel">
                         <div class="search-wrapper">
-                            <input type="text" class="news-search">
-                            <input type="text" class="tag-search">
+                            <input type="text" placeholder="Пошук новини..." class="news-search">
+									 <input type="date" placeholder="Рік.Місяць.День" class="datepicker-from">
+									 <input type="date" placeholder="Рік.Місяць.День" class="datepicker-to">
+                            <input type="text" placeholder="Пошук по тегу..." class="tag-search">
                         </div>
                     </div>
                 </div>
@@ -51,9 +53,11 @@
                             <figure class="news-element-placeholder">
                                 <img src="{{ asset('media/static/main-cover.jpg') }}" alt="" class="news-element-image">
                             </figure>
-                            <h2 class="news-element-title">{{ $news->title }}</h2>
-                            <p>{{ \Illuminate\Support\Str::limit($news->body, 200) }}</p>
-                            <p>{{ $news->created_at }}</p>
+                            <h2 class="news-element-title">
+									 	<a href="{{ route('news.show', $news) }}">{{ $news->title }}</a>
+									 </h2>
+                            <p class="news-element-text">{{ \Illuminate\Support\Str::limit($news->body, 200) }}</p>
+                            <p class="news-element-date"> {{ $news->created_at->diffForHumans() }}</p>
                         </div>
                     @endforeach
                 </div>
