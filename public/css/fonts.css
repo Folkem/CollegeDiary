@@ -1,0 +1,32 @@
+@font-face {
+	font-family: "Bitter-Italic";
+	src: url("/fonts/Bitter-Italic.eot");
+	src: local("☺"), url("/fonts/Bitter-Italic.woff") format("woff"),
+		url("/fonts/Bitter-Italic.ttf") format("truetype"), url("/fonts/Bitter-Italic.svg") format("svg");
+	font-weight: normal;
+	font-style: italic;
+}
+@font-face {
+	font-family: "GothamPro";
+	src: url("/fonts/GothamPro.eot");
+	src: local("☺"), url("/fonts/GothamPro.woff") format("woff"), url("/fonts/GothamPro.ttf") format("truetype"),
+		url("/fonts/GothamPro.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "GothamPro-Bold";
+	src: url("/fonts/GothamPro-Bold.eot");
+	src: local("☺"), url("/fonts/GothamPro-Bold.woff") format("woff"),
+		url("/fonts/GothamPro-Bold.ttf") format("truetype"), url("/fonts/GothamPro-Bold.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Museo Cyrl";
+	src: url("/fonts/Museo Cyrl 500.eot");
+	src: local("☺"), url("/fonts/Museo Cyrl 500.woff") format("woff"),
+		url("/fonts/Museo Cyrl 500.ttf") format("truetype"), url("/fonts/Museo Cyrl 500.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
