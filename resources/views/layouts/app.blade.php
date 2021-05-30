@@ -7,7 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') — {{ config('app.name') }}</title>
 {{--    <link rel="stylesheet" href="{{ asset('css/app.css') }}">--}}
+	 <link rel="stylesheet" href="{{ asset('css/nullcss.css') }}">
+	 <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">
+	 <link rel="stylesheet" href="{{ asset('css/layouts/header.css') }}">
+	 <link rel="stylesheet" href="{{ asset('css/layouts/footer.css') }}">
+		
     @yield('stylesheets')
+	 
 </head>
 {{--<body class="flex">--}}
 <body>
