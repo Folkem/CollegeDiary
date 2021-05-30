@@ -1,6 +1,15 @@
-website/.idea
-website/public/media/user_avatars
-website/public/media/news_images
-website/vendor
-website/apache_log
-*.env
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/storage
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+>>>>>>> Add .gitignore
