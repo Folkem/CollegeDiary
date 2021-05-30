@@ -1,82 +1,82 @@
 @charset "UTF-8";
 * {
-    padding: 0px;
-    margin: 0px;
-    border: 0px;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
 }
 *,
 *:before,
 *:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 :focus,
 :active {
-    outline: none;
+	outline: none;
 }
 a:focus,
 a:active {
-    outline: none;
+	outline: none;
 }
 aside,
 nav,
 footer,
 header,
 section {
-    display: block;
+	display: block;
 }
 html,
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    min-width: 320px;
-    position: relative;
-    width: 100%;
-    color: #000;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	min-width: 320px;
+	position: relative;
+	width: 100%;
+	color: #000;
 }
 body {
-    font-size: 100%;
-    line-height: 1;
-    font-size: 14px;
-    font-family: "";
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	font-family: "";
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
 }
 body.lock {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 input,
 button,
 textarea {
-    font-family: "";
+	font-family: "";
 }
 input::-ms-clear {
-    display: none;
+	display: none;
 }
 button {
-    cursor: pointer;
+	cursor: pointer;
 }
 button::-moz-focus-inner {
-    padding: 0;
-    border: 0;
+	padding: 0;
+	border: 0;
 }
 a,
 a:visited {
-    text-decoration: none;
-    color: inherit;
+	text-decoration: none;
+	color: inherit;
 }
 a:hover {
-    text-decoration: none;
+	text-decoration: none;
 }
 ul li {
-    list-style: none;
+	list-style: none;
 }
 img {
-    vertical-align: top;
+	vertical-align: top;
 }
 h1,
 h2,
@@ -84,155 +84,155 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: inherit;
-    font-size: inherit;
+	font-weight: inherit;
+	font-size: inherit;
 }
 /* === Reset CSS === */
 
 /** === COMMON === */
 html,
 body {
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
 }
 .body {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
 }
 
 @font-face {
-    font-family: "Bitter-Italic";
-    src: url("../fonts/Bitter-Italic.eot");
-    src: local("☺"), url("../fonts/Bitter-Italic.woff") format("woff"),
-    url("../fonts/Bitter-Italic.ttf") format("truetype"), url("../fonts/Bitter-Italic.svg") format("svg");
-    font-weight: normal;
-    font-style: italic;
+	font-family: "Bitter-Italic";
+	src: url("../fonts/Bitter-Italic.eot");
+	src: local("☺"), url("../fonts/Bitter-Italic.woff") format("woff"),
+		url("../fonts/Bitter-Italic.ttf") format("truetype"), url("../fonts/Bitter-Italic.svg") format("svg");
+	font-weight: normal;
+	font-style: italic;
 }
 @font-face {
-    font-family: "GothamPro";
-    src: url("../fonts/GothamPro.eot");
-    src: local("☺"), url("../fonts/GothamPro.woff") format("woff"), url("../fonts/GothamPro.ttf") format("truetype"),
-    url("../fonts/GothamPro.svg") format("svg");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "GothamPro";
+	src: url("../fonts/GothamPro.eot");
+	src: local("☺"), url("../fonts/GothamPro.woff") format("woff"), url("../fonts/GothamPro.ttf") format("truetype"),
+		url("../fonts/GothamPro.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
 }
 @font-face {
-    font-family: "GothamPro-Bold";
-    src: url("../fonts/GothamPro-Bold.eot");
-    src: local("☺"), url("../fonts/GothamPro-Bold.woff") format("woff"),
-    url("../fonts/GothamPro-Bold.ttf") format("truetype"), url("../fonts/GothamPro-Bold.svg") format("svg");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "GothamPro-Bold";
+	src: url("../fonts/GothamPro-Bold.eot");
+	src: local("☺"), url("../fonts/GothamPro-Bold.woff") format("woff"),
+		url("../fonts/GothamPro-Bold.ttf") format("truetype"), url("../fonts/GothamPro-Bold.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
 }
 @font-face {
-    font-family: "Museo Cyrl";
-    src: url("../fonts/Museo Cyrl 500.eot");
-    src: local("☺"), url("../fonts/Museo Cyrl 500.woff") format("woff"),
-    url("../fonts/Museo Cyrl 500.ttf") format("truetype"), url("../fonts/Museo Cyrl 500.svg") format("svg");
-    font-weight: normal;
-    font-style: normal;
+	font-family: "Museo Cyrl";
+	src: url("../fonts/Museo Cyrl 500.eot");
+	src: local("☺"), url("../fonts/Museo Cyrl 500.woff") format("woff"),
+		url("../fonts/Museo Cyrl 500.ttf") format("truetype"), url("../fonts/Museo Cyrl 500.svg") format("svg");
+	font-weight: normal;
+	font-style: normal;
 }
 
 /*? === COMMON END === */
 
 /** === HEADER === */
 .header {
-    width: 100%;
-    position: fixed;
-    z-index: 2;
-    height: 110px;
-    background-color: #fff;
-    color: #000;
-    -webkit-box-shadow: 0px 0px 10px 5px rgba(54, 54, 54, 0.2);
-    -moz-box-shadow: 0px 0px 10px 5px rgba(54, 54, 54, 0.2);
-    box-shadow: 0px 0px 10px 5px rgba(54, 54, 54, 0.2);
+	width: 100%;
+	position: fixed;
+	z-index: 2;
+	height: 110px;
+	background-color: #fff;
+	color: #000;
+	-webkit-box-shadow: 0px 0px 10px 5px rgba(54, 54, 54, 0.2);
+	-moz-box-shadow: 0px 0px 10px 5px rgba(54, 54, 54, 0.2);
+	box-shadow: 0px 0px 10px 5px rgba(54, 54, 54, 0.2);
 }
 .header-wrapper {
-    overflow: hidden;
+	overflow: hidden;
 }
 a {
-    text-decoration: none;
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0% 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 2px;
-    transition: 0.3s;
+	text-decoration: none;
+	background-image: linear-gradient(currentColor, currentColor);
+	background-position: 0% 100%;
+	background-repeat: no-repeat;
+	background-size: 0% 2px;
+	transition: 0.3s;
 }
 
 a:hover {
-    background-size: 100% 2px;
-    transition: all 0.3s ease;
+	background-size: 100% 2px;
+	transition: all 0.3s ease;
 }
 
 .header-body {
-    height: 110px;
-    display: flex;
-    justify-content: space-between;
+	height: 110px;
+	display: flex;
+	justify-content: space-between;
 }
 .logo-part {
-    position: relative;
-    left: 0;
-    display: flex;
-    align-items: center;
+	position: relative;
+	left: 0;
+	display: flex;
+	align-items: center;
 }
 .logo-placeholder {
-    height: 80px;
-    width: 80px;
+	height: 80px;
+	width: 80px;
 }
 .logo-part img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 }
 .logo-text {
-    display: inline-block;
-    font-family: "Museo Cyrl";
-    font-size: 30px;
-    margin-left: 15px;
+	display: inline-block;
+	font-family: "Museo Cyrl";
+	font-size: 30px;
+	margin-left: 15px;
 }
 .aside-part {
-    position: relative;
-    right: 0;
+	position: relative;
+	right: 0;
 }
 .actions-navigation {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 30px 0px 15px 0px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin: 30px 0px 15px 0px;
 }
 .action-link {
-    font-family: "Museo Cyrl";
-    font-size: 17px;
-    margin: 0px 0px 0px 30px;
-    color: #2c6dbf;
+	font-family: "Museo Cyrl";
+	font-size: 17px;
+	margin: 0px 0px 0px 30px;
+	color: #2c6dbf;
 }
 .actions-navigation :first-child {
-    margin: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 }
 .authorization-link {
-    font-family: "GothamPro-Bold";
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #000;
+	font-family: "GothamPro-Bold";
+	font-size: 14px;
+	text-transform: uppercase;
+	color: #000;
 }
 .pages-navigation {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 .page-link {
-    font-family: "GothamPro-Bold";
-    font-size: 18px;
-    text-transform: uppercase;
-    margin-left: 30px;
+	font-family: "GothamPro-Bold";
+	font-size: 18px;
+	text-transform: uppercase;
+	margin-left: 30px;
 }
 .pages-navigation :first-child {
-    margin-left: 0px;
+	margin-left: 0px;
 }
 .search-button {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
 }
 /*? === HEADER END === */
 
@@ -240,174 +240,179 @@ a:hover {
 
 /** === MAIN === */
 .main {
-    height: 100%;
-    width: 100%;
+	height: 100%;
+	width: 100%;
 }
 .slider-body {
-    position: relative;
+	position: relative;
 }
 .slider-item {
-    background: rgb(44, 109, 191);
-    background: linear-gradient(25deg, rgba(44, 109, 191, 1) 0%, rgba(44, 109, 191, 0) 100%);
-    position: relative;
-    background-color: #000;
+	background: rgb(44, 109, 191);
+	background: linear-gradient(25deg, rgba(44, 109, 191, 1) 0%, rgba(44, 109, 191, 0) 100%);
+	position: relative;
+	background-color: #000;
 }
 
 .slider-item img {
-    width: 100%;
-    object-fit: cover;
-    opacity: 50%;
-    transition: all 0.7s ease;
+	width: 100%;
+	object-fit: cover;
+	opacity: 50%;
+	transition: all 0.7s ease;
 }
 .non-hover {
-    opacity: 0%;
-    transition: all 0.7s ease;
+	opacity: 0%;
+	transition: all 0.7s ease;
 }
 .hover img {
-    transform: scale(1.2);
-    transition: all 0.7s ease;
-    opacity: 100%;
+	transform: scale(1.2);
+	transition: all 0.7s ease;
+	opacity: 100%;
 }
 
 .slider-text {
-    font-family: "GothamPro-Bold";
-    font-size: 40px;
-    text-align: left;
-    line-height: 150%;
-    color: #fff;
-    position: absolute;
-    left: 5%;
-    bottom: 5%;
-    padding: 0px 0px 20px 20px;
+	font-family: "GothamPro-Bold";
+	font-size: 40px;
+	text-align: left;
+	line-height: 150%;
+	color: #fff;
+	position: absolute;
+	left: 5%;
+	bottom: 5%;
+	padding: 0px 0px 20px 20px;
 }
 
 /** == SLIDER == */
 
 /* Слайдер */
 .slick-slider {
-    position: relative;
+	position: relative;
 }
 .slick-slider p {
-    opacity: 0%;
+	opacity: 0%;
 }
 .slick-slide.slick-active p {
-    opacity: 100%;
-    transition: all 0.7s ease;
+	opacity: 100%;
+	transition: all 0.7s ease;
 }
 /* Ограничивающая оболочка */
 .slick-list {
-    overflow: hidden;
+	overflow: hidden;
 }
 /* Лента слайдов */
 .slick-track {
-    display: flex;
+	display: flex;
 }
 /* Слайд */
 .slick-slide {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 /* Точки (булиты) */
 .slider .slick-dots {
-    display: flex;
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
-    padding-bottom: 20px;
+	display: flex;
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+	padding-bottom: 20px;
 }
 .slider .slick-dots li {
-    list-style: none;
-    margin: 0px 0px 0px 20px;
+	list-style: none;
+	margin: 0px 0px 0px 20px;
 }
 /* Активная точка */
 .slider .slick-dots li.slick-active button {
-    font-size: 0;
-    background-color: #fff;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+	font-size: 0;
+	background-color: #fff;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
 }
 /* Элемент точки */
 .slider .slick-dots li button {
-    font-size: 0;
-    background-color: transparent;
-    border: 2px solid #fff;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+	font-size: 0;
+	background-color: transparent;
+	border: 2px solid #fff;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
 }
 
 .about {
-    display: flex;
-    margin-top: 50px;
-    height: 100px;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	margin-top: 50px;
+	height: 100px;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
 }
 .about span {
-    display: inline-block;
-    font-family: "Museo Cyrl";
-    font-size: 36px;
+	display: inline-block;
+	font-family: "Museo Cyrl";
+	font-size: 36px;
 }
 .about p {
-    font-family: "Bitter-Italic";
-    font-size: 18px;
-    color: #2e2d2d;
+	font-family: "Bitter-Italic";
+	font-size: 18px;
+	color: #2e2d2d;
 }
 .about button {
-    font-family: "Museo Cyrl";
-    font-size: 33px;
-    color: white;
-    background-color: #2c6dbf;
-    text-transform: lowercase;
-    width: 250px;
-    height: 60px;
+	font-family: "Museo Cyrl";
+	font-size: 33px;
+	color: white;
+	background-color: #2c6dbf;
+	text-transform: lowercase;
+	width: 250px;
+	height: 60px;
 }
 .about hr {
-    background-color: #2c6dbf;
+	background-color: #2c6dbf;
 }
 .news {
-    margin: 50px 0px 0px 0px;
-    height: 1000px;
+	margin: 50px 0px 0px 0px;
+	height: 1000px;
 }
 .news-body {
-    height: 1000px;
-    display: flex;
-    flex-direction: row;
-    gap: 35px;
+	height: 1000px;
+	display: flex;
+	flex-direction: row;
+	gap: 35px;
 }
 
 .search-column {
-    width: 430px;
-    background-color: #2c6dbf;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	width: 430px;
+	background-color: #2c6dbf;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 .news-column {
-    width: 675px;
-    display: flex;
-    gap: 35px;
-    flex-wrap: wrap;
+	width: 675px;
+	display: flex;
+	gap: 35px;
+	flex-wrap: wrap;
 }
 .news-element {
-    width: 320px;
+	width: 320px;
 }
 .news-element-placeholder {
-    width: 320px;
-    height: 200px;
-    background-color: #2c6dbf;
+	width: 320px;
+	height: 200px;
+	background-color: #2c6dbf;
+}
+.news-element-placeholder img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 .news-element-title {
-    font-family: "Museo Cyrl";
-    font-size: 24px;
-    padding: 15px 0px 10px 0px;
+	font-family: "Museo Cyrl";
+	font-size: 24px;
+	padding: 15px 0px 10px 0px;
 }
 .news-element-text {
-    font-family: "GothamPro";
-    font-size: 15px;
-    line-height: 120%;
+	font-family: "GothamPro";
+	font-size: 15px;
+	line-height: 120%;
 }
 /*? === MAIN END === */
 
