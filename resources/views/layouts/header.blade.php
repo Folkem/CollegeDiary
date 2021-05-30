@@ -30,7 +30,7 @@
                             <a href="">Студенту</a>
                         </li>
                         <li class="page-link">
-                            <a href="">Новини</a>
+                            <a href="{{ route('news.index') }}">Новини</a>
                         </li>
                         <!-- <button class="page-link search-button">О</button> -->
                     </ul>
