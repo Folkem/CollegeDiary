@@ -15,7 +15,7 @@
                 <div class="slider-body">
                     @for($i = 0; $i < 4; $i++)
                     <div class="slider-item">
-                        <img src="{{ asset('media/static/main-cover.jpg') }}" alt="" class="image-01">
+                        <img src="{{ asset('media/static/main-cover.jpg') }}" alt="" class="image-0{{ $i }}">
                         <div class="slider-text">
                             <p>В ПГФК, наші студенти <br> мають свободу вибору <br> їхньої спеціальності
                             </p>
@@ -49,10 +49,10 @@
                     @foreach($newsList as $news)
                         <div class="news-element">
                             <figure class="news-element-placeholder">
-                                <img src="" alt="" class="news-element-image">
+                                <img src="{{ asset('media/static/main-cover.jpg') }}" alt="" class="news-element-image">
                             </figure>
                             <h2 class="news-element-title">{{ $news->title }}</h2>
-                            <p class="news-element-text">{{ \Illuminate\Support\Str::limit($news->body, 200) }}</p>
+                            <p>{{ \Illuminate\Support\Str::limit($news->body, 200) }}</p>
                             <p>{{ $news->created_at }}</p>
                         </div>
                     @endforeach
