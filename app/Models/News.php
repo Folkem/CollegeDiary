@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $title
  * @property string $body
+ * @property string $image_path
  * @property Collection $comments
  */
 class News extends Model
