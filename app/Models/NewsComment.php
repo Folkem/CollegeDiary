@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Class NewsComment
  * @package App\Models
- * @property int id
- * @property User user
- * @property News news
- * @property string body
+ * @property int $id
+ * @property User $user
+ * @property News $news
+ * @property string $body
  */
 class NewsComment extends Model
 {

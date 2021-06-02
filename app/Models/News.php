@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class News
  * @package App\Models
- * @property string title
- * @property string body
- * @property Collection comments
+ * @property int $id
+ * @property string $title
+ * @property string $body
+ * @property Collection $comments
  */
 class News extends Model
 {
