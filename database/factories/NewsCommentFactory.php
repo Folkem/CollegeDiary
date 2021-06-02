@@ -24,8 +24,8 @@ class NewsCommentFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => fn() => User::query()->inRandomOrder()->first()->value('id'),
-            'news_id' => fn() => News::query()->inRandomOrder()->first()->value('id'),
+            'user_id' => User::all()->random()->id,
+            'news_id' => News::all()->random()->id,
             'body' => $this->faker->realTextBetween(4, 400),
         ];
     }
