@@ -16,6 +16,7 @@ use Illuminate\Notifications\Notifiable;
  * @property int $id
  * @property string $name
  * @property string $email
+ * @property string $avatar_path
  * @property string $password
  * @property Role $role
  * @property Collection $newsComments
@@ -32,6 +33,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar_path',
         'password',
         'role_id',
     ];
