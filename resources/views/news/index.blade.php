@@ -17,8 +17,7 @@
                     <div class="slider-item">
                         <img src="{{ asset('media/static/main-cover.jpg') }}" alt="" class="image-0{{ $i }}">
                         <div class="slider-text">
-                            <p>В ПГФК, наші студенти <br> мають свободу вибору <br> їхньої спеціальності
-                            </p>
+                            <p>В ПГФК, наші студенти<br>мають свободу вибору<br>їхньої спеціальності</p>
                         </div>
                     </div>
                     @endfor
@@ -26,11 +25,10 @@
             </div>
             <div class="about body">
                 <span class="outcome">Плоди нашої <br> роботи</span>
-                <hr class="blue-line" width="6.5" size="100">
                 <p>
-                    Зібратися разом - це початок, <br>
-                    Триматися разом - це прогрес, <br>
-                    Працювати разом - це успіх. <br>
+                    Зібратися разом - це початок,<br>
+                    Триматися разом - це прогрес,<br>
+                    Працювати разом - це успіх.<br>
                 </p>
                 <button class="pgkd-news">новини пгфк</button>
             </div>
@@ -40,10 +38,10 @@
                 <div class="search-column">
                     <div class="search-panel">
                         <div class="search-wrapper">
-                            <input type="text" placeholder="Пошук новини..." class="news-search">
-									 <input type="date" placeholder="Рік.Місяць.День" class="datepicker-from">
-									 <input type="date" placeholder="Рік.Місяць.День" class="datepicker-to">
-                            <input type="text" placeholder="Пошук по тегу..." class="tag-search">
+                           <label for=""><input type="text" placeholder="Пошук новини..." class="news-search"></label>
+                           <label for=""><input type="date" placeholder="Рік.Місяць.День" class="datepicker-from"></label>
+                           <label for=""><input type="date" placeholder="Рік.Місяць.День" class="datepicker-to"></label>
+                           <label for=""><input type="text" placeholder="Пошук по тегу..." class="tag-search"></label>
                         </div>
                     </div>
                 </div>
