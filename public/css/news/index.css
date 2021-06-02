@@ -3,328 +3,329 @@
 /** === COMMON === */
 html,
 body {
-   height: 100%;
-   width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .body {
-   max-width: 1200px;
+    max-width: 1200px;
 
-   margin: 0 auto;
-   padding: 0 20px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 a {
-   text-decoration: none;
+    text-decoration: none;
 
-   background-image: linear-gradient(currentColor, currentColor);
-   background-position: 0 100%;
-   background-repeat: no-repeat;
-   background-size: 0 2px;
-   transition: 0.3s;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 2px;
+    transition: 0.3s;
 }
 
 a:hover {
-   background-size: 100% 2px;
-   color: #2c6dbf;
+    background-size: 100% 2px;
+    color: #2c6dbf;
 
-   transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 /*? === SLIDER END === */
 
 /** === MAIN === */
 .main {
-   height: 100%;
-   width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .slider-body {
-   position: relative;
+    position: relative;
 }
 
 .slider-item {
-   position: relative;
+    position: relative;
 
-   background: rgb(44, 109, 191);
-   background: linear-gradient(25deg, rgba(44, 109, 191, 1) 0%, rgba(44, 109, 191, 0) 100%);
-   background-color: #000;
+    background: rgb(44, 109, 191);
+    background: linear-gradient(25deg, rgba(44, 109, 191, 1) 0%, rgba(44, 109, 191, 0) 100%);
+    background-color: #000;
 }
 
 .slider-item img {
-   width: 100%;
-   opacity: 50%;
+    width: 100%;
+    opacity: 50%;
 
-   object-fit: contain;
+    object-fit: contain;
 
-   transition: all 0.7s ease;
+    transition: all 0.7s ease;
 }
 
 .non-hover {
-   opacity: 0;
+    opacity: 0;
 
-   transition: all 0.7s ease;
+    transition: all 0.7s ease;
 }
 
 .hover img {
-   opacity: 100%;
+    opacity: 100%;
 
-   transform: scale(1.2);
-   transition: all 0.7s ease;
+    transform: scale(1.2);
+    transition: all 0.7s ease;
 }
 
 .slider-text {
-   position: absolute;
+    position: absolute;
 
 
-   left: 5%;
-   bottom: 5%;
-   padding: 0 0 0 20px;
+    left: 5%;
+    bottom: 5%;
+    padding: 0 0 0 20px;
 
-   border-left: 6px solid #2c6dbf;
+    border-left: 6px solid #2c6dbf;
 
-   color: #fff;
-   font-family: "GothamPro-Bold", sans-serif;
-   font-size: 40px;
-   text-align: left;
-   line-height: 150%;
+    color: #fff;
+    font-family: "GothamPro-Bold", sans-serif;
+    font-size: 40px;
+    text-align: left;
+    line-height: 150%;
 }
 
 /** == SLIDER == */
 
 /* Слайдер */
 .slick-slider {
-   position: relative;
+    position: relative;
 }
 
 .slick-slider p {
-   opacity: 0;
+    opacity: 0;
 }
 
 .slick-slide.slick-active p {
-   opacity: 100%;
+    opacity: 100%;
 
-   transition: all 0.7s ease;
+    transition: all 0.7s ease;
 }
 
 /* Ограничивающая оболочка */
 .slick-list {
-   overflow: hidden;
+    overflow: hidden;
 }
 
 /* Лента слайдов */
 .slick-track {
-   display: flex;
+    display: flex;
 }
 
 /* Слайд */
 .slick-slide {
-   overflow: hidden;
+    overflow: hidden;
 }
 
 /* Точки (булиты) */
 .slider .slick-dots {
-   display: flex;
-   position: absolute;
+    display: flex;
+    position: absolute;
 
-   bottom: 5%;
-   right: 5%;
+    bottom: 5%;
+    right: 5%;
 
-   padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 .slider .slick-dots li {
-   margin: 0 0 0 20px;
+    margin: 0 0 0 20px;
 
-   list-style: none;
+    list-style: none;
 }
 
 /* Активная точка */
 .slider .slick-dots li.slick-active button {
-   width: 20px;
-   height: 20px;
+    width: 20px;
+    height: 20px;
 
-   font-size: 0;
-   border-radius: 50%;
+    font-size: 0;
+    border-radius: 50%;
 
-   background-color: #fff;
+    background-color: #fff;
 }
 
 /* Элемент точки */
 .slider .slick-dots li button {
-   width: 20px;
-   height: 20px;
+    width: 20px;
+    height: 20px;
 
-   font-size: 0;
+    font-size: 0;
 
-   border: 2px solid #fff;
-   border-radius: 50%;
+    border: 2px solid #fff;
+    border-radius: 50%;
 
-   background-color: transparent;
+    background-color: transparent;
 }
 
 .about {
-   height: 100px;
-   width: 100%;
+    height: 100px;
+    width: 100%;
 
-   display: flex;
-   margin-top: 50px;
+    display: flex;
+    margin-top: 50px;
 
-   align-items: center;
-   justify-content: space-between;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .about span {
-   display: inline-block;
+    display: inline-block;
 
-   font-family: "Museo Cyrl", sans-serif;
-   font-size: 36px;
+    font-family: "Museo Cyrl", sans-serif;
+    font-size: 36px;
 }
 
 .about p {
-   font-family: "Bitter-Italic", sans-serif;
-   font-size: 18px;
+    font-family: "Bitter-Italic", sans-serif;
+    font-size: 18px;
 
-   color: #2e2d2d;
+    color: #2e2d2d;
+}
+
+.about-text {
+    border-left: 6px solid #2c6dbf;
+
+    padding-left: 20px;
 }
 
 .about button {
-   width: 250px;
-   height: 60px;
+    width: 250px;
+    height: 60px;
 
-   color: white;
-   font-family: "Museo Cyrl", sans-serif;
-   font-size: 33px;
+    color: white;
+    font-family: "Museo Cyrl", sans-serif;
+    font-size: 33px;
 
-   background-color: #2c6dbf;
-   text-transform: lowercase;
-}
-
-.about hr {
-   background-color: #2c6dbf;
+    background-color: #2c6dbf;
+    text-transform: lowercase;
 }
 
 .pgdk-news a {
-   background: none;
+    background: none;
 }
 
 .pgdk-news a:hover {
-   text-decoration: none;
-   color: white;
+    text-decoration: none;
+    color: white;
 
-   transition: none;
+    transition: none;
 }
 
 .news {
-   height: 1000px;
+    height: 1000px;
 
-   margin: 50px 0 0 0;
+    margin: 50px 0 0 0;
 }
 
 .news-body {
-   height: 1000px;
+    height: 1000px;
 
-   display: flex;
-   flex-direction: row;
-   gap: 55px;
+    display: flex;
+    flex-direction: row;
+    gap: 55px;
 }
 
 .search-column {
-   width: 430px;
-   max-height: 190px;
+    width: 430px;
+    max-height: 190px;
 
-   display: flex;
-   flex-direction: column;
-   align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-   background-color: #2c6dbf;
+    background-color: #2c6dbf;
 }
 
 .search-panel {
-   height: 190px;
+    height: 190px;
 }
 
 .news-column {
-   width: 675px;
+    width: 675px;
 
-   display: flex;
-   flex-wrap: wrap;
-   gap: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
 }
 
 .news-element {
-   width: 320px;
+    width: 320px;
 }
 
 .news-element-placeholder {
-   width: 320px;
-   height: 200px;
+    width: 320px;
+    height: 200px;
 
-   background-color: #2c6dbf;
+    background-color: #2c6dbf;
 }
 
 .news-element-placeholder img {
-   width: 100%;
-   height: 100%;
+    width: 100%;
+    height: 100%;
 
-   object-fit: cover;
+    object-fit: cover;
 }
 
 .news-element-title {
-   padding: 15px 0 10px 0;
+    padding: 15px 0 10px 0;
 
-   font-family: "Museo Cyrl", sans-serif;
-   font-size: 24px;
+    font-family: "Museo Cyrl", sans-serif;
+    font-size: 24px;
 }
 
 .news-element-text {
-   font-family: "GothamPro", sans-serif;
-   font-size: 15px;
+    font-family: "GothamPro", sans-serif;
+    font-size: 15px;
 
-   line-height: 120%;
+    line-height: 120%;
 }
 
 .news-element-date {
-   width: fit-content;
+    width: fit-content;
 
-   padding: 4px 8px;
-   margin-top: 10px;
+    padding: 4px 8px;
+    margin-top: 10px;
 
-   border-radius: 4rem;
+    border-radius: 4rem;
 
-   font-family: "GothamPro", sans-serif;
-   font-size: 16px;
+    font-family: "GothamPro", sans-serif;
+    font-size: 16px;
 
-   color: #fff;
-   background-color: #2c6dbf;
+    color: #fff;
+    background-color: #2c6dbf;
 }
 
 .news-search,
 .tag-search {
-   width: 380px;
+    width: 380px;
 
-   margin: 20px 0 0 20px;
-   padding: 10px 0 10px 15px;
+    margin: 20px 0 0 20px;
+    padding: 10px 0 10px 15px;
 
-   border-radius: 2rem;
+    border-radius: 2rem;
 
-   font-family: "GothamPro", sans-serif;
-   color: #505050;
+    font-family: "GothamPro", sans-serif;
+    color: #505050;
 }
 
 .datepicker-from,
 .datepicker-to {
-   width: 160px;
+    width: 160px;
 
-   margin: 20px 0 0 20px;
-   padding: 10px 15px 10px 15px;
+    margin: 20px 0 0 20px;
+    padding: 10px 15px 10px 15px;
 
-   border-radius: 2rem;
+    border-radius: 2rem;
 
-   font-family: "GothamPro", sans-serif;
-   color: #505050;
+    font-family: "GothamPro", sans-serif;
+    color: #505050;
 }
-
 
 
 /*? === MAIN END === */
