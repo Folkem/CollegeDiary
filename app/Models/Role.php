@@ -11,9 +11,9 @@ use Illuminate\Support\Str;
 /**
  * Class Role
  * @package App\Models
- * @property int id
- * @property string name
- * @property Collection users
+ * @property int $id
+ * @property string $name
+ * @property Collection $users
  */
 class Role extends Model
 {

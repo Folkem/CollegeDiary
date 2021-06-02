@@ -3,19 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
  * @package App\Models
- * @property int id
- * @property string name
- * @property string email
- * @property string password
- * @property Role role
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $avatar_path
+ * @property string $password
+ * @property Role $role
+ * @property Collection $newsComments
  */
 class User extends Authenticatable
 {
@@ -29,6 +33,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar_path',
         'password',
         'role_id',
     ];
@@ -45,5 +50,10 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function newsComments(): HasMany
+    {
+        return $this->hasMany(NewsComment::class);
     }
 }

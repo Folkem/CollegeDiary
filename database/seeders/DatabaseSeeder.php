@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\NewsComment;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,5 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(NewsSeeder::class);
+        $this->call(NewsCommentSeeder::class);
+        $this->call(NewsTagSeeder::class);
     }
 }
