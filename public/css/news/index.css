@@ -18,9 +18,9 @@ a {
    text-decoration: none;
 
    background-image: linear-gradient(currentColor, currentColor);
-   background-position: 0% 100%;
+   background-position: 0 100%;
    background-repeat: no-repeat;
-   background-size: 0% 2px;
+   background-size: 0 2px;
    transition: 0.3s;
 }
 
@@ -61,7 +61,7 @@ a:hover {
 }
 
 .non-hover {
-   opacity: 0%;
+   opacity: 0;
 
    transition: all 0.7s ease;
 }
@@ -78,10 +78,10 @@ a:hover {
 
    left: 5%;
    bottom: 5%;
-   padding: 0px 0px 20px 20px;
+   padding: 0 0 20px 20px;
 
    color: #fff;
-   font-family: "GothamPro-Bold";
+   font-family: "GothamPro-Bold", sans-serif;
    font-size: 40px;
    text-align: left;
    line-height: 150%;
@@ -131,7 +131,7 @@ a:hover {
 }
 
 .slider .slick-dots li {
-   margin: 0px 0px 0px 20px;
+   margin: 0 0 0 20px;
 
    list-style: none;
 }
@@ -174,12 +174,12 @@ a:hover {
 .about span {
    display: inline-block;
 
-   font-family: "Museo Cyrl";
+   font-family: "Museo Cyrl", sans-serif;
    font-size: 36px;
 }
 
 .about p {
-   font-family: "Bitter-Italic";
+   font-family: "Bitter-Italic", sans-serif;
    font-size: 18px;
 
    color: #2e2d2d;
@@ -190,7 +190,7 @@ a:hover {
    height: 60px;
 
    color: white;
-   font-family: "Museo Cyrl";
+   font-family: "Museo Cyrl", sans-serif;
    font-size: 33px;
 
    background-color: #2c6dbf;
@@ -215,7 +215,7 @@ a:hover {
 .news {
    height: 1000px;
 
-   margin: 50px 0px 0px 0px;
+   margin: 50px 0 0 0;
 }
 
 .news-body {
@@ -266,12 +266,12 @@ a:hover {
 .news-element-title {
    padding: 15px 0px 10px 0px;
 
-   font-family: "Museo Cyrl";
+   font-family: "Museo Cyrl", sans-serif;
    font-size: 24px;
 }
 
 .news-element-text {
-   font-family: "GothamPro";
+   font-family: "GothamPro", sans-serif;
    font-size: 15px;
 
    line-height: 120%;
@@ -285,7 +285,7 @@ a:hover {
 
    border-radius: 4rem;
 
-   font-family: "GothamPro";
+   font-family: "GothamPro", sans-serif;
    font-size: 16px;
 
    color: #fff;
@@ -301,7 +301,7 @@ a:hover {
 
    border-radius: 2rem;
 
-   font-family: "GothamPro";
+   font-family: "GothamPro", sans-serif;
    color: #505050;
 }
 
@@ -319,7 +319,7 @@ a:hover {
 }
 
 .search-wrapper :nth-child(3) {
-   margin: 20px 0px 0px 55px;
+   margin: 20px 0 0 55px;
 }
 
 /*? === MAIN END === */

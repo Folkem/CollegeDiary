@@ -11,24 +11,31 @@
 @section('body')
    @include('layouts.header')
    <main class="show-main">
-      <div class="show-wrapper body">
+      <section class="show-wrapper body">
          <figure class="show-news-placeholder">
             <img src="{{ asset('media/static/main-cover.jpg') }}" alt="">
-
          </figure>
-         <article class="">
-            <div>{{ $news->title }}</div>
+         <article class="show-title">
+            <div> {{ $news->title }} </div>
          </article>
-         <div>
-            <div>{{ $news->body }}</div>
+         <div class="content-wrapper">
+            <div class="content-body">
+               <div class="content">{{ $news->body }}</div>
+            </div>
+            <div class="attribute-body">
+               <div class="attribute-tag-wrapper">
+                  <div class="attribute-tag">
+                     <div>{{ $news->updated_at->diffForHumans() }}</div>
+                  </div>
+               </div>
+               <div class="attribute-date-wrapper">
+                  <div class="attribute-date">
+                     <div>{{ $news->created_at->diffForHumans() }}</div>
+                  </div>
+               </div>
+            </div>
          </div>
-         <div>
-            <div>{{ $news->created_at }}</div>
-         </div>
-         <div>
-            <div>{{ $news->updated_at }}</div>
-         </div>
-      </div>
+      </section>
    </main>
    @include('layouts.footer')
 @endsection
