@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $body
  * @property string $image_path
  * @property Collection $comments
+ * @property Collection $tags
  */
 class News extends Model
 {
@@ -23,5 +24,10 @@ class News extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(NewsComment::class);
+    }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(NewsTag::class);
     }
 }
