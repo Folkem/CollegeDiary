@@ -26,7 +26,7 @@ class NewsCommentFactory extends Factory
         return [
             'user_id' => fn() => User::query()->inRandomOrder()->first()->value('id'),
             'news_id' => fn() => News::query()->inRandomOrder()->first()->value('id'),
-            'text' => $this->faker->realTextBetween(4, 400),
+            'body' => $this->faker->realTextBetween(4, 400),
         ];
     }
 }
