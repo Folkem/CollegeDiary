@@ -13,9 +13,10 @@
         "axios": "^0.21",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.1.14",
+        "tailwindcss-debug-screens": "^2.0.0"
     },
     "dependencies": {
-        "tailwindcss": "^2.1.2"
+        "tailwindcss": "^2.1.4"
     }
 }
