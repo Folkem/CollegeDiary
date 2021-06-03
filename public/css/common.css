@@ -1,0 +1,29 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.body {
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 2px;
+    transition: 0.3s;
+}
+
+a:hover {
+    background-size: 100% 2px;
+    color: #2c6dbf;
+
+    transition: all 0.3s ease;
+}
