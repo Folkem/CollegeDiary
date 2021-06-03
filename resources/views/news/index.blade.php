@@ -42,7 +42,7 @@
             --}}
         </section>
         <section class="mt-8">
-            <div class="max-w-1200 mx-auto flex flex-row gap-16 justify-between">
+            <div class="max-w-1200 mx-auto flex flex-row gap-8 justify-between">
                 <form action="{{ route('news.index') }}" method="get"
                       class="bg-blue-400 h-fit w-1/3 p-4 flex flex-col gap-4">
                     <input type="text" placeholder="Пошук новини..." id="body" name="body" value="{{ request('body') }}"
@@ -63,10 +63,10 @@
                         Пошук
                     </button>
                 </form>
-                <div class="w-2/3 flex flex-wrap gap-8 justify-between">
+                <div class="w-2/3 flex flex-wrap justify-between">
                     {{-- todo: move these styles to tailwind --}}
-                    @foreach($newsList as $news)
-                        <div class="w-5/12">
+                    @foreach($newsList as $i => $news)
+                        <div class="w-6/12 {{ $i % 2 == 0 ? 'pr-4' : 'pl-4' }}">
                             <img src="{{ asset("media/news-covers/$news->image_path") }}" alt="">
                             <h2 class="news-element-title">
                                 <a href="{{ route('news.show', $news) }}">{{ $news->title }}</a>

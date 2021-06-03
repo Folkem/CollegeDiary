@@ -6,6 +6,7 @@ $(document).ready(function () {
         autoplay: true,
         autoplaySpeed: 6000,
         cssEase: 'ease',
+        adaptiveHeight: false,
     });
 
     $('.slider-item').hover(

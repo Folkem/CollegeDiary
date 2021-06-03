@@ -1,11 +1,12 @@
 .slider-body {
     position: relative;
-
-    height: min-content;
 }
 
 .slider-item {
     position: relative;
+
+    width: 1200px;
+    height: 820px;
 
     background: rgb(44, 109, 191);
     background: linear-gradient(25deg, rgba(44, 109, 191, 1) 0%, rgba(44, 109, 191, 0) 100%);
@@ -13,10 +14,10 @@
 }
 
 .slider-item img {
-    width: 100%;
     opacity: 50%;
-
-    object-fit: contain;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 
     transition: all 0.7s ease;
 }
