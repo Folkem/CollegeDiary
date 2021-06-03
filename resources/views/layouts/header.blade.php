@@ -1,35 +1,35 @@
-<header class="header">
-    <div class="header-wrapper">
-        <section class="header-body body">
-            <div class="logo-part">
-                <figure class="logo-placeholder">
-                    <img class="logo" src="{{ asset('media/static/pgdk_logo.png') }}" width="80px" alt="Логотип ПГФК">
+<header class="w-full sticky top-0 z-20 bg-white h-28 ">
+    <div class="overflow-hidden max-w-1200 mx-auto px-5">
+        <section class="h-28 flex justify-between">
+            <div class="relative left-0 flex items-center">
+                <figure class="h-20 w-20">
+                    <img class="w-full h-full object-contain" src="{{ asset('media/static/pgdk_logo.png') }}" width="80px" alt="Логотип ПГФК">
                 </figure>
-                <a href="" class="logo-text">ПГФК</a>
+                <a href="" class="ml-4 inline-block font-museo-cyrl text-3xl">ПГФК</a>
             </div>
-            <div class="aside-part">
-                <nav class="high-row">
-                    <ul class="actions-navigation">
-                        <li class="action-link">
+            <div class="relative right-0">
+                <nav class="">
+                    <ul class="mt-7 mb-3 flex justify-end items-center first:ml-0">
+                        <li class="ml-7 text-blue-600 font-museo-cyrl text-xl">
                             <a href="">Про ресурс</a>
                         </li>
-                        <li class="action-link">
+                        <li class="ml-7 text-blue-600 font-museo-cyrl text-xl">
                             <a href="">Події</a>
                         </li>
-                        <li class="action-link authorization-link">
-                            <a href="">Авторизація</a>
+                        <li class="ml-7 text-black font-gotham-pro-bold text-l">
+                            <a href="">АВТОРИЗАЦІЯ</a>
                         </li>
                     </ul>
                 </nav>
-                <nav class="low-row">
-                    <ul class="pages-navigation">
-                        <li class="page-link">
+                <nav class="">
+                    <ul class="flex items-center first:ml-0">
+                        <li class="ml-7 font-gotham-pro-bold text-lg uppercase">
                             <a href="">Розклад</a>
                         </li>
-                        <li class="page-link">
+                        <li class="ml-7 font-gotham-pro-bold text-lg uppercase">
                             <a href="">Студенту</a>
                         </li>
-                        <li class="page-link">
+                        <li class="ml-7 font-gotham-pro-bold text-lg uppercase">
                             <a href="{{ route('news.index') }}">Новини</a>
                         </li>
                         <!-- <button class="page-link search-button">О</button> -->
