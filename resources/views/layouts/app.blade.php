@@ -18,6 +18,6 @@
 </head>
 <body class="debug-screens sm:pb-8 h-auto">
 @yield('body')
-@yield('scripts')
+@stack('scripts')
 </body>
 </html>

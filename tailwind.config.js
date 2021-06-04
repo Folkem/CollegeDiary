@@ -28,6 +28,7 @@ module.exports = {
                 '820': '820px',
                 'fit': 'fit-content',
                 'min': 'min-content',
+
             },
             width: {
                 '400': '400px',

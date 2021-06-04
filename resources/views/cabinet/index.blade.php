@@ -76,7 +76,7 @@
     @include('layouts.footer')
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         const buttons = document.querySelectorAll('[data-menu-button]');
         const sections = document.querySelectorAll('[data-menu-section]');
@@ -93,4 +93,4 @@
             });
         });
     </script>
-@endsection
+@endpush
