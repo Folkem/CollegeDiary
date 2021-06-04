@@ -77,7 +77,7 @@
                         Пошук
                     </button>
                 </form>
-                <div class="lg:w-2/3 p-8 flex gap-y-8 flex-wrap justify-between">
+                <div class="lg:w-2/3 px-8 flex gap-y-8 flex-wrap justify-between">
                     {{-- todo: move these styles to tailwind --}}
                     @foreach($newsList as $i => $news)
                         <div class="w-full md:w-5/12 lg:w-6/12
