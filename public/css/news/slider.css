@@ -116,3 +116,13 @@
 
     outline: none;
 }
+@media (max-width: 768px) {
+    .slider .slick-dots li.slick-active button {
+        width: 13px;
+        height: 13px;
+    }
+    .slider .slick-dots li button {
+        width: 13px;
+        height: 13px;
+    }
+}
