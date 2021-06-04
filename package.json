@@ -19,6 +19,7 @@
         "tailwindcss-debug-screens": "^2.0.0"
     },
     "dependencies": {
+        "tailwind-hamburgers": "^1.0.2",
         "tailwindcss": "^2.1.4"
     }
 }
