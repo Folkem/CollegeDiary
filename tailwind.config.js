@@ -24,10 +24,13 @@ module.exports = {
                 '1200': '1200px',
             },
             height: {
-                fit: 'fit-content',
-                min: 'min-content',
+                '500': '520px',
+                '820': '820px',
+                'fit': 'fit-content',
+                'min': 'min-content',
             },
             width: {
+                '400': '400px',
                 '1200': '1200px',
             },
         },

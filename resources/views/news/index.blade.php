@@ -16,7 +16,7 @@
             <div class="outline-none slider max-w-1200 mx-auto">
                 <div class="slider-body">
                     @foreach($newsList->take(4) as $news)
-                        <div class="slider-item">
+                        <div class="slider-item h-80 md:h-500 xl:h-820">
                             <img src="{{ asset("media/news-covers/$news->image_path") }}"
                                  alt="{{ $news->title }}">
                             <div class="slider-text font-gotham-pro-bold text-lg sm:text-2xl
