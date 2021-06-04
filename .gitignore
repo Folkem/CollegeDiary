@@ -6,12 +6,9 @@ vendor
 storage
 public/css/app.css
 public/js/app.css
+public/media/avatars/*
+!public/media/avatars/default-user-avatar.png
 *.idea
 .env
 .env.backup
 .phpunit.result.cache
-docker-compose.override.yml
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
