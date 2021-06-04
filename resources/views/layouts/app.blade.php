@@ -16,7 +16,7 @@
     @yield('stylesheets')
 
 </head>
-<body class="debug-screens pb-8 h-auto">
+<body class="debug-screens sm:pb-8 h-auto">
 @yield('body')
 @yield('scripts')
 </body>

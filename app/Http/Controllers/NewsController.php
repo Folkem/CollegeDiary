@@ -52,7 +52,10 @@ class NewsController extends Controller
 
     public function show(News $news)
     {
-        return view('news.show', compact('news'));
+        $comments = $news->comments;
+        $tags = $news->tags;
+
+        return view('news.show', compact('news', 'comments', 'tags'));
     }
 
     public function edit(News $news)

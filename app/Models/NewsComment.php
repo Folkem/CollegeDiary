@@ -18,7 +18,11 @@ class NewsComment extends Model
 {
     use HasFactory;
 
-    protected $hidden = [];
+    protected $fillable = [
+        'user_id',
+        'news_id',
+        'body',
+    ];
 
     public function user(): BelongsTo
     {

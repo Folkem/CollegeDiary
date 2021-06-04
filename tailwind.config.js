@@ -25,6 +25,10 @@ module.exports = {
             },
             height: {
                 fit: 'fit-content',
+                min: 'min-content',
+            },
+            width: {
+                '1200': '1200px',
             },
         },
     },
