@@ -7,7 +7,7 @@
                 </figure>
                 <a href="" class="ml-4 inline-block font-museo-cyrl text-3xl">ПГФК</a>
             </div>
-            <div class="relative right-0">
+            <div class="relative right-0 sm:invisible ">
                 <nav class="">
                     <ul class="mt-7 mb-3 flex justify-end items-center first:ml-0">
                         <li class="ml-7 text-blue-600 font-museo-cyrl text-xl">
