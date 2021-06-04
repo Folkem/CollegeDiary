@@ -19,7 +19,8 @@
                         <div class="slider-item">
                             <img src="{{ asset("media/news-covers/$news->image_path") }}"
                                  alt="{{ $news->title }}">
-                            <div class="slider-text">
+                            <div class="slider-text font-gotham-pro-bold text-lg sm:text-2xl
+                                md:text-3xl xl:text-4xl text-white mb-12">
                                 <p>{{ $news->title }}</p>
                             </div>
                         </div>
@@ -42,18 +43,31 @@
             --}}
         </section>
         <section class="mt-8">
-            <div class="max-w-1200 mx-auto flex flex-row gap-8 justify-between">
+            <div class="max-w-1200 mx-auto lg:flex flex-row gap-8 justify-between">
                 <form action="{{ route('news.index') }}" method="get"
-                      class="bg-blue-400 h-fit w-1/3 p-4 flex flex-col gap-4">
-                    <input type="text" placeholder="Пошук новини..." id="body" name="body" value="{{ request('body') }}"
-                           class="news-search w-full p-2 font-gotham-pro text-sm rounded-3xl">
-                    <input type="date" id="start-date" name="start-date" value="{{ request('start-date') }}"
-                           class="datepicker-from font-gotham-pro w-full box-border p-2 rounded-3xl">
-                    <input type="date" id="end-date" name="end-date" value="{{ request('end-date') }}"
-                           class="datepicker-to font-gotham-pro w-full box-border p-2 rounded-3xl">
-                    <input type="text" placeholder="Пошук по тегу... (розклад, група тощо)"
-                           id="tags" name="tags" value="{{ request('tags') }}"
-                           class="tag-search w-full p-2 font-gotham-pro text-sm rounded-3xl">
+                      class="bg-blue-400 h-fit w-1/3 p-4 hidden lg:flex flex-col gap-4">
+                    <div class="space-y-2">
+                        <label for="body" class="text-white font-bold text-lg font-gotham-pro">Пошук по змісту: </label>
+                        <input type="text" placeholder="Пошук новини..." id="body" name="body"
+                               value="{{ request('body') }}"
+                               class="news-search w-full p-2 font-gotham-pro text-sm rounded-3xl">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="start-date" class="text-white font-bold text-lg font-gotham-pro">Пошук по початковій даті: </label>
+                        <input type="date" id="start-date" name="start-date" value="{{ request('start-date') }}"
+                               class="datepicker-from font-gotham-pro w-full box-border p-2 rounded-3xl">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="end-date" class="text-white font-bold text-lg font-gotham-pro">Пошук по кінцевій даті: </label>
+                        <input type="date" id="end-date" name="end-date" value="{{ request('end-date') }}"
+                               class="datepicker-to font-gotham-pro w-full box-border p-2 rounded-3xl">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="tags" class="text-white font-bold text-lg font-gotham-pro">Пошук по тегам (через кому): </label>
+                        <input type="text" placeholder="Пошук по тегу... (розклад, група тощо)"
+                               id="tags" name="tags" value="{{ request('tags') }}"
+                               class="tag-search w-full p-2 font-gotham-pro text-sm rounded-3xl">
+                    </div>
                     <button type="reset" class="w-full p-2 rounded-xl bg-gray-500 hover:bg-gray-600
                         text-lg font-bold text-white">
                         Очистити пошук
@@ -63,10 +77,12 @@
                         Пошук
                     </button>
                 </form>
-                <div class="w-2/3 flex flex-wrap justify-between">
+                <div class="lg:w-2/3 p-8 flex gap-y-8 flex-wrap justify-between">
                     {{-- todo: move these styles to tailwind --}}
                     @foreach($newsList as $i => $news)
-                        <div class="w-6/12 {{ $i % 2 == 0 ? 'pr-4' : 'pl-4' }}">
+                        <div class="w-full md:w-5/12 lg:w-6/12
+                            lg:{{ $i % 2 == 0 ? 'pr-4' : 'pl-4' }}
+                            ">
                             <img src="{{ asset("media/news-covers/$news->image_path") }}" alt="">
                             <h2 class="news-element-title">
                                 <a href="{{ route('news.show', $news) }}">{{ $news->title }}</a>
