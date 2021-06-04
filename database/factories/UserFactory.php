@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'role_id' => Role::all()->random()->id,
-            'avatar_path' => 'de',
+            'avatar_path' => 'default-user-avatar.png',
         ];
     }
 }
