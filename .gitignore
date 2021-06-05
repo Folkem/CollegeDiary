@@ -5,7 +5,7 @@ storage/*.key
 vendor
 storage
 public/css/app.css
-public/js/app.css
+public/js/app.js
 public/media/avatars/*
 !public/media/avatars/default-user-avatar.png
 *.idea
