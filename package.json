@@ -19,6 +19,8 @@
         "tailwindcss-debug-screens": "^2.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^27.1.0",
+        "@ckeditor/ckeditor5-list": "^27.1.0",
         "tailwind-hamburgers": "^1.0.2",
         "tailwindcss": "^2.1.4"
     }

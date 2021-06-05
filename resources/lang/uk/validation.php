@@ -137,7 +137,7 @@ return [
         'date'                  => 'Дата',
         'day'                   => 'День',
         'description'           => 'Опис',
-        'email'                 => 'E-mail адреса',
+        'email'                 => 'Пошта',
         'excerpt'               => 'Уривок',
         'first_name'            => 'Ім\'я',
         'gender'                => 'Стать',

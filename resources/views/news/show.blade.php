@@ -75,18 +75,21 @@
                                         <div class="font-gotham-pro leading-5">
                                             {!! $comment->body !!}
                                         </div>
-                                        @if($comment->user->id === auth()->id())
-                                            <div class="text-right text-blue-700">
-                                                <form action="{{ route('news.comment.destroy', $comment) }}"
-                                                      method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="italic">
-                                                        Видалити
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        @endif
+                                        @auth
+                                            @if($comment->user->id === auth()->id() ||
+                                                auth()->user()->role->name === 'admin')
+                                                <div class="text-right text-blue-700">
+                                                    <form action="{{ route('news.comment.destroy', $comment) }}"
+                                                          method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit" class="italic">
+                                                            Видалити
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                        @endauth
                                     </div>
                                 </div>
                             @endforeach
@@ -120,9 +123,10 @@
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/slick.min.js') }}"></script>
     <script src="{{ asset('js/news/slider.js') }}"></script>
-    @if(auth()->check())
+    @auth
         <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
-        <script>
+        <script type="module">
+
             ClassicEditor
                 .create(document.querySelector('#comment-body'), {
                     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
@@ -134,8 +138,11 @@
                             {model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3'},
                         ]
                     },
+                    link: {
+                        addTargetToExternalLinks: true,
+                    }
                 })
                 .catch(console.error);
         </script>
-    @endif
+    @endauth
 @endpush
