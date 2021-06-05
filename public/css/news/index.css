@@ -1,0 +1,30 @@
+.news-element-title {
+    padding: 15px 0 10px 0;
+
+    font-family: "Museo Cyrl", sans-serif;
+    font-size: 24px;
+}
+
+.news-element-text {
+    font-family: "GothamPro", sans-serif;
+    font-size: 15px;
+
+    line-height: 120%;
+}
+
+.news-element-date {
+
+    width: fit-content;
+
+    padding: 4px 8px;
+    margin-top: 10px;
+
+    border-radius: 4rem;
+
+    font-family: "GothamPro", sans-serif;
+    font-size: 16px;
+
+    color: #fff;
+    background-color: #2c6dbf;
+}
+

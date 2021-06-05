@@ -12,5 +12,7 @@ Primarly it is going to be a web-app, but mobile app has also chances to
 appear later on.
 
 _This is first web-app project, and first project of this scale, for the 
-author, Folkem. If it's ever going to be made public, it will be free to 
+author, Folkem and co-author Volsh. If it's ever going to be made public, it will be free to 
 suggestions!_
+
+
