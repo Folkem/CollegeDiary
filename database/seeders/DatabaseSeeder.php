@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\NewsComment;
-use App\Models\Speciality;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsSeeder::class);
         $this->call(NewsCommentSeeder::class);
         $this->call(NewsTagSeeder::class);
+        $this->call(CallScheduleItemSeeder::class);
     }
 }
