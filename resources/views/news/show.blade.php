@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div data-role="comment-section" class="mt-12 sm:rounded-2xl font-gotham-pro bg-blue-200 overflow-hidden">
+            <div data-role="comment-section" class="mt-12 lg:rounded-2xl font-gotham-pro bg-blue-200 overflow-hidden">
                 <div class="p-4">
                     @if($comments->count() == 0)
                         <div class="text-center font-bold text-white py-12">
