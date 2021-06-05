@@ -21,6 +21,7 @@ use Illuminate\Notifications\Notifiable;
  * @property Role $role
  * @property Collection $newsComments
  * @property Group $group
+ * @property Collection $disciplines
  */
 class User extends Authenticatable
 {
@@ -62,5 +63,10 @@ class User extends Authenticatable
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
+    }
+
+    public function disciplines(): HasMany
+    {
+        return $this->hasMany(Discipline::class);
     }
 }

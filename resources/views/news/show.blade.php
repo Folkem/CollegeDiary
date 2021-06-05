@@ -61,7 +61,7 @@
                                                 <div class="font-gotham-pro text-blue-600">
                                                     {{ \Illuminate\Support\Str::ucfirst(__($comment->user->role->name)) }}
                                                     @if($comment->user->role->name === 'student')
-                                                        {{ $comment->user->group->humanName() }}
+                                                        {{ $comment->user->group->human_name }}
                                                     @endif
                                                 </div>
                                             </div>

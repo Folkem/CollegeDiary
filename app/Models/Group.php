@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $year
  * @property int $number
  * @property Collection $students
+ * @property Collection $disciplines
+ * @property string $human_name
  */
 class Group extends Model
 {
@@ -37,8 +39,13 @@ class Group extends Model
         return $this->hasMany(User::class);
     }
 
-    public function humanName()
+    public function getHumanNameAttribute(): string
     {
         return "{$this->speciality->short_name}—{$this->year}{$this->number}";
+    }
+
+    public function disciplines(): HasMany
+    {
+        return $this->hasMany(Discipline::class);
     }
 }
