@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Group;
-use App\Models\LabourDivisionItem;
-use App\Models\User;
+use App\Models\Discipline;
 use Illuminate\Database\Seeder;
 
-class LabourDivisionItemSeeder extends Seeder
+class DisciplineSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +14,7 @@ class LabourDivisionItemSeeder extends Seeder
      */
     public function run()
     {
-        LabourDivisionItem::factory()
+        Discipline::factory()
             ->count(mt_rand(300, 600))
             ->create();
     }
