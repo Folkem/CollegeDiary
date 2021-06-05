@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\NewsComment;
+use App\Models\Speciality;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(SpecialitySeeder::class);
+        $this->call(GroupSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(NewsSeeder::class);

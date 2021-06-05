@@ -20,6 +20,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string $password
  * @property Role $role
  * @property Collection $newsComments
+ * @property Group $group
  */
 class User extends Authenticatable
 {
@@ -36,6 +37,7 @@ class User extends Authenticatable
         'avatar_path',
         'password',
         'role_id',
+        'group_id',
     ];
 
     /**
@@ -55,5 +57,10 @@ class User extends Authenticatable
     public function newsComments(): HasMany
     {
         return $this->hasMany(NewsComment::class);
+    }
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
     }
 }

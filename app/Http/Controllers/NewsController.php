@@ -9,7 +9,7 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $newsList = News::query()->orderBy('created_at', 'desc');
+        $newsList = News::query()->orderBy('created_at', 'desc')->with('comments');
 
         if ($request->input('body') !== null) {
             $newsList = $newsList->where('body', 'like',
