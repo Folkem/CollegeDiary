@@ -53,9 +53,9 @@
             </div>
         </div>
     @endguest
-    <div class="overflow-hidden max-w-1200 mx-auto">
-        <section class="pt-2 pb-6 flex justify-between px-5 shadow-xl">
-            <div class="relative left-0 flex items-center">
+    <div class="max-w-1200 mx-auto">
+        <section class="pt-4 pb-4 flex justify-between px-5">
+            <div class="flex items-center">
                 <figure class="h-16 w-16 md:h-20 md:w-20">
                     <a href="https://www.college.uzhnu.edu.ua/">
                         <img class="w-full h-full object-contain" src="{{ asset('media/static/pgdk_logo.png') }}"
@@ -67,17 +67,34 @@
                     Онлайн-щоденник ПГФК
                 </a>
             </div>
-            <div class="relative right-0 hidden lg:block font-gotham-pro-bold text-lg uppercase">
+            <div class="flex my-auto hidden lg:block font-gotham-pro-bold text-lg uppercase">
                 <nav>
-                    <ul class="mt-7 mb-3 flex justify-end first:ml-0">
+                    <ul class="flex items-center justify-end first:ml-0">
                         @auth
                             @if(auth()->user()->role->name === 'admin')
                                 <li class="ml-7">
-                                    <a href="#">Адмін-панель</a>
+                                    <a class="link" href="#">Адмін-панель</a>
                                 </li>
                             @endif
+                            {{--
+                                                        <li class="ml-7 relative z-20">
+                                                            <div class="drop-button text-black border-none cursor-pointer"
+                                                                 onclick="toggleProfileDropdownMenu()">
+                                                                {{ auth()->user()->name }}
+                                                            </div>
+                                                            <div id="profile-drop-down-menu"
+                                                                 class="dropdown-content mt-1 hidden absolute right-0 bg-blue-600 min-w-max z-50 shadow-md">
+                                                                <a class="block text-base p-4 text-red-500 visited:text-white" href="{{ route('cabinet.index') }}">
+                                                                    Особистий кабінет
+                                                                </a>
+                                                                <a class="block text-base p-4 text-red-500 visited:text-white" href="{{ route('cabinet.index') }}">
+                                                                    Розклад
+                                                                </a>
+                                                            </div>
+                                                        </li>
+                                                        --}}
                             <li class="ml-7">
-                                <a href="#">{{ auth()->user()->name }}</a>
+                                <a href="{{ route('cabinet.index') }}" class="link">Особистий кабінет</a>
                             </li>
                             <li class="ml-7">
                                 <form action="{{ route('logout') }}" method="post" class="p-0 m-0">
@@ -97,11 +114,18 @@
                 </nav>
                 <nav>
                     <ul class="flex justify-end first:ml-0">
+                        @auth
+                            @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
+                            <li class="ml-7">
+                                <a href="#{{-- route('disciplines.index') --}}" class="link">Дисципліни</a>
+                            </li>
+                            @endif
+                        @endauth
                         <li class="ml-7">
-                            <a href="#">Розклад</a>
+                            <a class="link" href="#">Розклади</a>
                         </li>
                         <li class="ml-7">
-                            <a href="{{ route('news.index') }}">Новини</a>
+                            <a class="link" href="{{ route('news.index') }}">Новини</a>
                         </li>
                     </ul>
                 </nav>
@@ -122,13 +146,31 @@
         <ul class="m-auto space-y-6">
             @if(auth()->check() && auth()->user()->role->name === 'admin')
                 <li>
-                    <a href="">Адмін-панель</a>
+                    <a class="link" href="{{-- route('admin.index') --}}">Адмін-панель</a>
                 </li>
             @endif
             @auth
                 <li>
-                    <a href="#">{{ auth()->user()->name }}</a>
+                    <a class="link" href="{{ route('cabinet.index') }}">Особистий кабінет</a>
                 </li>
+                @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
+                    <li>
+                        <a class="link" href="#{{-- route('disciplines.index') --}}">Дисципліни</a>
+                    </li>
+                @endauth
+            @endauth
+            @guest
+                <li class="drop-shadow-xl">
+                    <div data-id="header-show-auth-button" class="cursor-pointer">Авторизація</div>
+                </li>
+            @endguest
+            <li class="drop-shadow-xl">
+                <a class="link" href="#">Розклади</a>
+            </li>
+            <li class="drop-shadow-xl">
+                <a class="link" href="{{ route('news.index') }}">Новини</a>
+            </li>
+            @auth
                 <li>
                     <form action="{{ route('logout') }}" method="post" class="p-0 m-0">
                         @csrf
@@ -138,17 +180,6 @@
                     </form>
                 </li>
             @endauth
-            @guest
-                <li class="drop-shadow-xl">
-                    <div data-id="header-show-auth-button" class="cursor-pointer">Авторизація</div>
-                </li>
-            @endguest
-            <li class="drop-shadow-xl">
-                <a href="#">Розклад</a>
-            </li>
-            <li class="drop-shadow-xl">
-                <a href="{{ route('news.index') }}">Новини</a>
-            </li>
         </ul>
     </div>
 </header>
@@ -168,6 +199,26 @@
                 document.body.classList.toggle('overflow-hidden');
             }
         });
+
+        @auth
+
+        const profileDropdownMenu = document.querySelector('#profile-drop-down-menu');
+
+        function toggleProfileDropdownMenu() {
+            profileDropdownMenu.classList.toggle('hidden');
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.drop-button')) {
+                let dropdowns = document.getElementsByClassName('dropdown-content');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    openDropdown.classList.toggle('hidden', true);
+                }
+            }
+        }
+
+        @endauth
 
         @guest
 

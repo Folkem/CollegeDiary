@@ -40,7 +40,9 @@ module.exports = {
         },
     },
     variants: {
-        extend: {},
+        extend: {
+            textColor: ['visited']
+        },
     },
     plugins: [
         require("tailwindcss-debug-screens"),

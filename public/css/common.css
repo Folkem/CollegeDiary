@@ -11,7 +11,7 @@ body {
     padding: 0 20px;
 }
 
-a {
+.link {
     text-decoration: none;
 
     background-image: linear-gradient(currentColor, currentColor);
@@ -21,7 +21,7 @@ a {
     transition: 0.3s;
 }
 
-a:hover {
+.link:hover {
     background-size: 100% 2px;
     color: #2c6dbf;
 
