@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsCommentSeeder::class);
         $this->call(NewsTagSeeder::class);
         $this->call(CallScheduleItemSeeder::class);
+        $this->call(LabourDivisionItemSeeder::class);
     }
 }
