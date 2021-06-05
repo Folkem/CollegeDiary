@@ -71,11 +71,6 @@
                 <nav>
                     <ul class="flex items-center justify-end first:ml-0">
                         @auth
-                            @if(auth()->user()->role->name === 'admin')
-                                <li class="ml-7">
-                                    <a class="link" href="#">Адмін-панель</a>
-                                </li>
-                            @endif
                             {{--
                                                         <li class="ml-7 relative z-20">
                                                             <div class="drop-button text-black border-none cursor-pointer"
@@ -97,6 +92,9 @@
                                 <a href="{{ route('cabinet.index') }}" class="link">Особистий кабінет</a>
                             </li>
                             <li class="ml-7">
+                                <a href="{{ route('cabinet.notices') }}" class="link">Сповіщення</a>
+                            </li>
+                            <li class="ml-7">
                                 <form action="{{ route('logout') }}" method="post" class="p-0 m-0">
                                     @csrf
                                     <button type="submit" class="font-gotham-pro-bold text-lg uppercase">
@@ -114,6 +112,11 @@
                 </nav>
                 <nav>
                     <ul class="flex justify-end first:ml-0">
+                        @if(auth()->user()->role->name === 'admin')
+                            <li class="ml-7">
+                                <a class="link" href="#">Адмін-панель</a>
+                            </li>
+                        @endif
                         @auth
                             @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
                             <li class="ml-7">
@@ -152,6 +155,9 @@
             @auth
                 <li>
                     <a class="link" href="{{ route('cabinet.index') }}">Особистий кабінет</a>
+                </li>
+                <li>
+                    <a class="link" href="{{ route('cabinet.notices') }}">Сповіщення</a>
                 </li>
                 @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
                     <li>

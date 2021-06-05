@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
@@ -20,11 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::post('news/{news}/comment', [NewsCommentController::class, 'store'])->name('news.comment.store');
     Route::delete('news/comment/{comment}', [NewsCommentController::class, 'destroy'])->name('news.comment.destroy');
 
-    Route::view('cabinet', 'cabinet.index')->name('cabinet.index');
-    Route::view('cabinet/notifications', 'cabinet.notifications')->name('cabinet.notifications');
-    Route::put('cabinet/password', function () {
-        // todo updating password
-    })->name('cabinet.password.update');
+    Route::get('cabinet', [CabinetController::class, 'index'])->name('cabinet.index');
+    Route::get('cabinet/notices', [CabinetController::class, 'notices'])
+        ->name('cabinet.notices');
+    Route::post('cabinet/password', [CabinetController::class, 'updatePassword'])
+        ->name('cabinet.password.update');
 });
 
 Route::redirect('/', 'news');
