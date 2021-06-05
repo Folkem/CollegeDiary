@@ -16,7 +16,7 @@ class NewsCommentController extends Controller
         ]);
 
         NewsComment::query()->create([
-            'user_id' => 1,
+            'user_id' => auth()->id(),
             'news_id' => $news->id,
             'body' => strip_tags($request->input('body'), [
                 'strong', 'i', 'ul', 'ol', 'li', 'h1', 'h2', 'a', 'p', 'blockquote',

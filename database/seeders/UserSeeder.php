@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'name' => 'Александра Наталія Володимирівна',
             'email' => 'nataliya.aleksandra@uzhnu.edu.ua',
             'password' => Hash::make('natasha'),
-            'role_id' => Role::query()->where('name', 'parent')->value('id'),
+            'role_id' => Role::query()->where('name', 'teacher')->value('id'),
         ]);
     }
 }
