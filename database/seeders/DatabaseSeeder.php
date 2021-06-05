@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsTagSeeder::class);
         $this->call(CallScheduleItemSeeder::class);
         $this->call(DisciplineSeeder::class);
+        $this->call(WeekDaySeeder::class);
+        $this->call(LessonScheduleItemSeeder::class);
     }
 }
