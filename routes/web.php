@@ -4,10 +4,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('news', [NewsController::class, 'index'])->name('news.index');
 Route::get('news/{news}', [NewsController::class, 'show'])->name('news.show');
+
+Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
 
 Route::middleware('guest')->group(function () {
     Route::middleware('api')->group(function () {
@@ -28,8 +31,6 @@ Route::middleware('auth')->group(function () {
         ->name('cabinet.password.update');
     Route::put('cabinet/avatar', [CabinetController::class, 'updateAvatar'])
         ->name('cabinet.avatar.update');
-
-//    Route::get('schedules.index', [])
 });
 
 Route::redirect('/', 'news');

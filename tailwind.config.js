@@ -20,6 +20,9 @@ module.exports = {
                 '7': '7px',
                 '8': '8px',
             },
+            minWidth: {
+                'min': 'min-content',
+            },
             maxWidth: {
                 '1200': '1200px',
             },

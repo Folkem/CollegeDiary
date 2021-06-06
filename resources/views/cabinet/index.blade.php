@@ -6,7 +6,7 @@
     @include('layouts.header')
 
     <div class="max-w-1200 flex flex-col md:flex-row mx-auto">
-        <div class="bg-red-400 font-museo-cyrl md:w-5/12 bg-blue-500 flex flex-col text-base sm:text-lg
+        <div class="font-museo-cyrl md:w-5/12 bg-blue-500 flex flex-col text-base sm:text-lg
         md:text-xl lg:text-3xl">
             <div class="text-white px-8 py-4 border-solid border-b-2 border-white">
                 Особистий кабінет
@@ -29,7 +29,7 @@
             {{--            </div>--}}
         </div>
         <div class="bg-blue-100 md:w-7/12 flex">
-            <div data-menu-section="profile" class="px-12 py-6 hidden">
+            <div data-menu-section="profile" class="px-12 py-6">
                 <div class="flex flex-col gap-2 mb-8">
                     <div class="font-gotham-pro-bold text-blue-900 text-3xl">
                         Ім'я
@@ -144,7 +144,7 @@
                 </form>
             </div>
             @if(in_array(auth()->user()->role->name, ['teacher', 'student']))
-                <div data-menu-section="lesson-schedule" class="w-full">
+                <div data-menu-section="lesson-schedule" class="w-full hidden">
                     @if(auth()->user()->role->name === 'student')
                         @if(auth()->user()->group->lessonScheduleItems()->count() === 0)
                             <div>Розкладу ще нема.</div>

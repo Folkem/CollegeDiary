@@ -125,7 +125,7 @@
                             @endif
                         @endauth
                         <li class="ml-7">
-                            <a class="link" href="#">Розклади</a>
+                            <a class="link" href="{{ route('schedules.index') }}">Розклади</a>
                         </li>
                         <li class="ml-7">
                             <a class="link" href="{{ route('news.index') }}">Новини</a>
@@ -171,7 +171,7 @@
                 </li>
             @endguest
             <li class="drop-shadow-xl">
-                <a class="link" href="#">Розклади</a>
+                <a class="link" href="{{ route('schedules.index') }}">Розклади</a>
             </li>
             <li class="drop-shadow-xl">
                 <a class="link" href="{{ route('news.index') }}">Новини</a>
