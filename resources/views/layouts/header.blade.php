@@ -191,6 +191,7 @@
 </header>
 
 @push('scripts')
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/50da9c50c1.js" crossorigin="anonymous"></script>
     <!--suppress JSUnfilteredForInLoop -->
     <script>
@@ -201,9 +202,11 @@
         hamburgerButton.addEventListener('click', () => {
             hamburgerIcon.classList.toggle('tham-active');
             dropdownMenu.classList.toggle('hidden');
+            @guest
             if (authMenu.classList.contains('hidden')) {
                 document.body.classList.toggle('overflow-hidden');
             }
+            @endguest
         });
 
         @auth
@@ -249,45 +252,49 @@
         });
 
         function attemptLogin() {
-            fetch('{{ route('login') }}', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                body: JSON.stringify({
-                    'email': document.querySelector('#login-email').value,
-                    'password': document.querySelector('#login-password').value,
-                }),
-            }).then(result => {
-                console.log(`${result.status}`);
-                if (['200', '422'].includes(`${result.status}`)) {
-                    console.log('ha');
-                    return result.json();
-                } else {
-                    console.log('eh');
-                    throw new Error();
-                }
-            }).then(json => {
-                if (json['success']) {
-                    location.reload();
-                } else {
-                    const errorBag = json['errors'];
-                    let message = json['message'];
-                    for (const errorBlock in errorBag) {
-                        for (const errorMessage of errorBag[errorBlock]) {
-                            message += ` ${errorMessage}`;
-                        }
+            try {
+                fetch('{{ route('login') }}', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    body: JSON.stringify({
+                        'email': document.querySelector('#login-email').value,
+                        'password': document.querySelector('#login-password').value,
+                    }),
+                }).then(result => {
+                    console.log(`${result.status}`);
+                    if (['200', '422'].includes(`${result.status}`)) {
+                        console.log('ha');
+                        return result.json();
+                    } else {
+                        console.log('eh');
+                        throw new Error();
                     }
-                    console.log(message);
-                    alert(message);
-                }
-            }).catch(e => {
-                console.log('Помилка авторизації');
+                }).then(json => {
+                    if (json['success']) {
+                        location.reload();
+                    } else {
+                        const errorBag = json['errors'];
+                        let message = json['message'];
+                        for (const errorBlock in errorBag) {
+                            for (const errorMessage of errorBag[errorBlock]) {
+                                message += ` ${errorMessage}`;
+                            }
+                        }
+                        console.log(message);
+                        alert(message);
+                    }
+                }).catch(e => {
+                    console.log('Помилка авторизації');
+                    console.error(e);
+                    alert('Серверна помилка');
+                });
+            } catch (e) {
                 console.error(e);
-                alert('Серверна помилка');
-            });
+            }
 
             return false;
         }
