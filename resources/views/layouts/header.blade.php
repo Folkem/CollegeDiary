@@ -91,9 +91,9 @@
                             <li class="ml-7">
                                 <a href="{{ route('cabinet.index') }}" class="link">Особистий кабінет</a>
                             </li>
-                            <li class="ml-7">
-                                <a href="{{ route('cabinet.notices') }}" class="link">Сповіщення</a>
-                            </li>
+{{--                            <li class="ml-7">--}}
+{{--                                <a href="{{ route('cabinet.notices') }}" class="link">Сповіщення</a>--}}
+{{--                            </li>--}}
                             <li class="ml-7">
                                 <form action="{{ route('logout') }}" method="post" class="p-0 m-0">
                                     @csrf
@@ -156,9 +156,9 @@
                 <li>
                     <a class="link" href="{{ route('cabinet.index') }}">Особистий кабінет</a>
                 </li>
-                <li>
-                    <a class="link" href="{{ route('cabinet.notices') }}">Сповіщення</a>
-                </li>
+{{--                <li>--}}
+{{--                    <a class="link" href="{{ route('cabinet.notices') }}">Сповіщення</a>--}}
+{{--                </li>--}}
                 @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
                     <li>
                         <a class="link" href="#{{-- route('disciplines.index') --}}">Дисципліни</a>

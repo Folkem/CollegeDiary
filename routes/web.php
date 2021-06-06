@@ -22,8 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('news/comment/{comment}', [NewsCommentController::class, 'destroy'])->name('news.comment.destroy');
 
     Route::get('cabinet', [CabinetController::class, 'index'])->name('cabinet.index');
-    Route::get('cabinet/notices', [CabinetController::class, 'notices'])
-        ->name('cabinet.notices');
+//    Route::get('cabinet/notices', [CabinetController::class, 'notices'])
+//        ->name('cabinet.notices');
     Route::put('cabinet/password', [CabinetController::class, 'updatePassword'])
         ->name('cabinet.password.update');
     Route::put('cabinet/avatar', [CabinetController::class, 'updateAvatar'])

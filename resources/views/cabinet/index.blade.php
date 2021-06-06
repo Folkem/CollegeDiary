@@ -23,10 +23,10 @@
                     Розклад
                 </div>
             @endif
-            <div class="text-white px-8 py-4 md:border-solid border-b-2 border-white cursor-pointer"
-                 data-menu-button="notification-settings">
-                Налаштування повідомлень
-            </div>
+{{--            <div class="text-white px-8 py-4 md:border-solid border-b-2 border-white cursor-pointer"--}}
+{{--                 data-menu-button="notification-settings">--}}
+{{--                Налаштування повідомлень--}}
+{{--            </div>--}}
         </div>
         <div class="bg-blue-100 md:w-7/12 flex">
             <div data-menu-section="profile" class="px-12 py-6">
@@ -140,16 +140,15 @@
                         </button>
                     </div>
                 </form>
-
             </div>
             @if(in_array(auth()->user()->role->name, ['teacher', 'student', 'parent']))
                 <div data-menu-section="lesson-schedule" class="hidden">
                     lesson schedule
                 </div>
             @endif
-            <div data-menu-section="notification-settings" class="hidden">
-                notification settings
-            </div>
+{{--            <div data-menu-section="notification-settings" class="hidden">--}}
+{{--                notification settings--}}
+{{--            </div>--}}
         </div>
     </div>
 
