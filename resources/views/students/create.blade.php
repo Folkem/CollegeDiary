@@ -32,7 +32,8 @@
                     Пошта
                 </label>
                 <input type="email" required id="email" name="email" placeholder="Пошта"
-                    class="rounded-full px-3 py-1 text-lg border border-solid border-blue-900">
+                    class="rounded-full px-3 py-1 text-lg border border-solid border-blue-900"
+                    value="{{ old('email') }}">
                 @error('email')
                 <div class="font-bold italic text-red-600 pl-3">
                     {{ $message }}
@@ -44,7 +45,8 @@
                     Ім'я
                 </label>
                 <input type="text" required id="name" name="name" placeholder="Ім'я"
-                    class="rounded-full px-3 py-1 text-lg border border-solid border-blue-900">
+                    class="rounded-full px-3 py-1 text-lg border border-solid border-blue-900"
+                    value="{{ old('name') }}">
                 @error('name')
                 <div class="font-bold italic text-red-600 pl-3">
                     {{ $message }}
@@ -59,7 +61,8 @@
                     class="rounded-full px-3 py-1 text-lg bg-white border border-solid border-blue-900">
                     <option selected></option>
                     @foreach($groups as $group)
-                        <option value="{{ $group->id }}">
+                        <option value="{{ $group->id }}"
+                           @if(old('group_id') == $group->id) selected @endif>
                             {{ $group->human_name }}
                         </option>
                     @endforeach
