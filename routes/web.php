@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
         ->name('cabinet.password.update');
     Route::put('cabinet/avatar', [CabinetController::class, 'updateAvatar'])
         ->name('cabinet.avatar.update');
+
+//    Route::get('schedules.index', [])
 });
 
 Route::redirect('/', 'news');

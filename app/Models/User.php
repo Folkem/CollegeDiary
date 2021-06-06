@@ -22,6 +22,7 @@ use Illuminate\Notifications\Notifiable;
  * @property Collection $newsComments
  * @property Group $group
  * @property Collection $disciplines
+ * @property array $teacherSchedule
  */
 class User extends Authenticatable
 {
@@ -68,5 +69,35 @@ class User extends Authenticatable
     public function disciplines(): HasMany
     {
         return $this->hasMany(Discipline::class);
+    }
+
+    public function getTeacherScheduleAttribute(): array
+    {
+        $lessonScheduleItems = LessonScheduleItem::with('discipline')
+            ->orderBy('week_day_id')->orderBy('call_schedule_item_id')->orderBy('variant')
+            ->get()->filter(fn($lsi) => $lsi->discipline->teacher_id === $this->id);
+
+        $weekDays = $lessonScheduleItems->map(fn($lsi) => $lsi->weekDay)->unique();
+
+        $lessonSchedule = [];
+
+        foreach ($weekDays as $weekDay) {
+            $humanWeekDay = ucfirst(__($weekDay->name));
+            $lessonSchedule[$humanWeekDay] = [];
+            $weekDayLessonSchedule = $lessonScheduleItems->filter(function ($lti) use ($weekDay) {
+                return $lti->weekDay == $weekDay;
+            });
+            foreach ($weekDayLessonSchedule as $wdlsi) {
+                if (!array_key_exists($wdlsi->callScheduleItem->id, $lessonSchedule[$humanWeekDay])) {
+                    $lessonSchedule[$humanWeekDay][$wdlsi->callScheduleItem->id] = [];
+                }
+
+                $numberLessonSchedule =& $lessonSchedule[$humanWeekDay][$wdlsi->callScheduleItem->id];
+
+                $numberLessonSchedule[$wdlsi->variant] = $wdlsi->discipline->for_teacher;
+            }
+        }
+
+        return $lessonSchedule;
     }
 }

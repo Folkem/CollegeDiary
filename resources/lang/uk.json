@@ -712,5 +712,10 @@
     "department head": "завідуючий відділенням",
     "student": "студент",
     "teacher": "викладач",
-    "parent": "батько"
+    "parent": "батько",
+    "monday": "понеділок",
+    "tuesday": "вівторок",
+    "wednesday": "середа",
+    "thursday": "четвер",
+    "friday": "п'ятниця"
 }

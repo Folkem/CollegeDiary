@@ -39,4 +39,14 @@ class Discipline extends Model
     {
         return $this->hasMany(LessonScheduleItem::class);
     }
+
+    public function getForStudentAttribute()
+    {
+        return sprintf("%s (%s)", $this->subject, $this->teacher->name);
+    }
+
+    public function getForTeacherAttribute()
+    {
+        return sprintf("%s (%s)", $this->subject, $this->group->human_name);
+    }
 }

@@ -18,8 +18,9 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property int $number
  * @property Collection $students
  * @property Collection $disciplines
- * @property string $human_name
+ * @property string $humanName
  * @property Collection $lessonScheduleItems
+ * @property array $lessonSchedule
  */
 class Group extends Model
 {
@@ -43,7 +44,7 @@ class Group extends Model
 
     public function getHumanNameAttribute(): string
     {
-        return "{$this->speciality->short_name}—{$this->year}{$this->number}";
+        return "{$this->speciality->short_name}‒{$this->year}{$this->number}";
     }
 
     public function disciplines(): HasMany
@@ -54,5 +55,34 @@ class Group extends Model
     public function lessonScheduleItems(): HasManyThrough
     {
         return $this->hasManyThrough(LessonScheduleItem::class, Discipline::class);
+    }
+
+    public function getLessonScheduleAttribute(): array
+    {
+        $lessonScheduleItems = $this->lessonScheduleItems()
+            ->orderBy('week_day_id')->orderBy('call_schedule_item_id')->orderBy('variant')->get();
+
+        $weekDays = $lessonScheduleItems->map(fn($lsi) => $lsi->weekDay)->unique();
+
+        $lessonSchedule = [];
+
+        foreach ($weekDays as $weekDay) {
+            $humanWeekDay = ucfirst(__($weekDay->name));
+            $lessonSchedule[$humanWeekDay] = [];
+            $weekDayLessonSchedule = $lessonScheduleItems->filter(function ($lti) use ($weekDay) {
+                return $lti->weekDay == $weekDay;
+            });
+            foreach ($weekDayLessonSchedule as $wdlsi) {
+                if (!array_key_exists($wdlsi->callScheduleItem->id, $lessonSchedule[$humanWeekDay])) {
+                    $lessonSchedule[$humanWeekDay][$wdlsi->callScheduleItem->id] = [];
+                }
+
+                $numberLessonSchedule =& $lessonSchedule[$humanWeekDay][$wdlsi->callScheduleItem->id];
+
+                $numberLessonSchedule[$wdlsi->variant] = $wdlsi->discipline->for_student;
+            }
+        }
+
+        return $lessonSchedule;
     }
 }

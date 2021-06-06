@@ -19,18 +19,18 @@ class LessonScheduleItemSeeder extends Seeder
     {
         Group::all()->each(function ($group) {
             WeekDay::all()->each(function ($weekDay) use ($group) {
-                $variantNumber = rand(0, 2);
-                $variant = $variantNumber === 0 ?
-                    'чисельник' :
-                    ($variantNumber === 1 ?
-                        'знаменник' :
-                        'По варіанту'
-                    );
-
                 $start = mt_rand(1, 3);
                 $end = mt_rand(4, 6);
 
                 for ($callScheduleItemId = $start; $callScheduleItemId <= $end; $callScheduleItemId++) {
+                    $variantNumber = rand(0, 2);
+                    $variant = $variantNumber === 0 ?
+                        'чисельник' :
+                        ($variantNumber === 1 ?
+                            'знаменник' :
+                            'постійно'
+                        );
+
                     LessonScheduleItem::query()->create([
                         'discipline_id' => $group->disciplines->random()->id,
                         'week_day_id' => $weekDay->id,
