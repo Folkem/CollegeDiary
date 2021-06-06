@@ -13,6 +13,40 @@ use Illuminate\Validation\Rule;
 
 class DisciplineController extends Controller
 {
+    public function teacherIndex()
+    {
+        $disciplines = Discipline::query()->where('teacher_id', auth()->id())->get();
+
+        return view('disciplines.teacher.index', compact('disciplines'));
+    }
+
+    public function studentIndex()
+    {
+        $disciplines = auth()->user()->group->disciplines;
+
+        return view('disciplines.student.index', compact('disciplines'));
+    }
+
+    public function teacherShow(Discipline $discipline)
+    {
+        $lessons = $discipline->lessons;
+        $homeworks = $discipline->homeworks;
+        $grades = $discipline->grades;
+
+        return view('disciplines.teacher.show',
+            compact('discipline', 'lessons', 'homeworks', 'grades'));
+    }
+
+    public function studentShow(Discipline $discipline)
+    {
+        $lessons = $discipline->lessons;
+        $homeworks = $discipline->homeworks;
+        $grades = auth()->user()->grades;
+
+        return view('disciplines.student.show',
+            compact('discipline', 'lessons', 'homeworks', 'grades'));
+    }
+
     public function create()
     {
         $groups = Group::all();

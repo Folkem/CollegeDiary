@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Admin\DisciplineController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\ScheduleController as AdminScheduleController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
-use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabinetController;
@@ -58,6 +58,20 @@ Route::middleware('auth')->group(function () {
             Route::put('schedules/lessons/{group}', [AdminScheduleController::class, 'updateLessonSchedule'])
                 ->name('schedules.lessons.update');
         });
+    });
+
+    Route::middleware('roles:teacher')->group(function () {
+        Route::get('disciplines/teacher', [DisciplineController::class, 'teacherIndex'])
+            ->name('disciplines.teacher.index');
+        Route::get('disciplines/teacher/{discipline}', [DisciplineController::class, 'teacherShow'])
+            ->name('disciplines.teacher.show');
+    });
+
+    Route::middleware('roles:student')->group(function () {
+        Route::get('disciplines/student', [DisciplineController::class, 'studentIndex'])
+            ->name('disciplines.student.index');
+        Route::get('disciplines/student/{discipline}', [DisciplineController::class, 'studentShow'])
+            ->name('disciplines.student.show');
     });
 });
 

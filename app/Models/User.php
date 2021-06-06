@@ -19,10 +19,11 @@ use Illuminate\Notifications\Notifiable;
  * @property string $avatar_path
  * @property string $password
  * @property Role $role
- * @property Collection $newsComments
  * @property Group $group
- * @property Collection $disciplines
  * @property array $teacherSchedule
+ * @property Collection $newsComments
+ * @property Collection $disciplines
+ * @property Collection $grades
  */
 class User extends Authenticatable
 {
@@ -99,5 +100,10 @@ class User extends Authenticatable
         }
 
         return $lessonSchedule;
+    }
+
+    public function grades(): HasMany
+    {
+        return $this->hasMany(Grade::class);
     }
 }

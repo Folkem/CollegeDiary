@@ -120,7 +120,8 @@
                             @endif
                             @if(in_array(auth()->user()->role->name, ['student', 'teacher']))
                             <li class="ml-7">
-                                <a href="#{{-- route('disciplines.index') --}}" class="link">Дисципліни</a>
+                                <a href="{{ route('disciplines.' . auth()->user()->role->name . '.index') }}"
+                                   class="link">Дисципліни</a>
                             </li>
                             @endif
                         @endauth
@@ -161,7 +162,8 @@
 {{--                </li>--}}
                 @if(in_array(auth()->user()->role->name, ['student', 'teacher']))
                     <li>
-                        <a class="link" href="#{{-- route('disciplines.index') --}}">Дисципліни</a>
+                        <a href="{{ route('disciplines.' . auth()->user()->role->name . '.index') }}"
+                           class="link">Дисципліни</a>
                     </li>
                 @endauth
             @endauth

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * Class Discipline
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Collection $lessonScheduleItems
  * @property Collection $lessons
  * @property Collection $homeworks
+ * @property Collection $grades
  */
 class Discipline extends Model
 {
@@ -70,5 +72,10 @@ class Discipline extends Model
     public function homeworks(): HasMany
     {
         return $this->hasMany(Homework::class);
+    }
+
+    public function grades(): HasManyThrough
+    {
+        return $this->hasManyThrough(Grade::class, Lesson::class);
     }
 }
