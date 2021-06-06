@@ -118,7 +118,7 @@
                                     <a class="link" href="{{ route('admin.index') }}">Адмін-панель</a>
                                 </li>
                             @endif
-                            @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
+                            @if(in_array(auth()->user()->role->name, ['student', 'teacher']))
                             <li class="ml-7">
                                 <a href="#{{-- route('disciplines.index') --}}" class="link">Дисципліни</a>
                             </li>
@@ -159,7 +159,7 @@
 {{--                <li>--}}
 {{--                    <a class="link" href="{{ route('cabinet.notices') }}">Сповіщення</a>--}}
 {{--                </li>--}}
-                @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
+                @if(in_array(auth()->user()->role->name, ['student', 'teacher']))
                     <li>
                         <a class="link" href="#{{-- route('disciplines.index') --}}">Дисципліни</a>
                     </li>

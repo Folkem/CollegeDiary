@@ -18,6 +18,6 @@ class RoleSeeder extends Seeder
         Role::query()->create(['name' => 'department head']);
         Role::query()->create(['name' => 'teacher']);
         Role::query()->create(['name' => 'student']);
-        Role::query()->create(['name' => 'parent']);
+//        Role::query()->create(['name' => 'parent']);
     }
 }
