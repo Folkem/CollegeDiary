@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $forStudent
  * @property string $forTeacher
  * @property string $forAdmin
+ * @property Collection $lessonScheduleItems
+ * @property Collection $lessons
+ * @property Collection $homeworks
  */
 class Discipline extends Model
 {
@@ -43,18 +47,28 @@ class Discipline extends Model
         return $this->hasMany(LessonScheduleItem::class);
     }
 
-    public function getForStudentAttribute()
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class);
+    }
+
+    public function getForStudentAttribute(): string
     {
         return sprintf("%s (%s)", $this->subject, $this->teacher->name);
     }
 
-    public function getForTeacherAttribute()
+    public function getForTeacherAttribute(): string
     {
         return sprintf("%s (%s)", $this->subject, $this->group->humanName);
     }
 
-    public function getForAdminAttribute()
+    public function getForAdminAttribute(): string
     {
         return sprintf("%s (%s — %s)", $this->subject, $this->group->humanName, $this->teacher->name);
+    }
+
+    public function homeworks(): HasMany
+    {
+        return $this->hasMany(Homework::class);
     }
 }

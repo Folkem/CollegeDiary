@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::factory()
-            ->count(10)
+            ->count(400)
             ->create()
             ->each(function ($user) {
                 if ($user->role->name === 'student') {

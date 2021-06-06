@@ -24,5 +24,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DisciplineSeeder::class);
         $this->call(WeekDaySeeder::class);
         $this->call(LessonScheduleItemSeeder::class);
+        $this->call(LessonTypeSeeder::class);
+        $this->call(LessonSeeder::class);
+        $this->call(HomeworkSeeder::class);
+        $this->call(GradeSeeder::class);
     }
 }
