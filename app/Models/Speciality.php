@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property string $short_name
+ * @property string $humanName
  * @property Collection $groups
  */
 class Speciality extends Model
@@ -27,5 +28,10 @@ class Speciality extends Model
     public function groups(): HasMany
     {
         return $this->hasMany(Group::class);
+    }
+
+    public function getHumanNameAttribute()
+    {
+        return sprintf('%s (%s)', $this->name, $this->short_name);
     }
 }

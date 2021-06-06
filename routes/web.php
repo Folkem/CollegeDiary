@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DisciplineController;
+use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\ScheduleController as AdminScheduleController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
@@ -42,9 +44,19 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('admin')->group(function () {
             Route::resource('students', StudentController::class)->except(['index', 'show']);
+
             Route::resource('teachers', TeacherController::class)->except(['index', 'show']);
+
             Route::resource('disciplines', DisciplineController::class)->except(['index', 'show']);
+
             Route::resource('news', AdminNewsController::class)->except(['index', 'show']);
+
+            Route::resource('groups', GroupController::class)->except(['index', 'show']);
+
+            Route::get('schedules/lessons/{group}/edit', [AdminScheduleController::class, 'edit'])
+                ->name('schedules.lessons.edit');
+            Route::put('schedules/lessons/{group}', [AdminScheduleController::class, 'update'])
+                ->name('schedules.lessons.update');
         });
     });
 });

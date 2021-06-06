@@ -36,8 +36,8 @@
             <hr>
             @endif
             <div class="text-white px-8 py-4 border-solid border-b-2 border-white cursor-pointer"
-                 data-menu-button="schedules">
-                Розклади
+                 data-menu-button="groups">
+                Групи
             </div>
             <hr>
             <div class="text-white px-8 py-4 border-solid border-b-2 border-white cursor-pointer"
@@ -151,8 +151,57 @@
                 </div>
             </div>
             @endif
-            <div data-menu-section="schedules" class="px-2 sm:px-12 py-6 hidden w-full">
-                Розклади
+            <div data-menu-section="groups" class="px-2 sm:px-12 py-6 hidden w-full">
+                <div class="text-3xl font-bold">
+                    Таблиця груп
+                </div>
+                <a class="underline text-base" href="{{ route('groups.create') }}">
+                    Додати новий запис
+                </a>
+                <div class="text-center">
+                    @if($groups->count() === 0)
+                        <div class="italic font-bold text-xl">
+                            Груп нема.
+                        </div>
+                    @else
+                        <div class="rounded-lg break-words bg-white border-2 border-solid border-blue-700 p-2
+                            flex flex-col gap-4">
+                            <div class="flex flex-row font-bold text-lg border-b-2 border-solid border-blue-700">
+                                <div class="w-8/12">Назва групи</div>
+                                <div class="w-4/12 text-sm self-center">Кнопки</div>
+                            </div>
+                            @foreach($groups as $group)
+                                <div class="flex flex-row text-sm">
+                                    <div class="w-8/12">{{ $group->human_name }}</div>
+                                    <div class="w-4/12 flex flex-row justify-evenly">
+                                        <div>
+                                            <a href="{{ route('schedules.lessons.edit', $group) }}"
+                                               title="Редагувати розклад">
+                                                <i class="fas fa-solid fa-calendar-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="{{ route('groups.edit', $group) }}">
+                                                <i class="fas fa-solid fa-pencil-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <form action="{{ route('groups.destroy', $group) }}"
+                                                  method="post"
+                                                  onsubmit="return deleteGroup('{{ $group->humanName }}');">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <i class="fas fa-solid fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
             <div data-menu-section="disciplines" class="px-2 sm:px-12 py-6 hidden w-full">
                 <div class="text-3xl font-bold">
@@ -314,6 +363,16 @@
             return false;
         }
 
+        function deleteGroup(group) {
+            try {
+                return confirm(`Видалити групу ${group}?`);
+            } catch (e) {
+                console.error(e);
+            }
+
+            return false;
+        }
+
         function deleteNews(newsTitle) {
             try {
                 return confirm(`Видалити новину ${newsTitle}?`);
@@ -323,8 +382,6 @@
 
             return false;
         }
-
-        // todo: delete for each other model
     </script>
     <!-- Session message -->
     <script>

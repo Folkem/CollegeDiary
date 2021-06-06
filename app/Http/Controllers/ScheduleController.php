@@ -13,6 +13,6 @@ class ScheduleController extends Controller
         $callScheduleItems = CallScheduleItem::all();
         $groups = Group::all();
 
-        return view('schedules', compact('callScheduleItems', 'groups'));
+        return view('schedules.index', compact('callScheduleItems', 'groups'));
     }
 }

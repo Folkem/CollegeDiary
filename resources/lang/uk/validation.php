@@ -159,5 +159,6 @@ return [
         'username'              => 'Нікнейм',
         'year'                  => 'Рік',
         'avatar'                => 'Аватар',
+        'group_number'          => 'Номер групи',
     ],
 ];
