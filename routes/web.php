@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\NewsCommentController;
@@ -31,6 +32,10 @@ Route::middleware('auth')->group(function () {
         ->name('cabinet.password.update');
     Route::put('cabinet/avatar', [CabinetController::class, 'updateAvatar'])
         ->name('cabinet.avatar.update');
+
+    Route::middleware('role:admin')->group(function () {
+        Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
+    });
 });
 
 Route::redirect('/', 'news');

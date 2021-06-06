@@ -115,7 +115,7 @@
                         @auth
                             @if(auth()->user()->role->name === 'admin')
                                 <li class="ml-7">
-                                    <a class="link" href="#">Адмін-панель</a>
+                                    <a class="link" href="{{ route('admin.index') }}">Адмін-панель</a>
                                 </li>
                             @endif
                             @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
@@ -149,7 +149,7 @@
         <ul class="ul-ol-none m-auto space-y-6">
             @if(auth()->check() && auth()->user()->role->name === 'admin')
                 <li>
-                    <a class="link" href="{{-- route('admin.index') --}}">Адмін-панель</a>
+                    <a class="link" href="{{ route('admin.index') }}">Адмін-панель</a>
                 </li>
             @endif
             @auth
