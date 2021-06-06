@@ -155,7 +155,54 @@
                 Розклади
             </div>
             <div data-menu-section="disciplines" class="px-2 sm:px-12 py-6 hidden w-full">
-                Дисципліни
+                <div class="text-3xl font-bold">
+                    Таблиця дисциплін
+                </div>
+                <a class="underline text-base" href="{{ route('disciplines.create') }}">
+                    Додати новий запис
+                </a>
+                <div class="text-center">
+                    @if($disciplines->count() === 0)
+                        <div class="italic font-bold text-xl">
+                            Дисциплін нема.
+                        </div>
+                    @else
+                        <div class="rounded-lg break-words bg-white border-2 border-solid border-blue-700 p-2
+                            flex flex-col gap-4">
+                            <div class="flex flex-row font-bold text-lg border-b-2 border-solid border-blue-700">
+                                <div class="w-4/12">Предмет</div>
+                                <div class="w-4/12">Викладач</div>
+                                <div class="w-2/12">Група</div>
+                                <div class="w-2/12 text-sm self-center">Кнопки</div>
+                            </div>
+                            @foreach($disciplines as $discipline)
+                                <div class="flex flex-row text-sm">
+                                    <div class="w-4/12">{{ $discipline->subject }}</div>
+                                    <div class="w-4/12">{{ $discipline->teacher->name }}</div>
+                                    <div class="w-2/12">{{ $discipline->group->humanName }}</div>
+                                    <div class="w-2/12 flex flex-row justify-evenly">
+                                        <div>
+                                            <a href="{{ route('disciplines.edit', $discipline) }}">
+                                                <i class="fas fa-solid fa-pencil-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <form action="{{ route('disciplines.destroy', $discipline) }}"
+                                                  method="post"
+                                                  onsubmit="return deleteDiscipline('{{ $discipline->forAdmin }}');">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <i class="fas fa-solid fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
             <div data-menu-section="news" class="px-2 sm:px-12 py-6 hidden w-full">
                 Новини
@@ -213,6 +260,22 @@
 
         @endif
 
+        function deleteDiscipline(disciplineName) {
+            try {
+                return confirm(`Видалити дисципліну ${disciplineName}?`);
+            } catch (e) {
+                console.error(e);
+            }
+
+            return false;
+        }
+
         // todo: delete for each other model
+    </script>
+    <!-- Session message -->
+    <script>
+        @if(session()->has('message'))
+            alert('{{ session('message') }}');
+        @endif
     </script>
 @endpush

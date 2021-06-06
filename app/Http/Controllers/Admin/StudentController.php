@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -82,8 +83,12 @@ class StudentController extends Controller
 
     public function destroy(User $student): RedirectResponse
     {
-        $student->delete();
-
-        return back();
+        try {
+            $student->delete();
+            return back();
+        } catch (Exception $exception) {
+            return back()->with('message', 'Студента не вдалося видалити. Скоріш за все, в нього присутні ' .
+                'оцінки. Спочатку видаліть їх');
+        }
     }
 }

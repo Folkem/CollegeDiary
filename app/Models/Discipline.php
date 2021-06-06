@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Group $group
  * @property User $teacher
  * @property string $subject
+ * @property string $forStudent
+ * @property string $forTeacher
+ * @property string $forAdmin
  */
 class Discipline extends Model
 {
@@ -47,6 +50,11 @@ class Discipline extends Model
 
     public function getForTeacherAttribute()
     {
-        return sprintf("%s (%s)", $this->subject, $this->group->human_name);
+        return sprintf("%s (%s)", $this->subject, $this->group->humanName);
+    }
+
+    public function getForAdminAttribute()
+    {
+        return sprintf("%s (%s — %s)", $this->subject, $this->group->humanName, $this->teacher->name);
     }
 }

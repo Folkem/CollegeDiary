@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DisciplineController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\AdminController;
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::resource('students', StudentController::class)->except(['index', 'show']);
             Route::resource('teachers', TeacherController::class)->except(['index', 'show']);
+            Route::resource('disciplines', DisciplineController::class)->except(['index', 'show']);
         });
     });
 });
