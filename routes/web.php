@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabinetController;
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
+
+        Route::delete('students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
     });
 });
 
