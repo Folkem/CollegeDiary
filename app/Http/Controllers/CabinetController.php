@@ -53,12 +53,10 @@ class CabinetController extends Controller
 
         $avatar = $request->file('avatar');
 
-        $randomName = sprintf("%s%s.%s", time(), Str::random(), $avatar->extension());
-
-        $avatar->store(asset("media/avatars/$randomName"));
+        $avatarPath = $avatar->store("media/avatars", ['disk' => 'public']);
 
         auth()->user()->update([
-            'avatar_path' => $randomName,
+            'avatar_path' => $avatarPath,
         ]);
 
         return back()->with('message', 'Аватар успішно оновлено.');

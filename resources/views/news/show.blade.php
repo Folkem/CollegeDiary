@@ -9,7 +9,7 @@
     <main>
         <section class="mx-auto max-w-1200">
             <figure>
-                <img src="{{ asset("media/news-covers/$news->image_path") }}"
+                <img src="{{ asset("storage/$news->image_path") }}"
                      alt="{{ $news->title }}" class="object-contain w-full h-full">
             </figure>
             <div
@@ -22,7 +22,7 @@
                     <div>{{ $news->created_at->diffForHumans() }}</div>
                 </div>
                 <div class="p-8 bg-blue-200 rounded-2xl text-base font-gotham-pro">
-                    {{ $news->body }}
+                    {!! $news->body !!}
                 </div>
                 <div class="flex flex-row justify-between mt-4">
                     <div class="flex flex-row flex-wrap gap-2">
@@ -47,7 +47,7 @@
                                 <div class="bg-white p-4 rounded-xl sm:flex flex-row gap-6">
                                     <div class="w-12 box-border hidden sm:block">
                                         <div class="w-12 h-12 rounded-full box-content overflow-hidden">
-                                            <img src="{{ asset('media/avatars/' . $comment->user->avatar_path) }}"
+                                            <img src="{{ asset('storage/' . $comment->user->avatar_path) }}"
                                                  alt="Аватар користувача {{ $comment->user->name }}"
                                                  class="w-full h-full object-cover">
                                         </div>
@@ -124,8 +124,7 @@
     <script src="{{ asset('js/news/slider.js') }}"></script>
     @auth
         <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
-        <script type="module">
-
+        <script>
             ClassicEditor
                 .create(document.querySelector('#comment-body'), {
                     toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],

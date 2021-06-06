@@ -17,7 +17,7 @@
                 <div class="slider-body">
                     @foreach($newsList->take(4) as $news)
                         <div class="slider-item h-80 sm:h-96 md:h-500 xl:h-820">
-                            <img src="{{ asset("media/news-covers/$news->image_path") }}"
+                            <img src="{{ asset("storage/$news->image_path") }}"
                                  alt="{{ $news->title }}">
                             <div class="slider-text font-gotham-pro-bold text-lg sm:text-2xl
                                 md:text-3xl xl:text-4xl text-white mb-12">
@@ -83,11 +83,13 @@
                         <div class="w-full md:w-5/12 lg:w-6/12
                             lg:{{ $i % 2 == 0 ? 'pr-4' : 'pl-4' }}
                             ">
-                            <img src="{{ asset("media/news-covers/$news->image_path") }}" alt="">
+                            <img src="{{ asset("storage/$news->image_path") }}" alt="">
                             <h2 class="news-element-title">
                                 <a href="{{ route('news.show', $news) }}">{{ $news->title }}</a>
                             </h2>
-                            <p class="news-element-text">{{ \Illuminate\Support\Str::limit($news->body, 200) }}</p>
+                            <p class="news-element-text">
+                                {{ strip_tags(\Illuminate\Support\Str::limit($news->body, 50), ['p']) }}
+                            </p>
                             <p class="news-element-date"> {{ $news->created_at->diffForHumans() }}</p>
                         </div>
                     @endforeach

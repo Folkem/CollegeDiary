@@ -19,7 +19,6 @@ class UserHasRole
      */
     public function handle(Request $request, Closure $next, string ...$roleNames)
     {
-        info(print_r($roleNames, true));
         if (!auth()->check() || !in_array(auth()->user()->role->name, $roleNames)) {
             return redirect(RouteServiceProvider::HOME);
         }

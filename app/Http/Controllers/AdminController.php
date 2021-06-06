@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discipline;
+use App\Models\News;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class AdminController extends Controller
         $students = User::with('group')->where('role_id', 4)->get();
         $teachers = User::with('group')->where('role_id', 3)->get();
         $disciplines = Discipline::all();
+        $newsList = News::all();
 
-        return view('admin.index', compact('students', 'teachers', 'disciplines'));
+        return view('admin.index', compact('students', 'teachers', 'disciplines', 'newsList'));
     }
 }

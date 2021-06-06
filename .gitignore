@@ -6,8 +6,6 @@ vendor
 storage
 public/css/app.css
 public/js/app.js
-public/media/avatars/*
-!public/media/avatars/default-user-avatar.png
 *.idea
 .env
 .env.backup

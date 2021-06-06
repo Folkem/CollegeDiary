@@ -205,7 +205,52 @@
                 </div>
             </div>
             <div data-menu-section="news" class="px-2 sm:px-12 py-6 hidden w-full">
-                Новини
+                <div class="text-3xl font-bold">
+                    Таблиця новин
+                </div>
+                <a class="underline text-base" href="{{ route('news.create') }}">
+                    Додати новий запис
+                </a>
+                <div class="text-center">
+                    @if($newsList->count() === 0)
+                        <div class="italic font-bold text-xl">
+                            Новин нема.
+                        </div>
+                    @else
+                        <div class="rounded-lg break-words bg-white border-2 border-solid border-blue-700 p-2
+                            flex flex-col gap-4">
+                            <div class="flex flex-row font-bold text-lg border-b-2 border-solid border-blue-700">
+                                <div class="w-7/12">Заголовок</div>
+                                <div class="w-3/12">Дата створення</div>
+                                <div class="w-2/12 text-sm self-center">Кнопки</div>
+                            </div>
+                            @foreach($newsList as $news)
+                                <div class="flex flex-row text-sm">
+                                    <div class="w-7/12">{{ $news->title }}</div>
+                                    <div class="w-3/12">{{ $news->created_at }}</div>
+                                    <div class="w-2/12 flex flex-row justify-evenly">
+                                        <div>
+                                            <a href="{{ route('news.edit', $news) }}">
+                                                <i class="fas fa-solid fa-pencil-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <form action="{{ route('news.destroy', $news) }}"
+                                                  method="post"
+                                                  onsubmit="return deleteNews('{{ $news->title }}');">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <i class="fas fa-solid fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </main>
@@ -214,7 +259,6 @@
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
     <!-- Switch panels -->
     <script>
         const buttons = document.querySelectorAll('[data-menu-button]');
@@ -260,9 +304,19 @@
 
         @endif
 
-        function deleteDiscipline(disciplineName) {
+        function deleteDiscipline(discipline) {
             try {
-                return confirm(`Видалити дисципліну ${disciplineName}?`);
+                return confirm(`Видалити дисципліну ${discipline}?`);
+            } catch (e) {
+                console.error(e);
+            }
+
+            return false;
+        }
+
+        function deleteNews(newsTitle) {
+            try {
+                return confirm(`Видалити новину ${newsTitle}?`);
             } catch (e) {
                 console.error(e);
             }

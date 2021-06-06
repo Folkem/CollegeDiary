@@ -24,7 +24,7 @@ class NewsFactory extends Factory
         return [
             'title' => $this->faker->unique()->realTextBetween(20, 100),
             'body' => $this->faker->realTextBetween(100, 2000),
-            'image_path' => 'main-cover.jpg',
+            'image_path' => 'media/news-covers/main-cover.jpg',
         ];
     }
 }
