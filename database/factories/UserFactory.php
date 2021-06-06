@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,12 +24,14 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $role = Role::all()->random()->id;
         return [
             'name' => $this->faker->unique()->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'role_id' => Role::all()->random()->id,
+            'role_id' => $role,
             'avatar_path' => 'default-user-avatar.png',
+            'group_id' => $role == 4 ? null : Group::all()->random()->id,
         ];
     }
 }
