@@ -5,17 +5,6 @@
 @section('body')
     @include('layouts.header')
 
-    <!-- 1024px and above warning -->
-    <div class="block lg:hidden flex flex-col w-full mt-32">
-        <div class="m-auto font-gotham-pro text-red-500 text-center text-2xl sm:text-3xl md:text-4xl px-8">
-            Через насичений інтерфейс, адмін-панель доступна лише при розширенні екрану
-            <b>1024 px</b> (пікселя) і вище (іншими словами: лише з комп'ютерів та
-            деяких планшетів).
-            <br><br>
-            Вибачте за незручності.
-        </div>
-    </div>
-
     <main class="max-w-1200 hidden lg:flex flex-col gap-6 mx-auto pt-20 text-blue-900">
         <div class="text-3xl font-gotham-pro-bold mx-auto">
             Додавання новини
