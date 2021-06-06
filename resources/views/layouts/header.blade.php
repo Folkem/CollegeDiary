@@ -62,7 +62,7 @@
                              width="80px" alt="Логотип ПГФК">
                     </a>
                 </figure>
-                <a href="{{ route(\App\Providers\RouteServiceProvider::HOME) }}"
+                <a href="{{ \App\Providers\RouteServiceProvider::HOME }}"
                    class="ml-4 inline-block font-museo-cyrl text-xl md:text-3xl w-1/2 sm:w-full">
                     Онлайн-щоденник ПГФК
                 </a>
