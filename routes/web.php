@@ -37,7 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('roles:admin,department head')->group(function () {
         Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
-        Route::delete('students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
+        Route::prefix('admin')->group(function () {
+            Route::resource('students', StudentController::class)->except(['index', 'show']);
+        });
     });
 });
 

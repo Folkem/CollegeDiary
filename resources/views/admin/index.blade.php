@@ -56,9 +56,9 @@
                 <div class="text-3xl font-bold">
                     Таблиця студентів
                 </div>
-                <button class="underline text-base" data-target="student-add-new">
+                <a class="underline text-base" href="{{ route('students.create') }}">
                     Додати новий запис
-                </button>
+                </a>
                 <div class="text-center">
                     @if($students->count() === 0)
                         <div class="italic font-bold text-xl">
@@ -80,9 +80,9 @@
                                     <div class="w-2/12">{{ $student->group->human_name }}</div>
                                     <div class="w-2/12 flex flex-row justify-evenly">
                                         <div>
-                                            <button data-target="student-edit">
+                                            <a href="{{ route('students.edit', $student) }}">
                                                 <i class="fas fa-solid fa-pencil-alt"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                         <div>
                                             <form action="{{ route('students.destroy', $student) }}"
@@ -118,92 +118,6 @@
         </div>
     </main>
 
-    <!-- Pop-up menus -->
-    <div class="absolute">
-        @if(auth()->user()->role->name === 'admin')
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
-             data-menu="student-add-new">
-            <div class="self-center bg-white rounded-lg mx-auto p-4">
-                Додавання студента
-            </div>
-            <div class="absolute h-32 w-32 right-8 top-0 flex">
-                <i class="fas fa-solid text-4xl fa-times m-auto cursor-pointer"
-                   data-id="hide-pop-up"></i>
-            </div>
-        </div>
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
-             data-menu="student-edit">
-            <div class="self-center bg-white rounded-lg mx-auto p-4">
-                Редагування студента
-            </div>
-            <div class="absolute h-32 w-32 right-8 top-0 flex">
-                <i class="fas fa-solid text-4xl fa-times m-auto cursor-pointer"
-                   data-id="hide-pop-up"></i>
-            </div>
-        </div>
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
-             data-menu="teacher-add-new">
-            <div class="self-center bg-white rounded-lg mx-auto p-4">
-                Додавання викладача
-            </div>
-            <div class="absolute h-32 w-32 right-8 top-0 flex">
-                <i class="fas fa-solid text-4xl fa-times m-auto cursor-pointer"
-                   data-id="hide-pop-up"></i>
-            </div>
-        </div>
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
-             data-menu="teacher-edit">
-            <div class="self-center bg-white rounded-lg mx-auto p-4">
-                Редагування викладача
-            </div>
-            <div class="absolute h-32 w-32 right-8 top-0 flex">
-                <i class="fas fa-solid text-4xl fa-times m-auto cursor-pointer"
-                   data-id="hide-pop-up"></i>
-            </div>
-        </div>
-        @endif
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
-             data-menu="discipline-add-new">
-            <div class="self-center bg-white rounded-lg mx-auto p-4">
-                Додавання дисципліни
-            </div>
-            <div class="absolute h-32 w-32 right-8 top-0 flex">
-                <i class="fas fa-solid text-4xl fa-times m-auto cursor-pointer"
-                   data-id="hide-pop-up"></i>
-            </div>
-        </div>
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
-             data-menu="discipline-edit">
-            <div class="self-center bg-white rounded-lg mx-auto p-4">
-                Редагування дисципліни
-            </div>
-            <div class="absolute h-32 w-32 right-8 top-0 flex">
-                <i class="fas fa-solid text-4xl fa-times m-auto cursor-pointer"
-                   data-id="hide-pop-up"></i>
-            </div>
-        </div>
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
-             data-menu="news-add-new">
-            <div class="self-center bg-white rounded-lg mx-auto p-4">
-                Додавання новини
-            </div>
-            <div class="absolute h-32 w-32 right-8 top-0 flex">
-                <i class="fas fa-solid text-4xl fa-times m-auto cursor-pointer"
-                   data-id="hide-pop-up"></i>
-            </div>
-        </div>
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
-             data-menu="news-edit">
-            <div class="self-center bg-white rounded-lg mx-auto p-4">
-                Редагування новини
-            </div>
-            <div class="absolute h-32 w-32 right-8 top-0 flex">
-                <i class="fas fa-solid text-4xl fa-times m-auto cursor-pointer"
-                   data-id="hide-pop-up"></i>
-            </div>
-        </div>
-    </div>
-
     @include('layouts.footer')
 @endsection
 
@@ -228,28 +142,7 @@
 
         buttons.item(0).dispatchEvent(new Event('click'));
     </script>
-    <!-- Show/hide pop-up menus -->
-    <script>
-        const hidePopupMenuButtons = document.querySelectorAll('[data-id="hide-pop-up"]');
-        const targetButtons = Array.from(document.querySelectorAll('[data-target]'));
-        const targetMenus = Array.from(document.querySelectorAll('[data-menu]'));
 
-        targetButtons.forEach(button => {
-            const menu = targetMenus.find(value =>
-                value.getAttribute('data-menu') === button.getAttribute('data-target'));
-            button.addEventListener('click', () => {
-                menu.classList.toggle('hidden', false);
-            });
-        });
-
-        hidePopupMenuButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                targetMenus.forEach(menu => {
-                    menu.classList.toggle('hidden', true);
-                });
-            });
-        });
-    </script>
     <!-- Model deleting -->
     <script>
         @if(auth()->user()->role->name === 'admin')
@@ -267,25 +160,5 @@
         @endif
 
         // todo: delete for each other model
-    </script>
-    <!-- Model creating -->
-    <script>
-        @if(auth()->user()->role->name === 'admin')
-
-
-
-        @endif
-
-        // todo: create for each model
-    </script>
-    <!-- Model updating -->
-    <script>
-        @if(auth()->user()->role->name === 'admin')
-
-
-
-        @endif
-
-        // todo: update for each model
     </script>
 @endpush
