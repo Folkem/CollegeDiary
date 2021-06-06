@@ -6,7 +6,7 @@
     @include('layouts.header')
 
     <!-- Main menu -->
-    <main class="max-w-1200 hidden lg:flex flex-col lg:flex-row mx-auto">
+    <main class="max-w-1200 flex flex-col lg:flex-row mx-auto">
         <div class="font-museo-cyrl md:w-5/12 bg-blue-500 flex flex-col text-base sm:text-lg md:text-xl lg:text-3xl">
             <div class="text-white px-8 py-4 border-solid border-b-2 border-white bg-blue-700 text-center">
                 Панель адміністратора
