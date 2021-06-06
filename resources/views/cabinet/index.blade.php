@@ -108,6 +108,39 @@
                         </button>
                     </div>
                 </form>
+                <div class="font-gotham-pro-bold text-blue-900 text-3xl mb-8 mt-12">
+                    Зміна аватару
+                </div>
+                @if(session()->has('message'))
+                    <div class="text-xl font-gotham-pro-bold">
+                        {{ session('message') }}
+                    </div>
+                @endif
+                <form action="{{ route('cabinet.avatar.update') }}" method="post"
+                      class="flex flex-col gap-2" enctype="multipart/form-data">
+                    @csrf
+                    @method('put')
+                    <div class="flex flex-col gap-2">
+                        <label for="avatar" class="font-museo-cyrl font-bold border border-solid border-indigo-700
+                            rounded-full bg-white text-center px-3 py-1 text-indigo-700 text-base">
+                            Виберіть зображення
+                        </label>
+                        <input type="file" id="avatar" name="avatar" required accept="image/*"
+                            class="hidden">
+                    </div>
+                    @error('avatar')
+                    <div class="text-red-500 italic font-gotham-pro-bold text-base">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    <div class="mt-4">
+                        <button type="submit" class="font-museo-cyrl text-xl bg-green-500
+                            hover:bg-green-600 px-8 py-1 text-white rounded-full">
+                            Зберегти
+                        </button>
+                    </div>
+                </form>
+
             </div>
             @if(in_array(auth()->user()->role->name, ['teacher', 'student', 'parent']))
                 <div data-menu-section="lesson-schedule" class="hidden">

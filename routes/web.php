@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
         ->name('cabinet.notices');
     Route::put('cabinet/password', [CabinetController::class, 'updatePassword'])
         ->name('cabinet.password.update');
+    Route::put('cabinet/avatar', [CabinetController::class, 'updateAvatar'])
+        ->name('cabinet.avatar.update');
 });
 
 Route::redirect('/', 'news');
