@@ -112,12 +112,12 @@
                 </nav>
                 <nav>
                     <ul class="flex justify-end first:ml-0">
-                        @if(auth()->user()->role->name === 'admin')
-                            <li class="ml-7">
-                                <a class="link" href="#">Адмін-панель</a>
-                            </li>
-                        @endif
                         @auth
+                            @if(auth()->user()->role->name === 'admin')
+                                <li class="ml-7">
+                                    <a class="link" href="#">Адмін-панель</a>
+                                </li>
+                            @endif
                             @if(in_array(auth()->user()->role->name, ['student', 'teacher', 'parent']))
                             <li class="ml-7">
                                 <a href="#{{-- route('disciplines.index') --}}" class="link">Дисципліни</a>

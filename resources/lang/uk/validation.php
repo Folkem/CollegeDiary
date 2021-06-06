@@ -147,6 +147,7 @@ return [
         'mobile'                => 'Моб. номер',
         'month'                 => 'Місяць',
         'name'                  => 'Ім\'я',
+        'old_password'          => 'Попередній пароль',
         'password'              => 'Пароль',
         'password_confirmation' => 'Підтвердження пароля',
         'phone'                 => 'Телефон',

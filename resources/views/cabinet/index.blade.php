@@ -12,50 +12,95 @@
                 Особистий кабінет
             </div>
             <hr>
-            <div class="text-white px-8 py-4 border-solid border-b-2 border-white bg-white text-blue-900"
+            <div class="text-white px-8 py-4 border-solid border-b-2 border-white bg-white text-blue-900 cursor-pointer"
                  data-menu-button="profile">
                 Ваш профіль
             </div>
             <hr>
-            <div class="text-white px-8 py-4 border-solid border-b-2 border-white"
-                 data-menu-button="lesson-schedule">
-                Розклад
-            </div>
-            <div class="text-white px-8 py-4 md:border-solid border-b-2 border-white"
+            @if(in_array(auth()->user()->role->name, ['teacher', 'student', 'parent']))
+                <div class="text-white px-8 py-4 border-solid border-b-2 border-white cursor-pointer"
+                     data-menu-button="lesson-schedule">
+                    Розклад
+                </div>
+            @endif
+            <div class="text-white px-8 py-4 md:border-solid border-b-2 border-white cursor-pointer"
                  data-menu-button="notification-settings">
                 Налаштування повідомлень
             </div>
         </div>
         <div class="bg-blue-100 md:w-7/12 flex">
             <div data-menu-section="profile" class="px-12 py-6">
+                <div class="flex flex-col gap-2 mb-8">
+                    <div class="font-gotham-pro-bold text-blue-900 text-3xl">
+                        Ім'я
+                    </div>
+                    <div class="text-xl">
+                        {{ auth()->user()->name }}
+                    </div>
+                    <div class="font-gotham-pro-bold text-blue-900 text-3xl">
+                        Пошта
+                    </div>
+                    <div class="text-xl">
+                        {{ auth()->user()->email }}
+                    </div>
+                    <div class="font-gotham-pro-bold text-blue-900 text-3xl">
+                        Роль
+                    </div>
+                    <div class="text-xl">
+                        {{ \Illuminate\Support\Str::ucfirst(__(auth()->user()->role->name)) }}
+                        @if(auth()->user()->role->name === 'student')
+                            {{ auth()->user()->group()->human_name }}
+                        @endif
+                    </div>
+                </div>
                 <div class="font-gotham-pro-bold text-blue-900 text-3xl mb-8">
                     Зміна паролю
                 </div>
-                <form action="{{-- route('cabinet.password') --}}" method="post"
-                    class="flex flex-col gap-2">
+                @if(session()->has('message'))
+                    <div class="text-xl font-gotham-pro-bold">
+                        {{ session('message') }}
+                    </div>
+                @endif
+                <form action="{{ route('cabinet.password.update') }}" method="post"
+                      class="flex flex-col gap-2">
                     @csrf
                     @method('put')
                     <div class="flex flex-col gap-2">
-                        <label for="previous-password" class="font-museo-cyrl text-indigo-700 text-base">
+                        <label for="old_password" class="font-museo-cyrl text-indigo-700 text-base">
                             Введіть попередній пароль
                         </label>
-                        <input type="password" id="previous-password" name="previous-password"
-                            class="px-2 rounded-full border-solid border-2 border-blue-900 text-base">
+                        <input type="password" id="old_password" name="old_password" required
+                               class="px-2 rounded-full border-solid border-2 border-blue-900 text-base">
                     </div>
+                    @error('old_password')
+                    <div class="text-red-500 italic font-gotham-pro-bold text-base">
+                        {{ $message }}
+                    </div>
+                    @enderror
                     <div class="flex flex-col gap-2">
                         <label for="password" class="font-museo-cyrl text-indigo-700 text-base">
-                            Введіть попередній пароль
+                            Введіть новий пароль
                         </label>
-                        <input type="password" id="password" name="password"
-                            class="px-2 rounded-full border-solid border-2 border-blue-900 text-base">
+                        <input type="password" id="password" name="password" required
+                               class="px-2 rounded-full border-solid border-2 border-blue-900 text-base">
                     </div>
+                    @error('password')
+                    <div class="text-red-500 italic font-gotham-pro-bold text-base">
+                        {{ $message }}
+                    </div>
+                    @enderror
                     <div class="flex flex-col gap-2">
-                        <label for="password-confirmation" class="font-museo-cyrl text-indigo-700 text-base">
-                            Введіть попередній пароль
+                        <label for="password_confirmation" class="font-museo-cyrl text-indigo-700 text-base">
+                            Підтвердіть новий пароль
                         </label>
-                        <input type="password" id="password-confirmation" name="password-confirmation"
-                            class="px-2 rounded-full border-solid border-2 border-blue-900 text-base">
+                        <input type="password" id="password_confirmation" name="password_confirmation" required
+                               class="px-2 rounded-full border-solid border-2 border-blue-900 text-base">
                     </div>
+                    @error('password_confirmation')
+                    <div class="text-red-500 italic font-gotham-pro-bold text-base">
+                        {{ $message }}
+                    </div>
+                    @enderror
                     <div class="mt-4">
                         <button type="submit" class="font-museo-cyrl text-xl bg-green-500
                             hover:bg-green-600 px-8 py-1 text-white rounded-full">
@@ -64,9 +109,11 @@
                     </div>
                 </form>
             </div>
-            <div data-menu-section="lesson-schedule" class="hidden">
-                lesson schedule
-            </div>
+            @if(in_array(auth()->user()->role->name, ['teacher', 'student', 'parent']))
+                <div data-menu-section="lesson-schedule" class="hidden">
+                    lesson schedule
+                </div>
+            @endif
             <div data-menu-section="notification-settings" class="hidden">
                 notification settings
             </div>

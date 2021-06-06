@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('cabinet', [CabinetController::class, 'index'])->name('cabinet.index');
     Route::get('cabinet/notices', [CabinetController::class, 'notices'])
         ->name('cabinet.notices');
-    Route::post('cabinet/password', [CabinetController::class, 'updatePassword'])
+    Route::put('cabinet/password', [CabinetController::class, 'updatePassword'])
         ->name('cabinet.password.update');
 });
 
