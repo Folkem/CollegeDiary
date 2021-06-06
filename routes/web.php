@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::put('cabinet/avatar', [CabinetController::class, 'updateAvatar'])
         ->name('cabinet.avatar.update');
 
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('roles:admin,department head')->group(function () {
         Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
         Route::delete('students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');

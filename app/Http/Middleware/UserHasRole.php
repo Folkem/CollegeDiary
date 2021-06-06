@@ -17,9 +17,10 @@ class UserHasRole
      * @param Role $role
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $roleName)
+    public function handle(Request $request, Closure $next, string ...$roleNames)
     {
-        if (!auth()->check() || auth()->user()->role->name !== $roleName) {
+        info(print_r($roleNames, true));
+        if (!auth()->check() || !in_array(auth()->user()->role->name, $roleNames)) {
             return redirect(RouteServiceProvider::HOME);
         }
 

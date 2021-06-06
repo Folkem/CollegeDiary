@@ -113,7 +113,7 @@
                 <nav>
                     <ul class="ul-ol-none flex justify-end first:ml-0">
                         @auth
-                            @if(auth()->user()->role->name === 'admin')
+                            @if(in_array(auth()->user()->role->name, ['admin', 'department head']))
                                 <li class="ml-7">
                                     <a class="link" href="{{ route('admin.index') }}">Адмін-панель</a>
                                 </li>
@@ -147,7 +147,7 @@
          flex text-center shadow-inner font-gotham-pro-bold text-white text-4xl
             hidden lg:hidden">
         <ul class="ul-ol-none m-auto space-y-6">
-            @if(auth()->check() && auth()->user()->role->name === 'admin')
+            @if(auth()->check() && in_array(auth()->user()->role->name, ['admin', 'department head']))
                 <li>
                     <a class="link" href="{{ route('admin.index') }}">Адмін-панель</a>
                 </li>
@@ -265,12 +265,9 @@
                         'password': document.querySelector('#login-password').value,
                     }),
                 }).then(result => {
-                    console.log(`${result.status}`);
                     if (['200', '422'].includes(`${result.status}`)) {
-                        console.log('ha');
                         return result.json();
                     } else {
-                        console.log('eh');
                         throw new Error();
                     }
                 }).then(json => {

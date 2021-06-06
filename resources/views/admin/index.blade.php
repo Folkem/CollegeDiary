@@ -23,7 +23,8 @@
                 Панель адміністратора
             </div>
             <hr>
-            <div class="text-white px-8 py-4 border-solid border-b-2 border-white bg-white text-blue-900 cursor-pointer"
+            @if(auth()->user()->role->name === 'admin')
+            <div class="text-white px-8 py-4 border-solid border-b-2 border-white cursor-pointer"
                  data-menu-button="students">
                 Студенти
             </div>
@@ -33,6 +34,7 @@
                 Викладачі
             </div>
             <hr>
+            @endif
             <div class="text-white px-8 py-4 border-solid border-b-2 border-white cursor-pointer"
                  data-menu-button="schedules">
                 Розклади
@@ -49,6 +51,7 @@
             </div>
         </div>
         <div class="bg-blue-100 md:w-7/12 flex text-blue-800 font-gotham-pro">
+            @if(auth()->user()->role->name === 'admin')
             <div data-menu-section="students" class="px-2 sm:px-12 py-6 w-full space-y-4">
                 <div class="text-3xl font-bold">
                     Таблиця студентів
@@ -102,6 +105,7 @@
             <div data-menu-section="teachers" class="px-2 sm:px-12 py-6 hidden w-full">
                 Викладачі
             </div>
+            @endif
             <div data-menu-section="schedules" class="px-2 sm:px-12 py-6 hidden w-full">
                 Розклади
             </div>
@@ -116,7 +120,8 @@
 
     <!-- Pop-up menus -->
     <div class="absolute">
-        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0"
+        @if(auth()->user()->role->name === 'admin')
+        <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
              data-menu="student-add-new">
             <div class="self-center bg-white rounded-lg mx-auto p-4">
                 Додавання студента
@@ -156,6 +161,7 @@
                    data-id="hide-pop-up"></i>
             </div>
         </div>
+        @endif
         <div class="fixed w-screen h-screen z-30 bg-blue-300 bg-opacity-75 flex top-0 bottom-0 hidden"
              data-menu="discipline-add-new">
             <div class="self-center bg-white rounded-lg mx-auto p-4">
@@ -219,6 +225,8 @@
                 sections.item(key).classList.toggle('hidden', false);
             });
         });
+
+        buttons.item(0).dispatchEvent(new Event('click'));
     </script>
     <!-- Show/hide pop-up menus -->
     <script>
@@ -244,6 +252,8 @@
     </script>
     <!-- Model deleting -->
     <script>
+        @if(auth()->user()->role->name === 'admin')
+
         function deleteStudent(studentName) {
             try {
                 return confirm(`Видалити студента ${studentName}?`);
@@ -254,14 +264,28 @@
             return false;
         }
 
+        @endif
+
         // todo: delete for each other model
     </script>
     <!-- Model creating -->
     <script>
+        @if(auth()->user()->role->name === 'admin')
+
+
+
+        @endif
+
         // todo: create for each model
     </script>
     <!-- Model updating -->
     <script>
+        @if(auth()->user()->role->name === 'admin')
+
+
+
+        @endif
+
         // todo: update for each model
     </script>
 @endpush
