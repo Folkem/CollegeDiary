@@ -27,3 +27,39 @@ body {
 
     transition: all 0.3s ease;
 }
+
+ul, ol {
+    list-style: inside;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+.ul-ol-none {
+    list-style: none;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.17rem;
+}
+
+h4 {
+    font-size: 1rem;
+}
+
+h5 {
+    font-size: 0.83rem;
+}
+
+h6 {
+    font-size: 0.67rem;
+}

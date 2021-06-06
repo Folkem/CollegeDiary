@@ -69,7 +69,7 @@
             </div>
             <div class="flex my-auto hidden lg:block font-gotham-pro-bold text-lg uppercase">
                 <nav>
-                    <ul class="flex items-center justify-end first:ml-0">
+                    <ul class="ul-ol-none flex items-center justify-end first:ml-0">
                         @auth
                             {{--
                                                         <li class="ml-7 relative z-20">
@@ -111,7 +111,7 @@
                     </ul>
                 </nav>
                 <nav>
-                    <ul class="flex justify-end first:ml-0">
+                    <ul class="ul-ol-none flex justify-end first:ml-0">
                         @auth
                             @if(auth()->user()->role->name === 'admin')
                                 <li class="ml-7">
@@ -146,7 +146,7 @@
          class="z-10 absolute w-screen h-screen bg-blue-300 bg-opacity-80
          flex text-center shadow-inner font-gotham-pro-bold text-white text-4xl
             hidden lg:hidden">
-        <ul class="m-auto space-y-6">
+        <ul class="ul-ol-none m-auto space-y-6">
             @if(auth()->check() && auth()->user()->role->name === 'admin')
                 <li>
                     <a class="link" href="{{-- route('admin.index') --}}">Адмін-панель</a>

@@ -8,6 +8,7 @@
 
 @section('body')
     @include('layouts.header')
+
     <main class="w-full h-full">
         <div class="container max-w-1200 flex flex-col mx-auto">
             <div class="head py-10 text-center text-white text-2xl font-gotham-pro-bold bg-blue-600 ">Панель сповіщень
