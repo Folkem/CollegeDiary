@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
 
             Route::get('schedules/lessons/{group}/edit', [AdminScheduleController::class, 'edit'])
                 ->name('schedules.lessons.edit');
-            Route::put('schedules/lessons/{group}', [AdminScheduleController::class, 'update'])
+            Route::put('schedules/lessons/{group}', [AdminScheduleController::class, 'updateLessonSchedule'])
                 ->name('schedules.lessons.update');
         });
     });

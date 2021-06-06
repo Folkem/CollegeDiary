@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property string $humanName
  * @property Collection $lessonScheduleItems
  * @property array $lessonSchedule
+ * @property array $fullLessonSchedule
  */
 class Group extends Model
 {
@@ -67,7 +68,7 @@ class Group extends Model
         $lessonSchedule = [];
 
         foreach ($weekDays as $weekDay) {
-            $humanWeekDay = ucfirst(__($weekDay->name));
+            $humanWeekDay = $weekDay->name;
             $lessonSchedule[$humanWeekDay] = [];
             $weekDayLessonSchedule = $lessonScheduleItems->filter(function ($lti) use ($weekDay) {
                 return $lti->weekDay == $weekDay;
@@ -81,6 +82,24 @@ class Group extends Model
 
                 $numberLessonSchedule[$wdlsi->variant] = $wdlsi->discipline->for_student;
             }
+        }
+
+        return $lessonSchedule;
+    }
+
+    public function getFullLessonScheduleAttribute(): array
+    {
+        $lessonSchedule = $this->lessonSchedule;
+
+        foreach ($lessonSchedule as &$daySchedule) {
+            for ($i = 1; $i <= 6; $i++) {
+                if (!array_key_exists($i, $daySchedule)) {
+                    $daySchedule[$i] = [
+                        'постійно' => null,
+                    ];
+                }
+            }
+            ksort($daySchedule);
         }
 
         return $lessonSchedule;

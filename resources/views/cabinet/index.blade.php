@@ -158,7 +158,7 @@
                                 </div>
                                 @foreach(auth()->user()->group->lessonSchedule as $weekDay => $daySchedule)
                                     <div class="flex flex-row pb-2 border-solid border-b border-black">
-                                        <div class="w-3/12 sm:w-2/12 self-center">{{ $weekDay }}</div>
+                                        <div class="w-3/12 sm:w-2/12 self-center">{{ ucfirst(__( $weekDay )) }}</div>
                                         <div class="w-9/12 sm:w-10/12 flex flex-col">
                                             @foreach($daySchedule as $number => $numberSchedule)
                                                 <div class="flex flex-row border-b border-solid border-black
@@ -193,7 +193,7 @@
                                 </div>
                                 @foreach(auth()->user()->teacherSchedule as $weekDay => $daySchedule)
                                     <div class="flex flex-row border-solid border-b border-black">
-                                        <div class="w-3/12 sm:w-2/12 self-center">{{ $weekDay }}</div>
+                                        <div class="w-3/12 sm:w-2/12 self-center">{{ ucfirst(__( $weekDay )) }}</div>
                                         <div class="w-9/12 sm:w-10/12 flex flex-col">
                                             @foreach($daySchedule as $number => $numberSchedule)
                                                 <div class="flex flex-row border-b border-solid border-black py-2

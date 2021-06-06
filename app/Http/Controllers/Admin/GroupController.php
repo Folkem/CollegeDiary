@@ -77,7 +77,7 @@ class GroupController extends Controller
             ->where($request->only('year'))
             ->where('number', $request->input('group_number'))
             ->first();
-        
+
         if (isset($existingGroup) && $existingGroup->id !== $group->id) {
             return back()->with('message', 'Така група вже існує');
         }
