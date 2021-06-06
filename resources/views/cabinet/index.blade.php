@@ -29,7 +29,7 @@
             {{--            </div>--}}
         </div>
         <div class="bg-blue-100 md:w-7/12 flex">
-            <div data-menu-section="profile" class="px-12 py-6">
+            <div data-menu-section="profile" class="px-2 sm:px-12 py-6">
                 <div class="flex flex-col gap-2 mb-8">
                     <div class="font-gotham-pro-bold text-blue-900 text-3xl">
                         Ім'я
@@ -152,7 +152,7 @@
                             <div class="flex flex-col w-full text-center font-museo-cyrl p-4 gap-2">
                                 <div
                                     class="flex flex-row w-full font-bold border-solid border border-black rounded-t-xl py-2">
-                                    <div class="w-3/13 sm:w-2/12">День</div>
+                                    <div class="w-3/12 sm:w-2/12">День</div>
                                     <div class="w-1/12">№</div>
                                     <div class="w-8/12 sm:w-9/12">Дисципліна</div>
                                 </div>

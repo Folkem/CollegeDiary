@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="bg-blue-100 md:w-7/12">
-            <div data-menu-section="calls" class="px-12 py-6 flex w-full text-center">
+            <div data-menu-section="calls" class="px-12 py-6 flex w-full hidden text-center">
                 @if($callScheduleItems->count() === 0)
                     <div class="font-gotham-pro-bold m-auto">
                         Розкладу дзвінків ще нема.
@@ -51,8 +51,54 @@
                     </div>
                 @endif
             </div>
-            <div data-menu-section="lessons" class="px-12 py-6 hidden w-full">
-                lessons
+            <div data-menu-section="lessons" class="px-2 sm:px-12 py-6 w-full text-center">
+                @if($groups->count() === 0)
+                    <div class="font-gotham-pro-bold m-auto">
+                        Жодного розкладу занять ще нема.
+                    </div>
+                @else
+                    <div class="w-full flex flex-col gap-16 font-gotham-pro">
+                        @foreach($groups as $group)
+                            <div class="flex flex-col gap-2">
+                                <div class="text-4xl">
+                                    Група {{ $group->human_name }}
+                                </div>
+                                <div class="flex flex-col w-full text-center font-museo-cyrl p-4 gap-2">
+                                    <div
+                                        class="flex flex-row w-full font-bold border-solid border border-black rounded-t-xl py-2">
+                                        <div class="w-3/12 sm:w-2/12">День</div>
+                                        <div class="w-1/12">№</div>
+                                        <div class="w-8/12 sm:w-9/12">Дисципліна</div>
+                                    </div>
+                                    @foreach($group->lessonSchedule as $weekDay => $daySchedule)
+                                        <div class="flex flex-row pb-2 border-solid border-b border-black">
+                                            <div class="w-3/12 sm:w-2/12 self-center">{{ $weekDay }}</div>
+                                            <div class="w-9/12 sm:w-10/12 flex flex-col">
+                                                @foreach($daySchedule as $number => $numberSchedule)
+                                                    <div class="flex flex-row border-b border-solid border-black
+                                                    @if(last($daySchedule) == $numberSchedule) border-none @endif">
+                                                        <div class="w-1/10 self-center">
+                                                            {{ $number }}
+                                                        </div>
+                                                        <div class="w-9/10">
+                                                            @if(array_key_exists('постійно', $numberSchedule))
+                                                                {{ $numberSchedule['постійно'] }}
+                                                            @else
+                                                                {!! $numberSchedule['чисельник'] ?? '<b>Відсутньо</b>' !!}
+                                                                /
+                                                                {!! $numberSchedule['знаменник'] ?? '<b>Відсутньо</b>' !!}
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
     </main>

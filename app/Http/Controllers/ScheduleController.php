@@ -12,8 +12,7 @@ class ScheduleController extends Controller
     {
         $callScheduleItems = CallScheduleItem::all();
         $groups = Group::all();
-        $lessonSchedules = $groups->map(fn($group) => $group->lessonSchedule);
 
-        return view('schedules', compact('callScheduleItems', 'groups', 'lessonSchedules'));
+        return view('schedules', compact('callScheduleItems', 'groups'));
     }
 }
