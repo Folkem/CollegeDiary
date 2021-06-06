@@ -103,7 +103,52 @@
                 </div>
             </div>
             <div data-menu-section="teachers" class="px-2 sm:px-12 py-6 hidden w-full">
-                Викладачі
+                <div class="text-3xl font-bold">
+                    Таблиця викладачів
+                </div>
+                <a class="underline text-base" href="{{ route('teachers.create') }}">
+                    Додати новий запис
+                </a>
+                <div class="text-center">
+                    @if($teachers->count() === 0)
+                        <div class="italic font-bold text-xl">
+                            Викладачів нема.
+                        </div>
+                    @else
+                        <div class="rounded-lg break-words bg-white border-2 border-solid border-blue-700 p-2
+                            flex flex-col gap-4">
+                            <div class="flex flex-row font-bold text-lg border-b-2 border-solid border-blue-700">
+                                <div class="w-5/12">П.І.Б.</div>
+                                <div class="w-5/12">Пошта</div>
+                                <div class="w-2/12 text-sm self-center">Кнопки</div>
+                            </div>
+                            @foreach($teachers as $teacher)
+                                <div class="flex flex-row text-sm">
+                                    <div class="w-5/12">{{ $teacher->name }}</div>
+                                    <div class="w-5/12">{{ $teacher->email }}</div>
+                                    <div class="w-2/12 flex flex-row justify-evenly">
+                                        <div>
+                                            <a href="{{ route('teachers.edit', $teacher) }}">
+                                                <i class="fas fa-solid fa-pencil-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <form action="{{ route('teachers.destroy', $teacher) }}"
+                                                  method="post"
+                                                  onsubmit="return deleteTeacher('{{ $teacher->name }}');">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <i class="fas fa-solid fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
             @endif
             <div data-menu-section="schedules" class="px-2 sm:px-12 py-6 hidden w-full">
@@ -142,7 +187,6 @@
 
         buttons.item(0).dispatchEvent(new Event('click'));
     </script>
-
     <!-- Model deleting -->
     <script>
         @if(auth()->user()->role->name === 'admin')
@@ -150,6 +194,16 @@
         function deleteStudent(studentName) {
             try {
                 return confirm(`Видалити студента ${studentName}?`);
+            } catch (e) {
+                console.error(e);
+            }
+
+            return false;
+        }
+
+        function deleteTeacher(teacherName) {
+            try {
+                return confirm(`Видалити викладача ${(teacherName)}?`);
             } catch (e) {
                 console.error(e);
             }

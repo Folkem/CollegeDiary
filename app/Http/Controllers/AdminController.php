@@ -10,7 +10,8 @@ class AdminController extends Controller
     public function index()
     {
         $students = User::with('group')->where('role_id', 4)->get();
+        $teachers = User::with('group')->where('role_id', 3)->get();
 
-        return view('admin.index', compact('students'));
+        return view('admin.index', compact('students', 'teachers'));
     }
 }

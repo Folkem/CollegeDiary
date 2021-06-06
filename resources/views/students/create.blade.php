@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Додавання студенту')
+@section('title', 'Додавання студента')
 
 @section('body')
     @include('layouts.header')
@@ -18,7 +18,7 @@
 
     <main class="max-w-1200 hidden lg:flex flex-col gap-6 mx-auto pt-20 text-blue-900">
         <div class="text-3xl font-gotham-pro-bold mx-auto">
-            Додавання студенту
+            Додавання студента
         </div>
         @if(session()->has('message'))
             <div class="text-xl text-center">
