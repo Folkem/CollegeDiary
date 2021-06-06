@@ -88,7 +88,7 @@
                                 <a href="{{ route('news.show', $news) }}">{{ $news->title }}</a>
                             </h2>
                             <p class="news-element-text">
-                                {{ strip_tags(\Illuminate\Support\Str::limit($news->body, 50), ['p']) }}
+                                {!! strip_tags(\Illuminate\Support\Str::limit($news->body, 50), ['p']) !!}
                             </p>
                             <p class="news-element-date"> {{ $news->created_at->diffForHumans() }}</p>
                         </div>

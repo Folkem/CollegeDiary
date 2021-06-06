@@ -40,7 +40,6 @@ class NewsController extends Controller
             $imageFile = $request->file('image');
 
             $imagePath = $imageFile->store("media/news-covers", ['disk' => 'public']);
-            info($imagePath);
         }
 
         News::query()->create([
@@ -80,15 +79,22 @@ class NewsController extends Controller
             $imageFile = $request->file('image');
 
             $imagePath = $imageFile->store("media/news-covers", ['disk' => 'public']);
-        }
 
-        $news->update([
-            'title' => $request->input('title'),
-            'body' => strip_tags($request->input('body'), [
-                'strong', 'i', 'ul', 'ol', 'li', 'h1', 'h2', 'a', 'p', 'blockquote',
-            ]),
-            'image_path' => $imagePath,
-        ]);
+            $news->update([
+                'title' => $request->input('title'),
+                'body' => strip_tags($request->input('body'), [
+                    'strong', 'i', 'ul', 'ol', 'li', 'h1', 'h2', 'a', 'p', 'blockquote',
+                ]),
+                'image_path' => $imagePath,
+            ]);
+        } else {
+            $news->update([
+                'title' => $request->input('title'),
+                'body' => strip_tags($request->input('body'), [
+                    'strong', 'i', 'ul', 'ol', 'li', 'h1', 'h2', 'a', 'p', 'blockquote',
+                ]),
+            ]);
+        }
 
         return back()->with('message', 'Новина успішно оновлена.');
     }
