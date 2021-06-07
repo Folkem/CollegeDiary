@@ -15,7 +15,7 @@ class DisciplineSeeder extends Seeder
     public function run()
     {
         Discipline::factory()
-            ->count(mt_rand(300, 600))
+            ->count(10)
             ->create();
     }
 }

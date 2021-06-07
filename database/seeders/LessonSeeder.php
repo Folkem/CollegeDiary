@@ -15,7 +15,7 @@ class LessonSeeder extends Seeder
     public function run()
     {
         Lesson::factory()
-            ->count(mt_rand(300, 1000))
+            ->count(100)
             ->create();
     }
 }

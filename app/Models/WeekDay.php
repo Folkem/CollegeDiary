@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class WeekDay
  * @package App\Models
+ * @property int $id
  * @property string $name
  * @property Collection $lessonScheduleItems
  */

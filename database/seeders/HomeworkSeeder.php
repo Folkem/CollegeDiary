@@ -15,7 +15,7 @@ class HomeworkSeeder extends Seeder
     public function run()
     {
         Homework::factory()
-            ->count(mt_rand(300, 1000))
+            ->count(100)
             ->create();
     }
 }

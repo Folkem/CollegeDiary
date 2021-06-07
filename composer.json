@@ -12,7 +12,8 @@
         "laravel-lang/lang": "^10.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "ext-json": "*"
+        "ext-json": "*",
+        "shuchkin/simplexlsx": ">=0.8.21"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

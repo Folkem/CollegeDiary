@@ -45,9 +45,16 @@
                 <div class="text-3xl font-bold">
                     Таблиця студентів
                 </div>
-                <a class="underline text-base" href="{{ route('students.create') }}">
-                    Додати новий запис
-                </a>
+                <div>
+                    <a class="underline text-base" href="{{ route('students.create') }}">
+                        Додати новий запис
+                    </a>
+                </div>
+                <div>
+                    <a class="underline text-base" href="{{ route('upload.students.show') }}">
+                        Завантажити з Excel
+                    </a>
+                </div>
                 <div class="text-center">
                     @if($students->count() === 0)
                         <div class="italic font-bold text-xl">
@@ -66,7 +73,7 @@
                                 <div class="flex flex-row text-sm">
                                     <div class="w-4/12">{{ $student->name }}</div>
                                     <div class="w-4/12">{{ $student->email }}</div>
-                                    <div class="w-2/12">{{ $student->group->human_name }}</div>
+                                    <div class="w-2/12">{{ $student->group ? $student->group->human_name : '' }}</div>
                                     <div class="w-2/12 flex flex-row justify-evenly">
                                         <div>
                                             <a href="{{ route('students.edit', $student) }}">
@@ -91,13 +98,20 @@
                     @endif
                 </div>
             </div>
-            <div data-menu-section="teachers" class="px-2 sm:px-12 py-6 hidden w-full">
+            <div data-menu-section="teachers" class="px-2 sm:px-12 py-6 hidden w-full space-y-4">
                 <div class="text-3xl font-bold">
                     Таблиця викладачів
                 </div>
-                <a class="underline text-base" href="{{ route('teachers.create') }}">
-                    Додати новий запис
-                </a>
+                <div>
+                    <a class="underline text-base" href="{{ route('teachers.create') }}">
+                        Додати новий запис
+                    </a>
+                </div>
+                <div>
+                    <a class="underline text-base" href="{{ route('upload.teachers.show') }}">
+                        Завантажити з Excel
+                    </a>
+                </div>
                 <div class="text-center">
                     @if($teachers->count() === 0)
                         <div class="italic font-bold text-xl">
@@ -140,13 +154,15 @@
                 </div>
             </div>
             @endif
-            <div data-menu-section="groups" class="px-2 sm:px-12 py-6 hidden w-full">
+            <div data-menu-section="groups" class="px-2 sm:px-12 py-6 hidden w-full space-y-4">
                 <div class="text-3xl font-bold">
                     Таблиця груп
                 </div>
-                <a class="underline text-base" href="{{ route('groups.create') }}">
-                    Додати новий запис
-                </a>
+                <div>
+                    <a class="underline text-base" href="{{ route('groups.create') }}">
+                        Додати новий запис
+                    </a>
+                </div>
                 <div class="text-center">
                     @if($groups->count() === 0)
                         <div class="italic font-bold text-xl">
@@ -192,13 +208,20 @@
                     @endif
                 </div>
             </div>
-            <div data-menu-section="disciplines" class="px-2 sm:px-12 py-6 hidden w-full">
+            <div data-menu-section="disciplines" class="px-2 sm:px-12 py-6 hidden w-full space-y-4">
                 <div class="text-3xl font-bold">
                     Таблиця дисциплін
                 </div>
-                <a class="underline text-base" href="{{ route('disciplines.create') }}">
-                    Додати новий запис
-                </a>
+                <div>
+                    <a class="underline text-base" href="{{ route('disciplines.create') }}">
+                        Додати новий запис
+                    </a>
+                </div>
+                <div>
+                    <a class="underline text-base" href="{{ route('upload.disciplines.show') }}">
+                        Завантажити з Excel
+                    </a>
+                </div>
                 <div class="text-center">
                     @if($disciplines->count() === 0)
                         <div class="italic font-bold text-xl">
@@ -242,13 +265,15 @@
                     @endif
                 </div>
             </div>
-            <div data-menu-section="news" class="px-2 sm:px-12 py-6 hidden w-full">
+            <div data-menu-section="news" class="px-2 sm:px-12 py-6 hidden w-full space-y-4">
                 <div class="text-3xl font-bold">
                     Таблиця новин
                 </div>
-                <a class="underline text-base" href="{{ route('news.create') }}">
-                    Додати новий запис
-                </a>
+                <div>
+                    <a class="underline text-base" href="{{ route('news.create') }}">
+                        Додати новий запис
+                    </a>
+                </div>
                 <div class="text-center">
                     @if($newsList->count() === 0)
                         <div class="italic font-bold text-xl">

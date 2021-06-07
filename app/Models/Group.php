@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @property Collection $students
  * @property Collection $disciplines
  * @property string $humanName
+ * @property string $machineName
  * @property Collection $lessonScheduleItems
  * @property array $lessonSchedule
  * @property array $fullLessonSchedule
@@ -48,14 +49,14 @@ class Group extends Model
         return "{$this->speciality->short_name}‒{$this->year}{$this->number}";
     }
 
+    public function getMachineNameAttribute(): string
+    {
+        return "{$this->speciality->short_name}{$this->year}{$this->number}";
+    }
+
     public function disciplines(): HasMany
     {
         return $this->hasMany(Discipline::class);
-    }
-
-    public function lessonScheduleItems(): HasManyThrough
-    {
-        return $this->hasManyThrough(LessonScheduleItem::class, Discipline::class);
     }
 
     public function getLessonScheduleAttribute(): array
@@ -85,6 +86,11 @@ class Group extends Model
         }
 
         return $lessonSchedule;
+    }
+
+    public function lessonScheduleItems(): HasManyThrough
+    {
+        return $this->hasManyThrough(LessonScheduleItem::class, Discipline::class);
     }
 
     public function getFullLessonScheduleAttribute(): array

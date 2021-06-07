@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\ScheduleController as AdminScheduleController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabinetController;
@@ -48,20 +49,24 @@ Route::middleware('auth')->group(function () {
         Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
 
         Route::prefix('admin')->group(function () {
-            Route::resource('students', StudentController::class)->except(['index', 'show']);
-
-            Route::resource('teachers', TeacherController::class)->except(['index', 'show']);
+            Route::middleware('roles:admin')->group(function () {
+                Route::resource('students', StudentController::class)->except(['index', 'show']);
+                Route::resource('teachers', TeacherController::class)->except(['index', 'show']);
+                Route::get('upload/students', [UploadController::class, 'studentsShow'])->name('upload.students.show');
+                Route::post('upload/students', [UploadController::class, 'studentsUpload'])->name('upload.students.upload');
+                Route::get('upload/teachers', [UploadController::class, 'teachersShow'])->name('upload.teachers.show');
+                Route::post('upload/teachers', [UploadController::class, 'teachersUpload'])->name('upload.teachers.upload');
+            });
 
             Route::resource('disciplines', DisciplineController::class)->except(['index', 'show']);
-
             Route::resource('news', AdminNewsController::class)->except(['index', 'show']);
-
             Route::resource('groups', GroupController::class)->except(['index', 'show']);
 
-            Route::get('schedules/lessons/{group}/edit', [AdminScheduleController::class, 'edit'])
-                ->name('schedules.lessons.edit');
-            Route::put('schedules/lessons/{group}', [AdminScheduleController::class, 'updateLessonSchedule'])
-                ->name('schedules.lessons.update');
+            Route::get('schedules/lessons/{group}/edit', [AdminScheduleController::class, 'edit'])->name('schedules.lessons.edit');
+            Route::put('schedules/lessons/{group}', [AdminScheduleController::class, 'updateLessonSchedule'])->name('schedules.lessons.update');
+
+            Route::get('upload/disciplines', [UploadController::class, 'disciplinesShow'])->name('upload.disciplines.show');
+            Route::post('upload/disciplines', [UploadController::class, 'disciplinesUpload'])->name('upload.disciplines.upload');
         });
     });
 
