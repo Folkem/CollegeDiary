@@ -7,7 +7,7 @@
 
     <!-- Main menu -->
     <main class="max-w-1200 flex flex-col lg:flex-row mx-auto">
-        <div class="font-museo-cyrl md:w-5/12 bg-blue-500 flex flex-col text-base sm:text-lg md:text-xl lg:text-3xl">
+        <div class="font-museo-cyrl lg:w-5/12 bg-blue-500 flex flex-col text-base sm:text-lg md:text-xl lg:text-3xl">
             <div class="text-white px-8 py-4 border-solid border-b-2 border-white bg-blue-700 text-center">
                 Панель адміністратора
             </div>
@@ -39,7 +39,7 @@
                 Новини
             </div>
         </div>
-        <div class="bg-blue-100 md:w-7/12 flex text-blue-800 font-gotham-pro">
+        <div class="bg-blue-100 lg:w-7/12 flex text-blue-800 font-gotham-pro">
             @if(auth()->user()->role->name === 'admin')
             <div data-menu-section="students" class="px-2 sm:px-12 py-6 w-full space-y-4">
                 <div class="text-3xl font-bold">

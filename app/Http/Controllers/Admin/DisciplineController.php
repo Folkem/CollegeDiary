@@ -29,8 +29,8 @@ class DisciplineController extends Controller
 
     public function teacherShow(Discipline $discipline)
     {
-        $lessons = $discipline->lessons;
-        $homeworks = $discipline->homeworks;
+        $lessons = $discipline->lessons()->orderBy('created_at')->get();
+        $homeworks = $discipline->homeworks()->orderBy('created_at')->get();
         $grades = $discipline->grades;
 
         return view('disciplines.teacher.show',
@@ -39,9 +39,9 @@ class DisciplineController extends Controller
 
     public function studentShow(Discipline $discipline)
     {
-        $lessons = $discipline->lessons;
-        $homeworks = $discipline->homeworks;
-        $grades = auth()->user()->grades;
+        $lessons = $discipline->lessons()->orderBy('created_at')->get();
+        $homeworks = $discipline->homeworks()->orderBy('created_at')->get();
+        $grades = $discipline->grades()->where('student_id', auth()->id())->orderby('created_at')->get();
 
         return view('disciplines.student.show',
             compact('discipline', 'lessons', 'homeworks', 'grades'));

@@ -20,25 +20,25 @@
                 </div>
             @else
                 <div class="w-full flex flex-row gap-2 font-bold text-xl mt-8">
-                    <div class="w-6/12">
+                    <div class="w-5/12 sm:w-6/12 break-words">
                         Предмет
                     </div>
-                    <div class="w-3/12">
+                    <div class="w-4/12 sm:w-3/12 break-words">
                         Група
                     </div>
-                    <div class="w-3/12">
+                    <div class="w-3/12 break-words">
                         Посилання
                     </div>
                 </div>
                 @foreach($disciplines as $discipline)
                     <div class="w-full flex flex-row gap-2 text-lg">
-                        <div class="w-6/12 self-center">
+                        <div class="w-5/12 sm:w-6/12 self-center break-words">
                             {{ $discipline->subject }}
                         </div>
-                        <div class="w-3/12 self-center">
+                        <div class="w-4/12 sm:w-3/12 self-center break-words">
                             {{ $discipline->group->humanName }}
                         </div>
-                        <div class="w-3/12 self-center font-bold italic">
+                        <div class="w-3/12 self-center font-bold italic break-words">
                             <a href="{{ route('disciplines.teacher.show', $discipline) }}">Перейти</a>
                         </div>
                     </div>

@@ -25,7 +25,7 @@ class GradeFactory extends Factory
     {
         $isPresent = $this->faker->boolean();
         return [
-            'student_id' => User::query()->where('role_id', 4)->first()->id,
+            'student_id' => User::query()->where('role_id', 4)->get()->random()->id,
             'lesson_id' => Lesson::all()->random()->id,
             'is_present' => $isPresent,
             'grade' => $isPresent ? mt_rand(0, 100) : null,

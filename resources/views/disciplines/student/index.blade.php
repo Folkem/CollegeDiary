@@ -39,7 +39,7 @@
                             {{ $discipline->teacher->name }}
                         </div>
                         <div class="w-3/12 font-bold italic self-center">
-                            <a href="{{ route('disciplines.teacher.show', $discipline) }}">Перейти</a>
+                            <a href="{{ route('disciplines.student.show', $discipline) }}">Перейти</a>
                         </div>
                     </div>
                 @endforeach
