@@ -75,7 +75,7 @@ Route::middleware('auth')->group(function () {
         Route::get('homeworks/create/{discipline}', [HomeworkController::class, 'create'])->name('homeworks.create');
         Route::post('lessons/{discipline}', [LessonController::class, 'store'])->name('lessons.store');
         Route::post('homeworks/{discipline}', [HomeworkController::class, 'store'])->name('homeworks.store');
-        Route::resource('grades', GradeController::class)->except(['index', 'show']);
+        Route::put('grades', GradeController::class)->name('grade.update-create');
     });
 
     Route::middleware('roles:student')->group(function () {

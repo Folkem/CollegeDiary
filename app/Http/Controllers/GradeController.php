@@ -3,83 +3,66 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
+use App\Models\Lesson;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class GradeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __invoke(Request $request): JsonResponse
     {
-        //
-    }
+        info($request->input('student-id'));
+        info($request->input('lesson-id'));
+        info($request->input('grade-id'));
+        info($request->input('value'));
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $allowedGradeValues = ['-1', 'absent', 'present'];
+        for ($i = 0; $i <= 100; $i++) $allowedGradeValues[] = $i;
+        $request->validate([
+            'student-id' => [
+                'required', 'numeric',
+                Rule::in(User::all()->map(fn($user) => $user->id)),
+            ],
+            'lesson-id' => [
+                'required', 'numeric',
+                Rule::in(Lesson::all()->map(fn($user) => $user->id)),
+            ],
+            'value' => [
+                'required',
+                Rule::in($allowedGradeValues),
+            ],
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if ($request->input('grade-id') !== null) {
+            $grade = Grade::query()->findOrFail($request->input('grade-id'));
+            if (in_array($request->input('value'), ['absent', 'present'])) {
+                $grade->update([
+                    'is_present' => $request->input('value') == 'present',
+                    'grade' => null,
+                ]);
+            } elseif ($request->input('value') == '-1') {
+                $grade->delete();
+            } else {
+                $grade->update([
+                    'is_present' => true,
+                    'grade' => $request->input('value'),
+                ]);
+            }
+        } elseif ($request->input('value') !== '-1') {
+            Grade::query()->create([
+                'student_id' => $request->input('student-id'),
+                'lesson_id' => $request->input('lesson-id'),
+                'is_present' => $request->input('value') == 'present',
+                'grade' => (in_array($request->input('value'), ['present', 'absent']))
+                    ? null
+                    : $request->input('value')
+            ]);
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Grade  $grade
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Grade $grade)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Grade  $grade
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Grade $grade)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Grade  $grade
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Grade $grade)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Grade  $grade
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Grade $grade)
-    {
-        //
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }

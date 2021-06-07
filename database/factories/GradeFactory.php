@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Discipline;
 use App\Models\Grade;
 use App\Models\Lesson;
 use App\Models\User;
@@ -24,11 +25,12 @@ class GradeFactory extends Factory
     public function definition()
     {
         $isPresent = $this->faker->boolean();
+        $randomLesson = Lesson::all()->random();
         return [
-            'student_id' => User::query()->where('role_id', 4)->get()->random()->id,
-            'lesson_id' => Lesson::all()->random()->id,
+            'student_id' => $randomLesson->discipline->group->students->random()->id,
+            'lesson_id' => $randomLesson->id,
             'is_present' => $isPresent,
-            'grade' => $isPresent ? mt_rand(0, 100) : null,
+            'grade' => $isPresent ? ($this->faker->boolean() ? mt_rand(0, 100) : null) : null,
         ];
     }
 }

@@ -8,7 +8,7 @@
     @include('layouts.header')
 
     <main class="max-w-1200 flex flex-col lg:flex-row mx-auto">
-        <div class="font-museo-cyrl md:w-5/12 bg-blue-500 flex flex-col text-base sm:text-lg md:text-xl lg:text-3xl">
+        <div class="font-museo-cyrl lg:w-5/12 bg-blue-500 flex flex-col text-base sm:text-lg md:text-xl lg:text-3xl">
             <div class="text-white px-8 py-4 border-solid border-b-2 border-white bg-blue-700 text-center">
                 Дисципліна {{ $discipline->forTeacher }}
             </div>
@@ -28,7 +28,7 @@
                 Оцінки
             </div>
         </div>
-        <div class="bg-blue-100 md:w-7/12 flex text-blue-800 font-gotham-pro">
+        <div class="bg-blue-100 lg:w-7/12 flex text-blue-800 font-gotham-pro">
             <div data-menu-section="lessons" class="px-2 sm:px-12 py-6 w-full space-y-4 space-y-4">
                 <a class="underline text-base" href="{{ route('lessons.create', $discipline) }}">
                     Додати нове заняття
@@ -68,7 +68,7 @@
                                                   method="post"
                                                   onsubmit="return deleteLesson(
                                                       '{!! \Illuminate\Support\Str::limit(strip_tags($lesson->description)) !!}'
-                                                  );">
+                                                      );">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit">
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div data-menu-section="grades" class="px-2 sm:px-12 py-6 w-full space-y-4">
-                @if($grades->count() === 0)
+                @if(count($grades) === 0)
                     <div class="font-bold text-center italic text-xl">
                         Оцінок нема ще.
                     </div>
@@ -146,8 +146,49 @@
                     <div class="font-bold text-center text-xl">
                         Оцінки
                     </div>
-                    <div class="flex flex-col gap-4">
-
+                    <div class="flex flex-col bg-white rounded-2xl overflow-y-hidden overflow-x-scroll p-4
+                        border-2 border-solid border-blue-900">
+                        <div class="flex flex-row min-w-min">
+                            <div class="w-32 text-center self-center">П.І.Б.</div>
+                            @foreach($lessons as $lesson)
+                                <div class="w-32 text-center self-center">
+                                    {{ $lesson->created_at }}
+                                </div>
+                            @endforeach
+                        </div>
+                        @foreach($grades as $studentId => $studentGrades)
+                            <div class="flex flex-row border-t border-solid border-blue-900 min-w-min">
+                                <div class="w-32 border-r border-solid border-blue-900 py-2 px-1">
+                                    {{ $students->find($studentId)->name }}
+                                </div>
+                                @foreach($studentGrades as $grade)
+                                    <div class="w-32 text-center self-center flex flex-row gap-1 px-1">
+                                        <!--suppress HtmlFormInputWithoutLabel -->
+                                        <select data-student-id="{{ $studentId }}" data-grade-id="{{ $grade['id'] ?? null }}"
+                                                data-lesson-id="{{ $grade['lesson_id'] }}"
+                                                class="bg-white border border-solid border-blue-900 rounded-md">
+                                            <option value="-1"></option>
+                                            <option value="present"
+                                            @if($grade['is_present'] === true) selected @endif>
+                                                Присутній
+                                            </option>
+                                            <option value="absent"
+                                            @if($grade['is_present'] === false) selected @endif>
+                                                Відсутній
+                                            </option>
+                                            @for($i = 0; $i <= 100; $i++)
+                                                <option value="{{ $i }}"
+                                                @if($grade['grade'] === $i) selected @endif>
+                                                    {{ $i }}
+                                                </option>
+                                            @endfor
+                                        </select>
+                                        <i class="fas fa-solid text-xl fa-check cursor-pointer"
+                                            onclick="updateGrade(this.parentNode.children[0]);"></i>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
                     </div>
                 @endif
             </div>
@@ -199,14 +240,55 @@
             return false;
         }
 
-        function deleteGrade(newsTitle) {
+        function updateGrade(selectElement) {
             try {
-                return confirm(`Видалити новину ${newsTitle}?`);
+                const studentId = selectElement.getAttribute('data-student-id');
+                const lessonId = selectElement.getAttribute('data-lesson-id');
+                const gradeId = selectElement.getAttribute('data-grade-id');
+                const value = selectElement.value;
+
+                fetch(`{{ route('grade.update-create') }}`, {
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    body: JSON.stringify({
+                        'student-id': parseInt(studentId),
+                        'lesson-id': parseInt(lessonId),
+                        'grade-id': gradeId,
+                        'value': value,
+                    }),
+                }).then(result => {
+                    if (['200', '422'].includes(`${result.status}`)) {
+                        return result.json();
+                    } else {
+                        throw new Error();
+                    }
+                }).then(json => {
+                    if (json['success']) {
+                        alert('Оновлено');
+                    } else {
+                        const errorBag = json['errors'];
+                        let message = json['message'];
+                        for (const errorBlock in errorBag) {
+                            for (const errorMessage of errorBag[errorBlock]) {
+                                message += ` ${errorMessage}`;
+                            }
+                        }
+                        console.log(message);
+                        alert(message);
+                    }
+                }).catch(e => {
+                    console.log('Помилка оновлення оцынки');
+                    console.error(e);
+                    alert('Серверна помилка');
+                });
             } catch (e) {
                 console.error(e);
+                alert('Серверна помилка');
             }
-
-            return false;
         }
     </script>
     <!-- Session message -->

@@ -26,6 +26,10 @@ class Grade extends Model
         'is_present',
     ];
 
+    protected $casts = [
+        'is_present' => 'bool',
+    ];
+
     public function student(): BelongsTo
     {
         return $this->belongsTo(User::class, 'student_id', 'id');
