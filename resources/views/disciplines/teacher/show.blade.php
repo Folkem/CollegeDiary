@@ -30,7 +30,7 @@
         </div>
         <div class="bg-blue-100 md:w-7/12 flex text-blue-800 font-gotham-pro">
             <div data-menu-section="lessons" class="px-2 sm:px-12 py-6 w-full space-y-4 space-y-4">
-                <a class="underline text-base" href="{{ route('lessons.create') }}">
+                <a class="underline text-base" href="{{ route('lessons.create', $discipline) }}">
                     Додати нове заняття
                 </a>
                 <div class="text-center">
@@ -49,7 +49,7 @@
                             @foreach($lessons as $lesson)
                                 <div class="flex flex-row text-sm">
                                     <div class="w-5/12">
-                                        {{ \Illuminate\Support\Str::limit(strip_tags($lesson->description, ['p']), 50) }}
+                                        {!! \Illuminate\Support\Str::limit(strip_tags($lesson->description), 50) !!}
                                     </div>
                                     <div class="w-4/12">{{ $lesson->lessonType->name }}</div>
                                     <div class="w-3/12 flex flex-row justify-evenly">
@@ -67,7 +67,7 @@
                                             <form action="{{ route('lessons.destroy', $lesson) }}"
                                                   method="post"
                                                   onsubmit="return deleteLesson(
-                                                      '{{ \Illuminate\Support\Str::limit(strip_tags($lesson->description, ['p']), 100) }}'
+                                                      '{!! \Illuminate\Support\Str::limit(strip_tags($lesson->description)) !!}'
                                                   );">
                                                 @csrf
                                                 @method('delete')
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div data-menu-section="homeworks" class="px-2 sm:px-12 py-6 w-full space-y-4">
-                <a class="underline text-base" href="{{ route('homeworks.create') }}">
+                <a class="underline text-base" href="{{ route('homeworks.create', $discipline) }}">
                     Додати нове домашнє завдання
                 </a>
                 <div class="text-center">
@@ -103,7 +103,7 @@
                             @foreach($homeworks as $homework)
                                 <div class="flex flex-row text-sm">
                                     <div class="w-5/12">
-                                        {{ \Illuminate\Support\Str::limit(strip_tags($homework->description, ['p']), 50) }}
+                                        {!! \Illuminate\Support\Str::limit(strip_tags($homework->description), 50) !!}
                                     </div>
                                     <div class="w-4/12">{{ $homework->ending_at }}</div>
                                     <div class="w-3/12 flex flex-row justify-evenly">
@@ -121,7 +121,7 @@
                                             <form action="{{ route('homeworks.destroy', $homework) }}"
                                                   method="post"
                                                   onsubmit="return deleteHomework(
-                                                      '{{ \Illuminate\Support\Str::limit(strip_tags($homework->description, ['p']), 100) }}'
+                                                      '{!! \Illuminate\Support\Str::limit(strip_tags($homework->description)) !!}'
                                                       );">
                                                 @csrf
                                                 @method('delete')

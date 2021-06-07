@@ -12,7 +12,7 @@
             {{ $lesson->created_at }} — {{ $lesson->lessonType->name }}
         </div>
         <div class="w-full p-4 text-base">
-            {{ $lesson->description }}
+            {!! $lesson->description !!}
         </div>
     </main>
 

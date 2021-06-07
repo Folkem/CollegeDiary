@@ -35,12 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('news/comment/{comment}', [NewsCommentController::class, 'destroy'])->name('news.comment.destroy');
 
     Route::get('cabinet', [CabinetController::class, 'index'])->name('cabinet.index');
-//    Route::get('cabinet/notices', [CabinetController::class, 'notices'])
-//        ->name('cabinet.notices');
-    Route::put('cabinet/password', [CabinetController::class, 'updatePassword'])
-        ->name('cabinet.password.update');
-    Route::put('cabinet/avatar', [CabinetController::class, 'updateAvatar'])
-        ->name('cabinet.avatar.update');
+//    Route::get('cabinet/notices', [CabinetController::class, 'notices'])->name('cabinet.notices');
+    Route::put('cabinet/password', [CabinetController::class, 'updatePassword'])->name('cabinet.password.update');
+    Route::put('cabinet/avatar', [CabinetController::class, 'updateAvatar'])->name('cabinet.avatar.update');
 
     Route::middleware('roles:admin,department head')->group(function () {
         Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
@@ -64,21 +61,26 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('roles:teacher')->group(function () {
-        Route::get('disciplines/teacher', [DisciplineController::class, 'teacherIndex'])
-            ->name('disciplines.teacher.index');
-        Route::get('disciplines/teacher/{discipline}', [DisciplineController::class, 'teacherShow'])
-            ->name('disciplines.teacher.show');
+        Route::get('disciplines/teacher', [DisciplineController::class, 'teacherIndex'])->name('disciplines.teacher.index');
+        Route::get('disciplines/teacher/{discipline}', [DisciplineController::class, 'teacherShow'])->name('disciplines.teacher.show');
 
-        Route::resource('lessons', LessonController::class)->except(['index', 'show']);
-        Route::resource('homeworks', HomeworkController::class)->except(['index', 'show']);
+        Route::delete('lessons/{lesson}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+        Route::delete('homeworks/{homework}', [HomeworkController::class, 'destroy'])->name('homeworks.destroy');
+        Route::get('lessons/{lesson}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
+        Route::get('homeworks/{homework}/edit', [HomeworkController::class, 'edit'])->name('homeworks.edit');
+        Route::put('lessons/{lesson}', [LessonController::class, 'update'])->name('lessons.update');
+        Route::put('homeworks/{homework}', [HomeworkController::class, 'update'])->name('homeworks.update');
+
+        Route::get('lessons/create/{discipline}', [LessonController::class, 'create'])->name('lessons.create');
+        Route::get('homeworks/create/{discipline}', [HomeworkController::class, 'create'])->name('homeworks.create');
+        Route::post('lessons/{discipline}', [LessonController::class, 'store'])->name('lessons.store');
+        Route::post('homeworks/{discipline}', [HomeworkController::class, 'store'])->name('homeworks.store');
         Route::resource('grades', GradeController::class)->except(['index', 'show']);
     });
 
     Route::middleware('roles:student')->group(function () {
-        Route::get('disciplines/student', [DisciplineController::class, 'studentIndex'])
-            ->name('disciplines.student.index');
-        Route::get('disciplines/student/{discipline}', [DisciplineController::class, 'studentShow'])
-            ->name('disciplines.student.show');
+        Route::get('disciplines/student', [DisciplineController::class, 'studentIndex'])->name('disciplines.student.index');
+        Route::get('disciplines/student/{discipline}', [DisciplineController::class, 'studentShow'])->name('disciplines.student.show');
     });
 
     Route::middleware('roles:teacher,student')->group(function () {

@@ -12,7 +12,7 @@
             {{ $homework->created_at }} — {{ $homework->ending_at }}
         </div>
         <div class="w-full p-4 text-base">
-            {{ $homework->description }}
+            {!! $homework->description !!}
         </div>
     </main>
 
