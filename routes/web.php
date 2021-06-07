@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CabinetController;
+use App\Http\Controllers\GradeController;
+use App\Http\Controllers\HomeworkController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ScheduleController;
@@ -65,6 +68,10 @@ Route::middleware('auth')->group(function () {
             ->name('disciplines.teacher.index');
         Route::get('disciplines/teacher/{discipline}', [DisciplineController::class, 'teacherShow'])
             ->name('disciplines.teacher.show');
+
+        Route::resource('lessons', LessonController::class)->except(['index', 'show']);
+        Route::resource('homeworks', HomeworkController::class)->except(['index', 'show']);
+        Route::resource('grades', GradeController::class)->except(['index', 'show']);
     });
 
     Route::middleware('roles:student')->group(function () {
@@ -72,6 +79,11 @@ Route::middleware('auth')->group(function () {
             ->name('disciplines.student.index');
         Route::get('disciplines/student/{discipline}', [DisciplineController::class, 'studentShow'])
             ->name('disciplines.student.show');
+    });
+
+    Route::middleware('roles:teacher,student')->group(function () {
+        Route::get('lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
+        Route::get('homeworks/{homework}', [HomeworkController::class, 'show'])->name('homeworks.show');
     });
 });
 

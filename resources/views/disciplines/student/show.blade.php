@@ -51,17 +51,19 @@
                             </div>
                         </div>
                         @foreach($lessons as $lesson)
-                            <div class="flex flex-row">
-                                <div class="w-6/12 sm:w-7/12 self-center break-words">
-                                    {!! \Illuminate\Support\Str::limit(strip_tags($lesson->description, ['p']). 100) !!}
+                            <a href="{{ route('lessons.show', $lesson) }}">
+                                <div class="flex flex-row">
+                                    <div class="w-6/12 sm:w-7/12 self-center break-words">
+                                        {!! \Illuminate\Support\Str::limit(strip_tags($lesson->description, ['p']). 100) !!}
+                                    </div>
+                                    <div class="w-3/12 text-center self-center break-words">
+                                        {{ $lesson->lessonType->name }}
+                                    </div>
+                                    <div class="w-3/12 sm:w-2/12 text-center self-center break-words">
+                                        {{ $lesson->created_at }}
+                                    </div>
                                 </div>
-                                <div class="w-3/12 text-center self-center break-words">
-                                    {{ $lesson->lessonType->name }}
-                                </div>
-                                <div class="w-3/12 sm:w-2/12 text-center self-center break-words">
-                                    {{ $lesson->created_at }}
-                                </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 @endif
@@ -88,17 +90,19 @@
                             </div>
                         </div>
                         @foreach($homeworks as $homework)
-                            <div class="flex flex-row">
-                                <div class="break-words w-6/12 sm:w-7/12 self-center">
-                                    {!! \Illuminate\Support\Str::limit(strip_tags($homework->description, ['p']). 100) !!}
+                            <a href="{{ route('homeworks.show', $homework) }}">
+                                <div class="flex flex-row">
+                                    <div class="break-words w-6/12 sm:w-7/12 self-center">
+                                        {!! \Illuminate\Support\Str::limit(strip_tags($homework->description, ['p']). 100) !!}
+                                    </div>
+                                    <div class="break-words w-3/12 text-center self-center">
+                                        {{ $homework->ending_at }}
+                                    </div>
+                                    <div class="break-words w-3/12 sm:w-2/12 text-center self-center">
+                                        {{ $homework->created_at }}
+                                    </div>
                                 </div>
-                                <div class="break-words w-3/12 text-center self-center">
-                                    {{ $homework->ending_at }}
-                                </div>
-                                <div class="break-words w-3/12 sm:w-2/12 text-center self-center">
-                                    {{ $homework->created_at }}
-                                </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                 @endif

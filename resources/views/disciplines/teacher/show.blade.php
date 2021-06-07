@@ -29,14 +29,127 @@
             </div>
         </div>
         <div class="bg-blue-100 md:w-7/12 flex text-blue-800 font-gotham-pro">
-            <div data-menu-section="lessons" class="px-2 sm:px-12 py-6 w-full space-y-4">
-                Заняття
+            <div data-menu-section="lessons" class="px-2 sm:px-12 py-6 w-full space-y-4 space-y-4">
+                <a class="underline text-base" href="{{ route('lessons.create') }}">
+                    Додати нове заняття
+                </a>
+                <div class="text-center">
+                    @if($lessons->count() === 0)
+                        <div class="italic font-bold text-xl">
+                            Занять нема.
+                        </div>
+                    @else
+                        <div class="rounded-lg break-words bg-white border-2 border-solid border-blue-700 p-2
+                            flex flex-col gap-4">
+                            <div class="flex flex-row font-bold text-lg border-b-2 border-solid border-blue-700">
+                                <div class="w-5/12">Опис</div>
+                                <div class="w-4/12">Тип заняття</div>
+                                <div class="w-3/12 text-sm self-center">Кнопки</div>
+                            </div>
+                            @foreach($lessons as $lesson)
+                                <div class="flex flex-row text-sm">
+                                    <div class="w-5/12">
+                                        {{ \Illuminate\Support\Str::limit(strip_tags($lesson->description, ['p']), 50) }}
+                                    </div>
+                                    <div class="w-4/12">{{ $lesson->lessonType->name }}</div>
+                                    <div class="w-3/12 flex flex-row justify-evenly">
+                                        <div>
+                                            <a href="{{ route('lessons.show', $lesson) }}">
+                                                <i class="fas fa-solid fa-book-open"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="{{ route('lessons.edit', $lesson) }}">
+                                                <i class="fas fa-solid fa-pencil-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <form action="{{ route('lessons.destroy', $lesson) }}"
+                                                  method="post"
+                                                  onsubmit="return deleteLesson(
+                                                      '{{ \Illuminate\Support\Str::limit(strip_tags($lesson->description, ['p']), 100) }}'
+                                                  );">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <i class="fas fa-solid fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
-            <div data-menu-section="lessons" class="px-2 sm:px-12 py-6 w-full space-y-4">
-                Домашні завдання
+            <div data-menu-section="homeworks" class="px-2 sm:px-12 py-6 w-full space-y-4">
+                <a class="underline text-base" href="{{ route('homeworks.create') }}">
+                    Додати нове домашнє завдання
+                </a>
+                <div class="text-center">
+                    @if($homeworks->count() === 0)
+                        <div class="italic font-bold text-xl">
+                            Домашніх завдань нема.
+                        </div>
+                    @else
+                        <div class="rounded-lg break-words bg-white border-2 border-solid border-blue-700 p-2
+                            flex flex-col gap-4">
+                            <div class="flex flex-row font-bold text-lg border-b-2 border-solid border-blue-700">
+                                <div class="w-5/12">Опис</div>
+                                <div class="w-4/12">Дата сдачі</div>
+                                <div class="w-3/12 text-sm self-center">Кнопки</div>
+                            </div>
+                            @foreach($homeworks as $homework)
+                                <div class="flex flex-row text-sm">
+                                    <div class="w-5/12">
+                                        {{ \Illuminate\Support\Str::limit(strip_tags($homework->description, ['p']), 50) }}
+                                    </div>
+                                    <div class="w-4/12">{{ $homework->ending_at }}</div>
+                                    <div class="w-3/12 flex flex-row justify-evenly">
+                                        <div>
+                                            <a href="{{ route('homeworks.show', $homework) }}">
+                                                <i class="fas fa-solid fa-book-open"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="{{ route('homeworks.edit', $homework) }}">
+                                                <i class="fas fa-solid fa-pencil-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <form action="{{ route('homeworks.destroy', $homework) }}"
+                                                  method="post"
+                                                  onsubmit="return deleteHomework(
+                                                      '{{ \Illuminate\Support\Str::limit(strip_tags($homework->description, ['p']), 100) }}'
+                                                      );">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit">
+                                                    <i class="fas fa-solid fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
-            <div data-menu-section="lessons" class="px-2 sm:px-12 py-6 w-full space-y-4">
-                Оцінки
+            <div data-menu-section="grades" class="px-2 sm:px-12 py-6 w-full space-y-4">
+                @if($grades->count() === 0)
+                    <div class="font-bold text-center italic text-xl">
+                        Оцінок нема ще.
+                    </div>
+                @else
+                    <div class="font-bold text-center text-xl">
+                        Оцінки
+                    </div>
+                    <div class="flex flex-col gap-4">
+
+                    </div>
+                @endif
             </div>
         </div>
     </main>

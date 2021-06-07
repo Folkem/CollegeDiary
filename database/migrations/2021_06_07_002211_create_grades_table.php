@@ -18,7 +18,7 @@ class CreateGradesTable extends Migration
             $table->foreignId('student_id')->references('id')->on('users')
                 ->constrained()->restrictOnDelete()->cascadeOnUpdate();
             $table->foreignId('lesson_id')->constrained()
-                ->restrictOnDelete()->cascadeOnUpdate();
+                ->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('grade')->nullable();
             $table->boolean('is_present');
             $table->timestamps();
