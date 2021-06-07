@@ -45,7 +45,7 @@
                                 </button>
                             </div>
                         </form>
-                        <a href="{{--route('password.request')--}}" class="text-center mx-auto mt-8 text-xl">
+                        <a href="{{ route('password.request') }}" class="text-center mx-auto mt-8 text-xl">
                             Забули пароль?
                         </a>
                     </div>

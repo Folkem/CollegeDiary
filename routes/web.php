@@ -23,8 +23,13 @@ Route::get('news/{news}', [NewsController::class, 'show'])->name('news.show');
 Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
 
 Route::middleware('guest')->group(function () {
-    Route::middleware('api')->group(function () {
-        Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::post('login', [AuthController::class, 'login'])->name('login');
+
+    Route::name('password.')->group(function () {
+        Route::get('forgot-password', [AuthController::class, 'forgotPassword'])->name('request');
+        Route::post('forgot-password', [AuthController::class, 'sendResetEmail'])->name('email');
+        Route::get('reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset');
+        Route::post('reset-password', [AuthController::class, 'updatePassword'])->name('update');
     });
 });
 
